@@ -3,7 +3,7 @@ public class Lever extends GameObject {
 	
 	private final char idSymbol = 'k';
 
-	public Lever(byte x_pos, byte y_pos) {
+	public Lever(int x_pos, int y_pos) {
 		super(x_pos, y_pos);
 	}
 	

@@ -1,6 +1,8 @@
 
 public class Hero extends GameObject {
 	
+	public enum MoveDirection {UP, DOWN, RIGHT, LEFT}
+	
 	private final char idSymbol = 'H';
 
 	public Hero(int x_pos, int y_pos) {
@@ -12,20 +14,23 @@ public class Hero extends GameObject {
 		return idSymbol;
 	}
 	
-	public void move_up() {
-		setY_pos(getY_pos() + 1);
-	}
-	
-	public void move_down() {
-		setY_pos(getY_pos() - 1);
-	}
-	
-	public void move_right() {
-		setX_pos(getX_pos() + 1);
-	}
-	
-	public void move_left() {
-		setX_pos(getX_pos() - 1);
+	public void move (MoveDirection dir) {
+		switch (dir) {
+		case UP:
+			this.setY_pos(this.getY_pos() - 1);
+			break;
+		case DOWN:
+			this.setY_pos(this.getY_pos() + 1);
+			break;
+		case RIGHT:
+			this.setX_pos(this.getX_pos() + 1);
+			break;
+		case LEFT:
+			this.setX_pos(this.getX_pos() - 1);
+			break;
+		}
+		
+		
 	}
 
 }
