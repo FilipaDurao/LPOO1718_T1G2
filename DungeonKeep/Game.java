@@ -13,7 +13,6 @@ public class Game {
 		HashSet<Door> level1doors = new HashSet<Door>();
 		
 		// Initialize level 1 objects ///////////
-		
 		level1doors.add(new Door(0, 5, true));
 		level1doors.add(new Door(0, 6, true));
 		level1doors.add(new Door(2, 3, false));
@@ -57,7 +56,7 @@ public class Game {
 			level1walls.add(new Wall(9, i));
 		}
 		
-		// Initialize level 1
+		// Initialize level 1 itself
 		Level level1 = new Level(
 				new Hero(1, 1),
 				level1walls,
@@ -68,6 +67,9 @@ public class Game {
 				null,
 				10,
 				10);
+		
+		
+		// Play the game until the Player wins or loses
 		
 		Scanner reader = new Scanner(System.in);
 		char keyPressed;

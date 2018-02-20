@@ -78,8 +78,6 @@ public class Level {
 			symbols[key.getY_pos()][key.getX_pos()] = key.getIdSymbol();
 		}
 		
-		symbols[hero.getY_pos()][hero.getX_pos()] = hero.getIdSymbol();
-		
 		for(Wall w : walls) {
 			symbols[w.getY_pos()][w.getX_pos()] = w.getIdSymbol();
 		}
@@ -87,6 +85,8 @@ public class Level {
 		for(Door d : doors) {
 			symbols[d.getY_pos()][d.getX_pos()] = d.getIdSymbol();
 		}
+		
+		symbols[hero.getY_pos()][hero.getX_pos()] = hero.getIdSymbol();
 		
 		//Print the matrix to the screen
 		for(char[] row : symbols) {
@@ -97,6 +97,7 @@ public class Level {
 		}
 		
 	}
+	
 	
 	public boolean update(char keyPressed) {
 		Hero.MoveDirection dir;
@@ -154,34 +155,39 @@ public class Level {
 		return true;
 	}
 	
+	
 	private boolean heroCollidesWithOpenDoor() {
-		for(Door d : doors) {
+		for(Door d : doors) {	// Iterate through all the doors
 			if(d.getX_pos() == hero.getX_pos() &&
 			   d.getY_pos() == hero.getY_pos() && 
 			   d.isOpen()) {
-				return true;
+				return true;	// Colliding with open door!
 			}
 		}
-		return false;
+		
+		// No collision was found
+		return false;	
 	}
 	
+	
 	private boolean heroIsNearGuard() {
+		// Verify if the Hero is horizontally/vertically next to the Guard
 		return ((hero.getX_pos()==guard.getX_pos()+1 && hero.getY_pos()==guard.getY_pos()) ||
 				(hero.getX_pos()==guard.getX_pos()-1 && hero.getY_pos()==guard.getY_pos()) ||
 				(hero.getX_pos()==guard.getX_pos() && hero.getY_pos()==guard.getY_pos()+1) ||
 				(hero.getX_pos()==guard.getX_pos() && hero.getY_pos()==guard.getY_pos()-1));
 	}
 	
+	
 	private boolean heroCollidesWithLever() {
-		if (hero.getX_pos() == lever.getX_pos() && 
-			hero.getY_pos() == lever.getY_pos()) {
-			
-			return true;
-		}
-		return false;
+		// Verify if the Hero is colliding with the Lever
+		return (hero.getX_pos() == lever.getX_pos() && 
+				hero.getY_pos() == lever.getY_pos());
 	}
 	
+	
 	private void openExitDoors() {
+		// Iterate though all the doors and open the ones that are Exit Doors
 		for (Door d : doors) {
 			if(d.isExit()) {
 				d.open();
@@ -189,21 +195,27 @@ public class Level {
 		}
 	}
 	
+	
 	private boolean posColidesWithWalls(int x, int y) {
-		for(Wall w : walls) {
+		for(Wall w : walls) {	// Iterate though all the walls and verify collision with (x , y)
 			if(w.getX_pos() == x && w.getY_pos() == y) {
 				return true;
 			}
 		}
+		
+		// No collision was found
 		return false;
 	}
 	
+	
 	private boolean posColidesWithClosedDoors(int x, int y) {
-		for(Door d : doors) {
+		for(Door d : doors) {	// Iterate though all the doors and verify collision of the closed ones with (x , y)
 			if(d.getX_pos() == x && d.getY_pos() == y && d.isClosed()) {
 				return true;
 			}
 		}
+		
+		// No collision was found
 		return false;
 	}
 	 
