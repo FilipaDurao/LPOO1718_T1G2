@@ -5,7 +5,7 @@ public class Door extends GameObject {
 	private final char openedSymbol = 'S';
 	private boolean isClosed = true;
 
-	public Door(byte x_pos, byte y_pos) {
+	public Door(int x_pos, int y_pos) {
 		super(x_pos, y_pos);
 	}
 	
@@ -17,6 +17,7 @@ public class Door extends GameObject {
 		this.isClosed = false;
 	}
 	
+	@Override
 	public char getIdSymbol() {
 		if (isClosed) {
 			return closedSymbol;
