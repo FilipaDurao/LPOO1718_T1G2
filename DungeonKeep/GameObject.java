@@ -1,4 +1,6 @@
 public abstract class GameObject {
+
+	public enum MoveDirection {UP, DOWN, RIGHT, LEFT}
 	
 	private int x_pos;
 	private int y_pos;

@@ -1,8 +1,6 @@
 
 public class Hero extends GameObject {
 	
-	public enum MoveDirection {UP, DOWN, RIGHT, LEFT}
-	
 	private final char idSymbol = 'H';
 
 	public Hero(int x_pos, int y_pos) {
@@ -28,9 +26,7 @@ public class Hero extends GameObject {
 		case LEFT:
 			this.setX_pos(this.getX_pos() - 1);
 			break;
-		}
-		
-		
+		}		
 	}
 
 }

@@ -1,4 +1,5 @@
 import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Game {
@@ -6,13 +7,12 @@ public class Game {
 	public Game() {
 		super();
 	}
-
-	public static void main(String[] args) {
-		
+	
+	public static void playLevel1() {
 		HashSet<Wall> level1walls = new HashSet<Wall>();
 		HashSet<Door> level1doors = new HashSet<Door>();
 		
-		// Initialize level 1 objects ///////////
+		// Initialize the doors
 		level1doors.add(new Door(0, 5, true));
 		level1doors.add(new Door(0, 6, true));
 		level1doors.add(new Door(2, 3, false));
@@ -20,6 +20,8 @@ public class Game {
 		level1doors.add(new Door(4, 1, false));
 		level1doors.add(new Door(2, 8, false));
 		level1doors.add(new Door(4, 8, false));
+		
+		// Initialize the walls
 		level1walls.add(new Wall(1, 2));
 		level1walls.add(new Wall(2, 2));
 		level1walls.add(new Wall(4, 2));
@@ -46,7 +48,6 @@ public class Game {
 		level1walls.add(new Wall(0, 7));
 		level1walls.add(new Wall(0, 8));
 		
-		
 		for(int i=0 ; i<10 ; i++) {
 			level1walls.add(new Wall(i, 0));
 			level1walls.add(new Wall(i, 9));
@@ -56,12 +57,40 @@ public class Game {
 			level1walls.add(new Wall(9, i));
 		}
 		
-		// Initialize level 1 itself
+		// Initialize the guard
+		ArrayList<Guard.MoveDirection> guardMoves = new ArrayList<Guard.MoveDirection>();
+		guardMoves.add(Guard.MoveDirection.LEFT);
+		guardMoves.add(Guard.MoveDirection.DOWN);
+		guardMoves.add(Guard.MoveDirection.DOWN);
+		guardMoves.add(Guard.MoveDirection.DOWN);
+		guardMoves.add(Guard.MoveDirection.DOWN);
+		guardMoves.add(Guard.MoveDirection.LEFT);
+		guardMoves.add(Guard.MoveDirection.LEFT);
+		guardMoves.add(Guard.MoveDirection.LEFT);
+		guardMoves.add(Guard.MoveDirection.LEFT);
+		guardMoves.add(Guard.MoveDirection.LEFT);
+		guardMoves.add(Guard.MoveDirection.LEFT);
+		guardMoves.add(Guard.MoveDirection.DOWN);
+		guardMoves.add(Guard.MoveDirection.RIGHT);
+		guardMoves.add(Guard.MoveDirection.RIGHT);
+		guardMoves.add(Guard.MoveDirection.RIGHT);
+		guardMoves.add(Guard.MoveDirection.RIGHT);
+		guardMoves.add(Guard.MoveDirection.RIGHT);
+		guardMoves.add(Guard.MoveDirection.RIGHT);
+		guardMoves.add(Guard.MoveDirection.RIGHT);
+		guardMoves.add(Guard.MoveDirection.UP);
+		guardMoves.add(Guard.MoveDirection.UP);
+		guardMoves.add(Guard.MoveDirection.UP);
+		guardMoves.add(Guard.MoveDirection.UP);
+		guardMoves.add(Guard.MoveDirection.UP);
+		
+		
+		// Initialize level itself
 		Level level1 = new Level(
 				new Hero(1, 1),
 				level1walls,
 				level1doors,
-				new Guard(8, 1),
+				new Guard(8, 1, guardMoves),
 				new Lever(7, 8),
 				null, 
 				null,
@@ -70,19 +99,45 @@ public class Game {
 		
 		
 		// Play the game until the Player wins or loses
-		
 		Scanner reader = new Scanner(System.in);
+		Level.LevelStatus levelStat;
 		char keyPressed;
-		
-		do {
-			level1.draw();
-			System.out.print("\nEnter a move: ");
-			keyPressed = reader.next().charAt(0);			
-		} while (level1.update(keyPressed));
 		level1.draw();
+		
+		while(true) {
+			// Get a move from the user
+			System.out.print("\nEnter a move: ");	
+			keyPressed = reader.next().charAt(0);
+			
+			// Update the game
+			levelStat = level1.update(keyPressed);
+			level1.draw();
+			
+			// Check if level has terminated
+			if(levelStat != Level.LevelStatus.RUNNING) {
+				if(levelStat == Level.LevelStatus.VICTORY) {	// Player Won
+					System.out.println("\nYou win! :D");
+					break;
+				}
+				else {	// Player Lost
+					System.out.println("\nYou lose.");
+					reader.close();
+					System.exit(0);
+				}
+			}
+		}
 		
 		reader.close();
 	}
+	
+	public static void playLevel2() {
+		// TODO
+	}
+
+	public static void main(String[] args) {
+		playLevel1();
+		playLevel2();
+	}		
 
 }
 

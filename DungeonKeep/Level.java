@@ -2,6 +2,8 @@ import java.util.Arrays;
 import java.util.HashSet;
 
 public class Level {
+	
+	public enum LevelStatus { RUNNING , DEFEAT , VICTORY }
 
 	private Hero hero;
 	private HashSet<Wall> walls;
@@ -99,7 +101,7 @@ public class Level {
 	}
 	
 	
-	public boolean update(char keyPressed) {
+	public LevelStatus update(char keyPressed) {
 		Hero.MoveDirection dir;
 		int heroX = hero.getX_pos();
 		int heroY = hero.getY_pos();
@@ -127,9 +129,14 @@ public class Level {
 			heroX++;
 			break;
 		default:
-			return true;
+			return LevelStatus.RUNNING;
 		}
 		
+		// Move the Guard
+		if (guard != null) {
+			guard.performStep();
+		}
+
 		// Check if the hero collides with Walls / Closed Doors after moving
 		if (!(posColidesWithWalls(heroX, heroY) || posColidesWithClosedDoors(heroX, heroY))) {
 			hero.move(dir);
@@ -142,17 +149,15 @@ public class Level {
 		
 		// Check for proximity with guard
 		if(heroIsNearGuard()) {
-			System.out.print("You lost!");
-			return false;
+			return LevelStatus.DEFEAT;
 		}
 		
 		// Check with collision with open door
 		if(heroCollidesWithOpenDoor()) {
-			System.out.print("You win!");
-			return false;
+			return LevelStatus.VICTORY;
 		}
 		
-		return true;
+		return LevelStatus.RUNNING;
 	}
 	
 	
