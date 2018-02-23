@@ -8,7 +8,7 @@ public class Game {
 		super();
 	}
 	
-	public static void playLevel1() {
+	private static Level initializeLevel1() {
 		HashSet<Wall> level1walls = new HashSet<Wall>();
 		HashSet<Door> level1doors = new HashSet<Door>();
 		
@@ -86,7 +86,7 @@ public class Game {
 		
 		
 		// Initialize level itself
-		Level level1 = new Level(
+		return new Level(
 				new Hero(1, 1),
 				level1walls,
 				level1doors,
@@ -96,13 +96,48 @@ public class Game {
 				null,
 				10,
 				10);
+	}
+	
+	private static Level initializeLevel2() {
+		HashSet<Wall> level2walls = new HashSet<Wall>();
+		HashSet<Door> level2doors = new HashSet<Door>();
 		
+		// Initialize the door
+		level2doors.add(new Door(0, 1, true));
 		
+		// Initialize the walls
+		for(int i=0 ; i<9 ; i++) {
+			level2walls.add(new Wall(i, 0));
+			level2walls.add(new Wall(i, 8));
+		}
+		
+		for(int i=1 ; i<8 ; i++) {
+			level2walls.add(new Wall(8, i));
+			
+			if (i != 1) {
+				level2walls.add(new Wall(0, i));
+			}
+		}
+		
+		return new Level(
+				new Hero(1, 7),
+				level2walls,
+				level2doors,
+				null,
+				null,
+				new Ogre(4, 1), 
+				new Key(7, 1),
+				9,
+				9);
+		
+	}
+	
+	private static void playLevel(Level level) {
 		// Play the game until the Player wins or loses
 		Scanner reader = new Scanner(System.in);
 		Level.LevelStatus levelStat;
 		char keyPressed;
-		level1.draw();
+		level.draw();
 		
 		while(true) {
 			// Get a move from the user
@@ -110,8 +145,8 @@ public class Game {
 			keyPressed = reader.next().charAt(0);
 			
 			// Update the game
-			levelStat = level1.update(keyPressed);
-			level1.draw();
+			levelStat = level.update(keyPressed);
+			level.draw();
 			
 			// Check if level has terminated
 			if(levelStat != Level.LevelStatus.RUNNING) {
@@ -120,8 +155,8 @@ public class Game {
 					break;
 				}
 				else {	// Player Lost
-					System.out.println("\nYou lose.");
 					reader.close();
+					System.out.println("\nYou lose.");
 					System.exit(0);
 				}
 			}
@@ -130,13 +165,12 @@ public class Game {
 		reader.close();
 	}
 	
-	public static void playLevel2() {
-		// TODO
-	}
-
 	public static void main(String[] args) {
-		playLevel1();
-		playLevel2();
+		//Level level1 = initializeLevel1();
+		//playLevel(level1);
+		
+		Level level2 = initializeLevel2();
+		playLevel(level2);
 	}		
 
 }

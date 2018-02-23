@@ -143,12 +143,12 @@ public class Level {
 		}
 		
 		// Check for collision with lever
-		if(heroCollidesWithLever()) {
+		if(lever != null && heroCollidesWithLever()) {
 			openExitDoors();
 		}
 		
 		// Check for proximity with guard
-		if(heroIsNearGuard()) {
+		if(guard != null && heroIsNearGuard()) {
 			return LevelStatus.DEFEAT;
 		}
 		

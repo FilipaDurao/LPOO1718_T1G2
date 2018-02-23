@@ -1,4 +1,3 @@
-
 public class Ogre extends GameObject {
 	
 	private final char idSymbol = 'O';
