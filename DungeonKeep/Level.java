@@ -102,52 +102,26 @@ public class Level {
 	
 	
 	public LevelStatus update(char keyPressed) {
-		Hero.MoveDirection dir;
-		int heroX = hero.getX_pos();
-		int heroY = hero.getY_pos();
 		
-		// Analyse the direction
-		switch(keyPressed) {
-		case 'w': 
-		case 'W':
-			dir = Hero.MoveDirection.UP;
-			heroY--;
-			break;
-		case 's': 
-		case 'S':
-			dir = Hero.MoveDirection.DOWN;
-			heroY++;
-			break;
-		case 'a': 
-		case 'A':
-			dir = Hero.MoveDirection.LEFT;
-			heroX--;
-			break;
-		case 'd': 
-		case 'D':
-			dir = Hero.MoveDirection.RIGHT;
-			heroX++;
-			break;
-		default:
-			return LevelStatus.RUNNING;
-		}
+		// Move the Hero
+		hero.move(keyPressed, walls, doors);
 		
-		// Move the Guard
+		// Move the Guard (if existant)
 		if (guard != null) {
 			guard.performStep();
 		}
-
-		// Check if the hero collides with Walls / Closed Doors after moving
-		if (!(posColidesWithWalls(heroX, heroY) || posColidesWithClosedDoors(heroX, heroY))) {
-			hero.move(dir);
+		
+		// Move the Ogre (if existant)
+		if (ogre != null) {
+			ogre.move(walls , doors);
 		}
 		
-		// Check for collision with lever
+		// Check for collision with lever (if existant)
 		if(lever != null && heroCollidesWithLever()) {
 			openExitDoors();
 		}
 		
-		// Check for proximity with guard
+		// Check for proximity with guard (if existant)
 		if(guard != null && heroIsNearGuard()) {
 			return LevelStatus.DEFEAT;
 		}
@@ -198,30 +172,6 @@ public class Level {
 				d.open();
 			}
 		}
-	}
-	
-	
-	private boolean posColidesWithWalls(int x, int y) {
-		for(Wall w : walls) {	// Iterate though all the walls and verify collision with (x , y)
-			if(w.getX_pos() == x && w.getY_pos() == y) {
-				return true;
-			}
-		}
-		
-		// No collision was found
-		return false;
-	}
-	
-	
-	private boolean posColidesWithClosedDoors(int x, int y) {
-		for(Door d : doors) {	// Iterate though all the doors and verify collision of the closed ones with (x , y)
-			if(d.getX_pos() == x && d.getY_pos() == y && d.isClosed()) {
-				return true;
-			}
-		}
-		
-		// No collision was found
-		return false;
 	}
 	 
 }

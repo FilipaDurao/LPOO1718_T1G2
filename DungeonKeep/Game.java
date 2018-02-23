@@ -119,6 +119,7 @@ public class Game {
 			}
 		}
 		
+		// Initialize level itself
 		return new Level(
 				new Hero(1, 7),
 				level2walls,
@@ -130,6 +131,11 @@ public class Game {
 				9,
 				9);
 		
+	}
+	
+	private static boolean keyIsValid(char keyPressed) {
+		return (keyPressed=='w' || keyPressed=='W' || keyPressed=='s' || keyPressed=='S' ||
+				keyPressed=='a' || keyPressed=='A' || keyPressed=='d' || keyPressed=='D');
 	}
 	
 	private static void playLevel(Level level) {
@@ -144,33 +150,42 @@ public class Game {
 			System.out.print("\nEnter a move: ");	
 			keyPressed = reader.next().charAt(0);
 			
+			// Verify if pressed key is valid
+			if (!keyIsValid(keyPressed)) {
+				continue;
+			}
+			
 			// Update the game
 			levelStat = level.update(keyPressed);
 			level.draw();
 			
 			// Check if level has terminated
 			if(levelStat != Level.LevelStatus.RUNNING) {
-				if(levelStat == Level.LevelStatus.VICTORY) {	// Player Won
-					System.out.println("\nYou win! :D");
+				if(levelStat == Level.LevelStatus.VICTORY) {	// Player finished this level
 					break;
 				}
-				else {	// Player Lost
-					reader.close();
+				else {	// Player Lost the Game
 					System.out.println("\nYou lose.");
 					System.exit(0);
 				}
 			}
 		}
 		
-		reader.close();
 	}
 	
 	public static void main(String[] args) {
-		//Level level1 = initializeLevel1();
-		//playLevel(level1);
+		// Play level 1
+		Level level1 = initializeLevel1();
+		playLevel(level1);
 		
+		System.out.println("\nLevel 1 Completed!\n");
+		
+		// Play level 2
 		Level level2 = initializeLevel2();
 		playLevel(level2);
+		
+		// All levels terminated! Player won the game
+		System.out.println("\n\nVictory! You win! :D");
 	}		
 
 }
