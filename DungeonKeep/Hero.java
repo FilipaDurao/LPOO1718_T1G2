@@ -2,7 +2,7 @@ import java.util.HashSet;
 
 public class Hero extends GameObject {
 	
-	private final char idSymbol = 'H';
+	private char idSymbol = 'H';
 
 	public Hero(int x_pos, int y_pos) {
 		super(x_pos, y_pos);
@@ -12,6 +12,16 @@ public class Hero extends GameObject {
 	@Override
 	public char getIdSymbol() {
 		return idSymbol;
+	}
+	
+	
+	public void catchKey() {
+		this.idSymbol = 'K';	// Hero representation with Key is a capital "K"
+	}
+	
+	
+	public boolean hasKey() {
+		return (idSymbol == 'K');	// If hero's representation is a capital "K", than he/she has catched the Key
 	}
 	
 	
@@ -42,7 +52,7 @@ public class Hero extends GameObject {
 		
 		// Move, if the hero isn't colliding with any wall or closed door
 		if (!heroCollidesWithWalls(new_x_pos , new_y_pos , walls) &&
-			!heroCollidesWithClosedDoors(new_x_pos , new_y_pos , doors)) {
+			!heroCollidesWithDoors(new_x_pos , new_y_pos , doors)) {
 			
 			step(dir);
 		}
@@ -64,12 +74,17 @@ public class Hero extends GameObject {
 	}
 	
 	
-	private boolean heroCollidesWithClosedDoors(int new_x_pos , int new_y_pos , HashSet<Door> doors) {
+	private boolean heroCollidesWithDoors(int new_x_pos , int new_y_pos , HashSet<Door> doors) {
 		for(Door d : doors) {
 			// Check if hero collides with any of the closed doors
 			if (new_x_pos == d.getX_pos() &&
 				new_y_pos == d.getY_pos() &&
 				d.isClosed()) {
+				
+				// If hero has the key, open the door!
+				if (this.hasKey()) {
+					d.open();
+				}
 				
 				return true;
 			}

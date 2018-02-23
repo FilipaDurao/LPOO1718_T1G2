@@ -73,11 +73,21 @@ public class Level {
 		}
 		
 		if(ogre != null) {
-			symbols[ogre.getY_pos()][ogre.getX_pos()] = ogre.getIdSymbol();
+			symbols[ogre.getY_pos()][ogre.getX_pos()] = ogre.getIdSymbol();									// Draw the Ogre
+			symbols[ogre.getClub().getY_pos()][ogre.getClub().getX_pos()] = ogre.getClub().getIdSymbol();	// Draw the Ogre's Club
 		}
 		
 		if(key != null) {
-			symbols[key.getY_pos()][key.getX_pos()] = key.getIdSymbol();
+			// If Key and Ogre or Club are colliding, draw a '$' colliding symbol instead of the key symbol
+			if (ogre != null  && 
+			   (symbols[key.getY_pos()][key.getX_pos()] == ogre.getIdSymbol() || 
+			    symbols[key.getY_pos()][key.getX_pos()] == ogre.getClub().getIdSymbol()) ) {
+				
+				symbols[key.getY_pos()][key.getX_pos()] = '$';
+			}
+			else {
+				symbols[key.getY_pos()][key.getX_pos()] = key.getIdSymbol();
+			}
 		}
 		
 		for(Wall w : walls) {
@@ -92,10 +102,12 @@ public class Level {
 		
 		//Print the matrix to the screen
 		for(char[] row : symbols) {
+			System.out.println();
 			for(char c : row) {
 				System.out.print(c);
+				System.out.print(' ');
 			}
-			System.out.println();
+			
 		}
 		
 	}
@@ -126,12 +138,30 @@ public class Level {
 			return LevelStatus.DEFEAT;
 		}
 		
+		// Check for proximity with ogre / ogre's club (if existant)
+		if(ogre != null && (heroIsNearOgre() || heroIsNearOgreClub()) ) {
+			return LevelStatus.DEFEAT;
+		}
+		
+		// Check for collision with key (if existant)
+		if(key != null && heroCollidesWithKey()) {
+			hero.catchKey();
+			key = null;
+		}
+		
 		// Check with collision with open door
 		if(heroCollidesWithOpenDoor()) {
 			return LevelStatus.VICTORY;
 		}
 		
 		return LevelStatus.RUNNING;
+	}
+	
+	
+	private boolean heroCollidesWithKey() {
+		// Verify if the Hero is colliding with the Key
+		return (hero.getX_pos() == key.getX_pos() && 
+				hero.getY_pos() == key.getY_pos());
 	}
 	
 	
@@ -154,7 +184,30 @@ public class Level {
 		return ((hero.getX_pos()==guard.getX_pos()+1 && hero.getY_pos()==guard.getY_pos()) ||
 				(hero.getX_pos()==guard.getX_pos()-1 && hero.getY_pos()==guard.getY_pos()) ||
 				(hero.getX_pos()==guard.getX_pos() && hero.getY_pos()==guard.getY_pos()+1) ||
-				(hero.getX_pos()==guard.getX_pos() && hero.getY_pos()==guard.getY_pos()-1));
+				(hero.getX_pos()==guard.getX_pos() && hero.getY_pos()==guard.getY_pos()-1) ||
+				(hero.getX_pos()==guard.getX_pos() && hero.getY_pos()==guard.getY_pos()));
+	}
+	
+	
+	private boolean heroIsNearOgre() {
+		// Verify if the Hero is horizontally/vertically next to the Ogre
+		return ((hero.getX_pos()==ogre.getX_pos()+1 && hero.getY_pos()==ogre.getY_pos()) ||
+				(hero.getX_pos()==ogre.getX_pos()-1 && hero.getY_pos()==ogre.getY_pos()) ||
+				(hero.getX_pos()==ogre.getX_pos() && hero.getY_pos()==ogre.getY_pos()+1) ||
+				(hero.getX_pos()==ogre.getX_pos() && hero.getY_pos()==ogre.getY_pos()-1) ||
+				(hero.getX_pos()==ogre.getX_pos() && hero.getY_pos()==ogre.getY_pos()));
+	}
+	
+	
+	private boolean heroIsNearOgreClub() {
+		Club club = ogre.getClub();
+		
+		// Verify if the Hero is horizontally/vertically next to the Ogre's Club
+		return ((hero.getX_pos()==club.getX_pos()+1 && hero.getY_pos()==club.getY_pos()) ||
+				(hero.getX_pos()==club.getX_pos()-1 && hero.getY_pos()==club.getY_pos()) ||
+				(hero.getX_pos()==club.getX_pos() && hero.getY_pos()==club.getY_pos()+1) ||
+				(hero.getX_pos()==club.getX_pos() && hero.getY_pos()==club.getY_pos()-1) ||
+				(hero.getX_pos()==club.getX_pos() && hero.getY_pos()==club.getY_pos()));
 	}
 	
 	

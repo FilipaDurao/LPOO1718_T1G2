@@ -3,7 +3,9 @@ import java.util.HashSet;
 public class Ogre extends GameObject {
 	
 	private final char idSymbol = 'O';
-
+	
+	private Club club = new Club(getX_pos() , getY_pos()+1);
+	
 	public Ogre(int x_pos, int y_pos) {
 		super(x_pos, y_pos);
 	}
@@ -12,6 +14,11 @@ public class Ogre extends GameObject {
 	@Override
 	public char getIdSymbol() {
 		return idSymbol;
+	}
+	
+	
+	public Club getClub() {
+		return club;
 	}
 	
 	
@@ -46,6 +53,39 @@ public class Ogre extends GameObject {
 		
 		// Perform the step in the given direction
 		step(dir);
+		
+		// Swing the club
+		swingClub(walls,doors);
+	}
+	
+	
+	private void swingClub(HashSet<Wall> walls , HashSet<Door> doors) {
+		MoveDirection dir;
+		
+		// Get a random valid direction to swing the club (not colliding with doors or walls)
+		do {
+			dir = getRandomMoveDirection();
+			
+			// Perform "Hypothetical" move
+			if(dir == MoveDirection.UP) {
+				club.setX_pos( getX_pos() );
+				club.setY_pos( getY_pos() + 1 );
+			}
+			else if(dir == MoveDirection.DOWN) {
+				club.setX_pos( getX_pos() );
+				club.setY_pos( getY_pos() - 1 );
+			}
+			else if(dir == MoveDirection.RIGHT) {
+				club.setX_pos( getX_pos() + 1);
+				club.setY_pos( getY_pos() );
+			}
+			else {
+				club.setX_pos( getX_pos() - 1);
+				club.setY_pos( getY_pos() );
+			}
+					
+		} while(clubCollidesWithWalls(walls) ||
+				clubCollidesWithDoors(doors));
 	}
 	
 	
@@ -66,9 +106,38 @@ public class Ogre extends GameObject {
 	
 	private boolean ogreCollidesWithDoors(int new_x_pos , int new_y_pos , HashSet<Door> doors) {
 		for(Door d : doors) {
-			// Check if ogre collides with any of the closed doors
+			// Check if club collides with any of the closed doors
 			if (new_x_pos == d.getX_pos() &&
 				new_y_pos == d.getY_pos()) {
+				
+				return true;
+			}
+		}
+		
+		// No collision was found
+		return false;
+	}
+	
+	private boolean clubCollidesWithWalls(HashSet<Wall> walls) {
+		for(Wall w : walls) {
+			// Check if club collides with any of the walls
+			if (club.getX_pos() == w.getX_pos() &&
+				club.getY_pos() == w.getY_pos()) {
+				
+				return true;
+			}
+		}
+		
+		// No collision was found
+		return false;
+	}
+	
+	
+	private boolean clubCollidesWithDoors(HashSet<Door> doors) {
+		for(Door d : doors) {
+			// Check if ogre collides with any of the closed doors
+			if (club.getX_pos() == d.getX_pos() &&
+				club.getY_pos() == d.getY_pos()) {
 				
 				return true;
 			}

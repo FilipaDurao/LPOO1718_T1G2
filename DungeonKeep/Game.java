@@ -147,7 +147,7 @@ public class Game {
 		
 		while(true) {
 			// Get a move from the user
-			System.out.print("\nEnter a move: ");	
+			System.out.print("\n\nEnter a move: ");	
 			keyPressed = reader.next().charAt(0);
 			
 			// Verify if pressed key is valid
@@ -178,7 +178,7 @@ public class Game {
 		Level level1 = initializeLevel1();
 		playLevel(level1);
 		
-		System.out.println("\nLevel 1 Completed!\n");
+		System.out.println("\n\nLevel 1 Completed!");
 		
 		// Play level 2
 		Level level2 = initializeLevel2();
