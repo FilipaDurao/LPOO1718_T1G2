@@ -1,3 +1,4 @@
+package DungeonKeep.logic;
 import java.util.HashSet;
 
 public class Hero extends GameObject {

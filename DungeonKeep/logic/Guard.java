@@ -1,3 +1,4 @@
+package DungeonKeep.logic;
 import java.util.ArrayList;
 
 public class Guard extends GameObject {

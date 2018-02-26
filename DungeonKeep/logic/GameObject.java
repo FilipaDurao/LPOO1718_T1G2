@@ -1,3 +1,4 @@
+package DungeonKeep.logic;
 public abstract class GameObject {
 
 	public enum MoveDirection {UP, DOWN, RIGHT, LEFT}

@@ -1,3 +1,4 @@
+package DungeonKeep.logic;
 
 public class Lever extends GameObject {
 	
