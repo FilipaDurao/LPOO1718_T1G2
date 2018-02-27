@@ -3,26 +3,31 @@ import java.util.HashSet;
 
 public class Hero extends GameObject {
 	
-	private char idSymbol = 'H';
+	private final char standartHeroSymbol = 'H';
+	private final char HeroWithKeySymbol = 'K';
+	private boolean hasKey = false;
 
 	public Hero(int x_pos, int y_pos) {
 		super(x_pos, y_pos);
 	}
 	
-	
 	@Override
 	public char getIdSymbol() {
-		return idSymbol;
+		if(this.hasKey) {
+			return HeroWithKeySymbol;
+		}
+		else {
+			return standartHeroSymbol;
+		}
 	}
 	
-	
 	public void catchKey() {
-		this.idSymbol = 'K';	// Hero representation with Key is a capital "K"
+		this.hasKey = true;
 	}
 	
 	
 	public boolean hasKey() {
-		return (idSymbol == 'K');	// If hero's representation is a capital "K", than he/she has catched the Key
+		return hasKey;	
 	}
 	
 	

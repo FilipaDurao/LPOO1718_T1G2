@@ -28,6 +28,21 @@ public abstract class GameObject {
 		this.y_pos = y_pos;
 	}
 	
+	public static MoveDirection getOppositeMoveDirection(MoveDirection dir) {
+		if (dir == MoveDirection.UP) {
+			return MoveDirection.DOWN;
+		}
+		else if (dir == MoveDirection.DOWN) {
+			return MoveDirection.UP;
+		}
+		else if (dir == MoveDirection.RIGHT) {
+			return MoveDirection.LEFT;
+		}
+		else {
+			return MoveDirection.RIGHT;
+		}
+	}
+	
 	public abstract char getIdSymbol();
 	
 }

@@ -1,7 +1,6 @@
 package DungeonKeep.logic;
 import java.util.HashSet;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Game {
 	
@@ -77,7 +76,8 @@ public class Game {
 			level1walls.add(new Wall(9, i));
 		}
 		
-		// Initialize the guard
+		// Initialize the guards
+		HashSet<Guard> level1guards = new HashSet<Guard>();
 		ArrayList<Guard.MoveDirection> guardMoves = new ArrayList<Guard.MoveDirection>();
 		guardMoves.add(Guard.MoveDirection.LEFT);
 		guardMoves.add(Guard.MoveDirection.DOWN);
@@ -103,6 +103,7 @@ public class Game {
 		guardMoves.add(Guard.MoveDirection.UP);
 		guardMoves.add(Guard.MoveDirection.UP);
 		guardMoves.add(Guard.MoveDirection.UP);
+		level1guards.add(new RookieGuard(8, 1, guardMoves));
 		
 		
 		// Initialize level itself
@@ -110,9 +111,9 @@ public class Game {
 				new Hero(1, 1),
 				level1walls,
 				level1doors,
-				new Guard(8, 1, guardMoves),
+				level1guards,
+				new HashSet<Ogre>(),	// No ogres in this level
 				new Lever(7, 8),
-				null, 
 				null,
 				10,
 				10);
@@ -139,14 +140,18 @@ public class Game {
 			}
 		}
 		
+		// Initialize the ogres
+		HashSet<Ogre> level2ogres = new HashSet<Ogre>();
+		level2ogres.add(new Ogre(4,1));
+		
 		// Initialize level itself
 		return new Level(
 				new Hero(1, 7),
 				level2walls,
 				level2doors,
+				new HashSet<Guard>(),
+				level2ogres, 
 				null,
-				null,
-				new Ogre(4, 1), 
 				new Key(7, 1),
 				9,
 				9);
@@ -158,58 +163,6 @@ public class Game {
 				keyPressed=='a' || keyPressed=='A' || keyPressed=='d' || keyPressed=='D');
 	}
 	
-/*
- *  TODO: Delete this
-	private static void playLevel(Level level) {
-		// Play the game until the Player wins or loses
-		Scanner reader = new Scanner(System.in);
-		Level.LevelStatus levelStat;
-		char keyPressed;
-		level.draw();
-		
-		while(true) {
-			// Get a move from the user
-			System.out.print("\n\nEnter a move: ");	
-			keyPressed = reader.next().charAt(0);
-			
-			// Verify if pressed key is valid
-			if (!keyIsValid(keyPressed)) {
-				continue;
-			}
-			
-			// Update the game
-			levelStat = level.update(keyPressed);
-			level.draw();
-			
-			// Check if level has terminated
-			if(levelStat != Level.LevelStatus.RUNNING) {
-				if(levelStat == Level.LevelStatus.VICTORY) {	// Player finished this level
-					break;
-				}
-				else {	// Player Lost the Game
-					System.out.println("\nYou lose.");
-					System.exit(0);
-				}
-			}
-		}
-		
-	}
-	
-	public static void main(String[] args) {
-		// Play level 1
-		Level level1 = initializeLevel1();
-		playLevel(level1);
-		
-		System.out.println("\n\nLevel 1 Completed!");
-		
-		// Play level 2
-		Level level2 = initializeLevel2();
-		playLevel(level2);
-		
-		// All levels terminated! Player won the game
-		System.out.println("\n\nVictory! You win! :D");
-	}	
-*/
 	
 	public void update(char keyPressed) {
 		// Check if the key is relevant
