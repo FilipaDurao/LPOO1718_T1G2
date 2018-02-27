@@ -3,18 +3,39 @@ import java.util.HashSet;
 
 public class Ogre extends GameObject {
 	
-	private final char idSymbol = 'O';
-	
+	private final char regularSymbol = '0';
+	private final char stunnedSymbol = '8';
 	private Club club = new Club(getX_pos() , getY_pos()+1);
+	private boolean isStunned = false;
+	private int stunnedTimer = 0;
+	
 	
 	public Ogre(int x_pos, int y_pos) {
 		super(x_pos, y_pos);
 	}
 	
 	
+	public boolean isStunned() {
+		return isStunned;
+	}
+	
+	
+	public void stun() {
+		if (!isStunned) {
+			this.isStunned = true;
+			this.stunnedTimer = 2;
+		}
+	}
+	
+	
 	@Override
 	public char getIdSymbol() {
-		return idSymbol;
+		if(this.isStunned) {
+			return stunnedSymbol;
+		}
+		else {
+			return regularSymbol;
+		}
 	}
 	
 	
@@ -24,36 +45,46 @@ public class Ogre extends GameObject {
 	
 	
 	public void move(HashSet<Wall> walls , HashSet<Door> doors) {
-		int new_x_pos , new_y_pos;
-		MoveDirection dir;
-
-		// Get a random valid move (can't go through doors or walls) for the Ogre
-		do {
-			dir = getRandomMoveDirection();
-			
-			// Perform "Hypothetical" move
-			if(dir == MoveDirection.UP) {
-				new_x_pos = this.getX_pos();
-				new_y_pos = this.getY_pos() - 1;
-			}
-			else if(dir == MoveDirection.DOWN) {
-				new_x_pos = this.getX_pos();
-				new_y_pos = this.getY_pos() + 1;
-			}
-			else if(dir == MoveDirection.RIGHT) {
-				new_x_pos = this.getX_pos() + 1;
-				new_y_pos = this.getY_pos();
-			}
-			else {
-				new_x_pos = this.getX_pos() - 1;
-				new_y_pos = this.getY_pos();
-			}
-					
-		} while(ogreCollidesWithWalls(new_x_pos , new_y_pos , walls) ||
-				ogreCollidesWithDoors(new_x_pos , new_y_pos , doors));
+		// Check if the Ogre is stunned
+		if (this.stunnedTimer > 0) {
+			this.stunnedTimer--;
+		}
 		
-		// Perform the step in the given direction
-		step(dir);
+		// Ogre is not stunned ; Move
+		else {
+			this.isStunned = false;
+		
+			int new_x_pos , new_y_pos;
+			MoveDirection dir;
+	
+			// Get a random valid move (can't go through doors or walls) for the Ogre
+			do {
+				dir = getRandomMoveDirection();
+				
+				// Perform "Hypothetical" move
+				if(dir == MoveDirection.UP) {
+					new_x_pos = this.getX_pos();
+					new_y_pos = this.getY_pos() - 1;
+				}
+				else if(dir == MoveDirection.DOWN) {
+					new_x_pos = this.getX_pos();
+					new_y_pos = this.getY_pos() + 1;
+				}
+				else if(dir == MoveDirection.RIGHT) {
+					new_x_pos = this.getX_pos() + 1;
+					new_y_pos = this.getY_pos();
+				}
+				else {
+					new_x_pos = this.getX_pos() - 1;
+					new_y_pos = this.getY_pos();
+				}
+						
+			} while(ogreCollidesWithWalls(new_x_pos , new_y_pos , walls) ||
+					ogreCollidesWithDoors(new_x_pos , new_y_pos , doors));
+			
+			// Perform the step in the given direction
+			step(dir);
+		}
 		
 		// Swing the club
 		swingClub(walls,doors);

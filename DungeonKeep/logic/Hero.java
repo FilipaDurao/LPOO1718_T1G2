@@ -4,17 +4,23 @@ import java.util.HashSet;
 public class Hero extends GameObject {
 	
 	private final char standartHeroSymbol = 'H';
-	private final char HeroWithKeySymbol = 'K';
+	private final char heroWithKeySymbol = 'K';
+	private final char heroWithClubSymbol = 'A';
 	private boolean hasKey = false;
+	private boolean hasClub;
 
-	public Hero(int x_pos, int y_pos) {
+	public Hero(int x_pos, int y_pos, boolean hasClub) {
 		super(x_pos, y_pos);
+		this.hasClub = hasClub;
 	}
 	
 	@Override
 	public char getIdSymbol() {
 		if(this.hasKey) {
-			return HeroWithKeySymbol;
+			return heroWithKeySymbol;
+		}
+		else if(this.hasClub) {
+			return heroWithClubSymbol;
 		}
 		else {
 			return standartHeroSymbol;

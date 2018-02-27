@@ -13,7 +13,7 @@ public class Game {
 		
 		// Initialize the levels
 		levels = new ArrayList<Level>();
-		levels.add(initializeLevel1());
+		//levels.add(initializeLevel1());
 		levels.add(initializeLevel2());
 		
 		running = true;
@@ -108,7 +108,7 @@ public class Game {
 		
 		// Initialize level itself
 		return new Level(
-				new Hero(1, 1),
+				new Hero(1, 1, false),
 				level1walls,
 				level1doors,
 				level1guards,
@@ -146,7 +146,7 @@ public class Game {
 		
 		// Initialize level itself
 		return new Level(
-				new Hero(1, 7),
+				new Hero(1, 7, true),
 				level2walls,
 				level2doors,
 				new HashSet<Guard>(),
