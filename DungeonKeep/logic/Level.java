@@ -15,6 +15,7 @@ public class Level {
 	private Key key;
 	private int width;
 	private int heigth;
+	private LevelStatus status = LevelStatus.RUNNING;
 	
 	
 	public Level(
@@ -38,6 +39,10 @@ public class Level {
 		this.key = key;
 		this.width = width;
 		this.heigth = heigth;
+	}
+	
+	public LevelStatus getStatus() {
+		return status;
 	}
 
 	public int getWidth() {
@@ -114,7 +119,7 @@ public class Level {
 	}
 	
 	
-	public LevelStatus update(char keyPressed) {
+	public void update(char keyPressed) {
 		
 		// Move the Hero
 		hero.move(keyPressed, walls, doors);
@@ -134,28 +139,28 @@ public class Level {
 			openExitDoors();
 		}
 		
-		// Check for proximity with guard (if existant)
-		if(guard != null && heroIsNearGuard()) {
-			return LevelStatus.DEFEAT;
-		}
-		
-		// Check for proximity with ogre / ogre's club (if existant)
-		if(ogre != null && (heroIsNearOgre() || heroIsNearOgreClub()) ) {
-			return LevelStatus.DEFEAT;
-		}
-		
 		// Check for collision with key (if existant)
 		if(key != null && heroCollidesWithKey()) {
 			hero.catchKey();
 			key = null;
 		}
 		
-		// Check with collision with open door
-		if(heroCollidesWithOpenDoor()) {
-			return LevelStatus.VICTORY;
+		// Check for proximity with guard (if existant)
+		if(guard != null && heroIsNearGuard()) {
+			status = LevelStatus.DEFEAT;
 		}
 		
-		return LevelStatus.RUNNING;
+		// Check for proximity with ogre / ogre's club (if existant)
+		else if(ogre != null && (heroIsNearOgre() || heroIsNearOgreClub()) ) {
+			status = LevelStatus.DEFEAT;
+		}
+		
+		// Check with collision with open door
+		else if(heroCollidesWithOpenDoor()) {
+			status = LevelStatus.VICTORY;
+		}
+		
+		draw();
 	}
 	
 	

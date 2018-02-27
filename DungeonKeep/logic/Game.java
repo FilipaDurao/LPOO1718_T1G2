@@ -5,8 +5,27 @@ import java.util.Scanner;
 
 public class Game {
 	
+	private boolean running;
+	private ArrayList<Level> levels;
+	private int currentLevelIndex;
+	
 	public Game() {
 		super();
+		
+		// Initialize the levels
+		levels = new ArrayList<Level>();
+		levels.add(initializeLevel1());
+		levels.add(initializeLevel2());
+		
+		running = true;
+		currentLevelIndex = 0;
+		
+		// Print the first level the first time
+		levels.get(currentLevelIndex).draw();
+	}
+	
+	public boolean isRunning() {
+		return running;
 	}
 	
 	private static Level initializeLevel1() {
@@ -139,6 +158,8 @@ public class Game {
 				keyPressed=='a' || keyPressed=='A' || keyPressed=='d' || keyPressed=='D');
 	}
 	
+/*
+ *  TODO: Delete this
 	private static void playLevel(Level level) {
 		// Play the game until the Player wins or loses
 		Scanner reader = new Scanner(System.in);
@@ -187,7 +208,44 @@ public class Game {
 		
 		// All levels terminated! Player won the game
 		System.out.println("\n\nVictory! You win! :D");
-	}		
+	}	
+*/
+	
+	public void update(char keyPressed) {
+		// Check if the key is relevant
+		if(!keyIsValid(keyPressed)) {
+			return;
+		}
+		
+		// Update the level
+		levels.get(currentLevelIndex).update(keyPressed);
+		
+		// Check if level ended
+		Level.LevelStatus levelStatus = levels.get(currentLevelIndex).getStatus();
+		
+		if (levelStatus == Level.LevelStatus.DEFEAT) {
+			// Game Over
+			System.out.println("\n\nYou lost...");
+			running = false;
+			return;
+		}
+		else if (levelStatus == Level.LevelStatus.VICTORY) {
+			// Advance to next level
+			System.out.println("\n\nLevel Completed!\n");
+			currentLevelIndex++;
+			
+			// Check if all levels are complete
+			if (currentLevelIndex >= levels.size()) {
+				System.out.println("\n\nVictory! You win!\n");
+				running = false;
+			}
+			else {
+				// Draw the new level for the player
+				levels.get(currentLevelIndex).draw();
+			}
+		}
+		
+	}
 
 }
 
