@@ -43,6 +43,18 @@ public abstract class GameObject {
 		}
 	}
 	
+	public boolean collidesWith(GameObject other) {
+		return (this.x_pos == other.x_pos &&
+				this.y_pos == other.y_pos);
+	}
+	
+	public boolean isNear(GameObject other) {
+		return ((this.x_pos == other.x_pos && this.y_pos == other.y_pos + 1) ||
+				(this.x_pos == other.x_pos && this.y_pos == other.y_pos - 1) ||
+				(this.x_pos == other.x_pos + 1 && this.y_pos == other.y_pos) ||
+				(this.x_pos == other.x_pos - 1 && this.y_pos == other.y_pos));
+	}
+	
 	public abstract char getIdSymbol();
 	
 }

@@ -13,7 +13,7 @@ public class Game {
 		
 		// Initialize the levels
 		levels = new ArrayList<Level>();
-		//levels.add(initializeLevel1());
+		levels.add(initializeLevel1());
 		levels.add(initializeLevel2());
 		
 		running = true;

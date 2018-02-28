@@ -140,12 +140,12 @@ public class Level {
 		}
 		
 		// Check for collision with lever (if existent)
-		if(lever != null && heroCollidesWithLever()) {
+		if(lever != null && hero.collidesWith(lever)) {
 			openExitDoors();
 		}
 		
 		// Check for collision with key (if existent)
-		if(key != null && heroCollidesWithKey()) {
+		if(key != null && hero.collidesWith(key)) {
 			hero.catchKey();
 			key = null;
 		}
@@ -177,18 +177,16 @@ public class Level {
 	}
 	
 	
-	private boolean heroCollidesWithKey() {
-		// Verify if the Hero is colliding with the Key
-		return (hero.getX_pos() == key.getX_pos() && 
-				hero.getY_pos() == key.getY_pos());
-	}
+//	private boolean heroCollidesWithKey() {
+//		// Verify if the Hero is colliding with the Key
+//		return (hero.getX_pos() == key.getX_pos() && 
+//				hero.getY_pos() == key.getY_pos());
+//	}
 	
 	
 	private boolean heroCollidesWithOpenDoor() {
 		for(Door d : doors) {	// Iterate through all the doors
-			if(d.getX_pos() == hero.getX_pos() &&
-			   d.getY_pos() == hero.getY_pos() && 
-			   d.isOpen()) {
+			if(hero.collidesWith(d) && d.isOpen()) {
 				return true;	// Colliding with open door!
 			}
 		}
@@ -203,7 +201,7 @@ public class Level {
 		// Check if the guard is of the Drunken Type and asleep
 		if (guard instanceof DrunkenGuard  &&  ((DrunkenGuard) guard).isAsleep()) {
 			// If hero collides with the guard's exact position, the guard wakes up and catches the hero
-			if(hero.getX_pos()==guard.getX_pos() && hero.getY_pos()==guard.getY_pos()) {
+			if(hero.collidesWith(guard)) {
 				((DrunkenGuard) guard).wakeUp();
 				return true;
 			}
@@ -214,42 +212,29 @@ public class Level {
 		
 		// Regular Guard / Awaken Guard
 		else {
-			return ((hero.getX_pos()==guard.getX_pos()+1 && hero.getY_pos()==guard.getY_pos()) ||
-					(hero.getX_pos()==guard.getX_pos()-1 && hero.getY_pos()==guard.getY_pos()) ||
-					(hero.getX_pos()==guard.getX_pos() && hero.getY_pos()==guard.getY_pos()+1) ||
-					(hero.getX_pos()==guard.getX_pos() && hero.getY_pos()==guard.getY_pos()-1) ||
-					(hero.getX_pos()==guard.getX_pos() && hero.getY_pos()==guard.getY_pos()));
+			return (hero.isNear(guard) || hero.collidesWith(guard));
 		}
 	}
 	
 	
 	private boolean heroIsNearOgre(Ogre ogre) {
 		// Verify if the Hero is horizontally/vertically next to the Ogre
-		return ((hero.getX_pos()==ogre.getX_pos()+1 && hero.getY_pos()==ogre.getY_pos()) ||
-				(hero.getX_pos()==ogre.getX_pos()-1 && hero.getY_pos()==ogre.getY_pos()) ||
-				(hero.getX_pos()==ogre.getX_pos() && hero.getY_pos()==ogre.getY_pos()+1) ||
-				(hero.getX_pos()==ogre.getX_pos() && hero.getY_pos()==ogre.getY_pos()-1) ||
-				(hero.getX_pos()==ogre.getX_pos() && hero.getY_pos()==ogre.getY_pos()));
+		return (hero.isNear(ogre) || hero.collidesWith(ogre));
 	}
 	
 	
 	private boolean heroIsNearOgreClub(Ogre ogre) {
 		Club club = ogre.getClub();
 		
-		// Verify if the Hero is horizontally/vertically next to the Ogre's Club
-		return ((hero.getX_pos()==club.getX_pos()+1 && hero.getY_pos()==club.getY_pos()) ||
-				(hero.getX_pos()==club.getX_pos()-1 && hero.getY_pos()==club.getY_pos()) ||
-				(hero.getX_pos()==club.getX_pos() && hero.getY_pos()==club.getY_pos()+1) ||
-				(hero.getX_pos()==club.getX_pos() && hero.getY_pos()==club.getY_pos()-1) ||
-				(hero.getX_pos()==club.getX_pos() && hero.getY_pos()==club.getY_pos()));
+		return (hero.isNear(club) || hero.collidesWith(club));
 	}
 	
 	
-	private boolean heroCollidesWithLever() {
-		// Verify if the Hero is colliding with the Lever
-		return (hero.getX_pos() == lever.getX_pos() && 
-				hero.getY_pos() == lever.getY_pos());
-	}
+//	private boolean heroCollidesWithLever() {
+//		// Verify if the Hero is colliding with the Lever
+//		return (hero.getX_pos() == lever.getX_pos() && 
+//				hero.getY_pos() == lever.getY_pos());
+//	}
 	
 	
 	private void openExitDoors() {

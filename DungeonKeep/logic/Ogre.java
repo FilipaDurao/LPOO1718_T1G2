@@ -153,8 +153,7 @@ public class Ogre extends GameObject {
 	private boolean clubCollidesWithWalls(HashSet<Wall> walls) {
 		for(Wall w : walls) {
 			// Check if club collides with any of the walls
-			if (club.getX_pos() == w.getX_pos() &&
-				club.getY_pos() == w.getY_pos()) {
+			if (club.collidesWith(w)) {
 				
 				return true;
 			}
@@ -168,8 +167,7 @@ public class Ogre extends GameObject {
 	private boolean clubCollidesWithDoors(HashSet<Door> doors) {
 		for(Door d : doors) {
 			// Check if ogre collides with any of the closed doors
-			if (club.getX_pos() == d.getX_pos() &&
-				club.getY_pos() == d.getY_pos()) {
+			if (club.collidesWith(d)) {
 				
 				return true;
 			}
