@@ -27,6 +27,10 @@ public class Game {
 		return running;
 	}
 	
+	public ArrayList<Level> getLevels() {
+		return levels; 
+	}
+	
 	private static Level initializeLevel1() {
 		HashSet<Wall> level1walls = new HashSet<Wall>();
 		HashSet<Door> level1doors = new HashSet<Door>();
@@ -108,6 +112,7 @@ public class Game {
 		
 		// Initialize level itself
 		return new Level(
+				1,
 				new Hero(1, 1, false),
 				level1walls,
 				level1doors,
@@ -146,6 +151,7 @@ public class Game {
 		
 		// Initialize level itself
 		return new Level(
+				2,
 				new Hero(1, 7, true),
 				level2walls,
 				level2doors,
@@ -201,14 +207,3 @@ public class Game {
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-

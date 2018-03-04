@@ -6,6 +6,7 @@ public class Level {
 	
 	public enum LevelStatus { RUNNING , DEFEAT , VICTORY }
 
+	private int ID;
 	private Hero hero;
 	private HashSet<Wall> walls;
 	private HashSet<Door> doors;
@@ -17,8 +18,8 @@ public class Level {
 	private int heigth;
 	private LevelStatus status = LevelStatus.RUNNING;
 	
-	
 	public Level(
+			int ID,
 			Hero hero,
 			HashSet<Wall> walls,
 			HashSet<Door> doors,
@@ -30,6 +31,7 @@ public class Level {
 			int heigth) {
 		
 		super();
+		this.ID = ID;
 		this.hero = hero;
 		this.walls = walls;
 		this.doors = doors;
@@ -39,6 +41,10 @@ public class Level {
 		this.key = key;
 		this.width = width;
 		this.heigth = heigth;
+	}
+	
+	public int getID() {
+		return ID;
 	}
 	
 	public LevelStatus getStatus() {
@@ -59,6 +65,34 @@ public class Level {
 
 	public void setHeigth(int heigth) {
 		this.heigth = heigth;
+	}
+
+	public Hero getHero() {
+		return hero;
+	}
+
+	public HashSet<Wall> getWalls() {
+		return walls;
+	}
+
+	public HashSet<Door> getDoors() {
+		return doors;
+	}
+
+	public HashSet<Guard> getGuards() {
+		return guards;
+	}
+
+	public HashSet<Ogre> getOgres() {
+		return ogres;
+	}
+
+	public Lever getLever() {
+		return lever;
+	}
+
+	public Key getKey() {
+		return key;
 	}
 
 	public void draw() {
@@ -177,13 +211,6 @@ public class Level {
 	}
 	
 	
-//	private boolean heroCollidesWithKey() {
-//		// Verify if the Hero is colliding with the Key
-//		return (hero.getX_pos() == key.getX_pos() && 
-//				hero.getY_pos() == key.getY_pos());
-//	}
-	
-	
 	private boolean heroCollidesWithOpenDoor() {
 		for(Door d : doors) {	// Iterate through all the doors
 			if(hero.collidesWith(d) && d.isOpen()) {
@@ -228,13 +255,6 @@ public class Level {
 		
 		return (hero.isNear(club) || hero.collidesWith(club));
 	}
-	
-	
-//	private boolean heroCollidesWithLever() {
-//		// Verify if the Hero is colliding with the Lever
-//		return (hero.getX_pos() == lever.getX_pos() && 
-//				hero.getY_pos() == lever.getY_pos());
-//	}
 	
 	
 	private void openExitDoors() {
