@@ -5,7 +5,7 @@ public class Ogre extends GameObject {
 	
 	private final char regularSymbol = '0';
 	private final char stunnedSymbol = '8';
-	private Club club = new Club(getX_pos() , getY_pos()+1);
+	private Club club = new Club(getX_pos() , getY_pos());
 	private boolean isStunned = false;
 	private int stunnedTimer = 0;
 	
@@ -44,7 +44,7 @@ public class Ogre extends GameObject {
 	}
 	
 	
-	public void move(HashSet<Wall> walls , HashSet<Door> doors) {
+	public void move(HashSet<Wall> walls , HashSet<Door> doors , HashSet<Ogre> ogres) {
 		// Check if the Ogre is stunned
 		if (this.stunnedTimer > 0) {
 			this.stunnedTimer--;
@@ -87,14 +87,14 @@ public class Ogre extends GameObject {
 		}
 		
 		// Swing the club
-		swingClub(walls,doors);
+		swingClub(walls,doors,ogres);
 	}
 	
 	
-	private void swingClub(HashSet<Wall> walls , HashSet<Door> doors) {
+	private void swingClub(HashSet<Wall> walls , HashSet<Door> doors , HashSet<Ogre> ogres) {
 		MoveDirection dir;
 		
-		// Get a random valid direction to swing the club (not colliding with doors or walls)
+		// Get a random valid direction to swing the club (not colliding with doors, walls or other ogres)
 		do {
 			dir = getRandomMoveDirection();
 			
@@ -117,7 +117,8 @@ public class Ogre extends GameObject {
 			}
 					
 		} while(clubCollidesWithWalls(walls) ||
-				clubCollidesWithDoors(doors));
+				clubCollidesWithDoors(doors) ||
+				clubCollidesWithOgres(ogres));
 	}
 	
 	
@@ -149,6 +150,7 @@ public class Ogre extends GameObject {
 		// No collision was found
 		return false;
 	}
+
 	
 	private boolean clubCollidesWithWalls(HashSet<Wall> walls) {
 		for(Wall w : walls) {
@@ -168,6 +170,20 @@ public class Ogre extends GameObject {
 		for(Door d : doors) {
 			// Check if ogre collides with any of the closed doors
 			if (club.collidesWith(d)) {
+				
+				return true;
+			}
+		}
+		
+		// No collision was found
+		return false;
+	}
+	
+	
+	private boolean clubCollidesWithOgres(HashSet<Ogre> ogres) {
+		for(Ogre o : ogres) {
+			// Check if club collides with any of the walls
+			if (club.collidesWith(o)) {
 				
 				return true;
 			}

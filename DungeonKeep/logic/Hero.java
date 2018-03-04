@@ -27,6 +27,12 @@ public class Hero extends GameObject {
 		}
 	}
 	
+
+	public boolean hasClub() {
+		return hasClub;
+	}
+	
+	
 	public void catchKey() {
 		this.hasKey = true;
 	}
@@ -37,7 +43,7 @@ public class Hero extends GameObject {
 	}
 	
 	
-	public void move(char keyPressed , HashSet<Wall> walls , HashSet<Door> doors) {
+	public void move(char keyPressed , HashSet<Wall> walls , HashSet<Door> doors , HashSet<Ogre> ogres) {
 		int new_x_pos = this.getX_pos();
 		int new_y_pos = this.getY_pos();
 		MoveDirection dir;
@@ -64,7 +70,8 @@ public class Hero extends GameObject {
 		
 		// Move, if the hero isn't colliding with any wall or closed door
 		if (!heroCollidesWithWalls(new_x_pos , new_y_pos , walls) &&
-			!heroCollidesWithDoors(new_x_pos , new_y_pos , doors)) {
+			!heroCollidesWithDoors(new_x_pos , new_y_pos , doors) &&
+			!heroCollidesWithOgres(new_x_pos , new_y_pos , ogres)) {
 			
 			step(dir);
 		}
@@ -97,6 +104,20 @@ public class Hero extends GameObject {
 				if (this.hasKey()) {
 					d.open();
 				}
+				
+				return true;
+			}
+		}
+		
+		// No collision was found
+		return false;
+	}
+	
+	private boolean heroCollidesWithOgres(int new_x_pos , int new_y_pos , HashSet<Ogre> ogres) {
+		for(Ogre o : ogres) {
+			// Check if hero collides with any of the ogres
+			if (new_x_pos == o.getX_pos() &&
+				new_y_pos == o.getY_pos()) {
 				
 				return true;
 			}

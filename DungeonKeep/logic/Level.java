@@ -128,8 +128,8 @@ public class Level {
 		
 		// Draw Ogres
 		for(Ogre o : ogres) {
-			symbols[o.getY_pos()][o.getX_pos()] = o.getIdSymbol();									// Draw the Ogre
 			symbols[o.getClub().getY_pos()][o.getClub().getX_pos()] = o.getClub().getIdSymbol();	// Draw the Ogre's Club
+			symbols[o.getY_pos()][o.getX_pos()] = o.getIdSymbol();									// Draw the Ogre
 		}
 		
 		// Draw Key
@@ -160,9 +160,6 @@ public class Level {
 	
 	public void update(char keyPressed) {
 		
-		// Move the Hero
-		hero.move(keyPressed, walls, doors);
-		
 		// Move the Guards
 		for(Guard g : guards) {
 			g.performStep();
@@ -170,8 +167,11 @@ public class Level {
 		
 		// Move the Ogres
 		for(Ogre o : ogres) {
-			o.move(walls , doors);
+			o.move(walls , doors , ogres);
 		}
+		
+		// Move the Hero
+		hero.move(keyPressed, walls, doors, ogres);
 		
 		// Check for collision with lever (if existent)
 		if(lever != null && hero.collidesWith(lever)) {
@@ -245,8 +245,16 @@ public class Level {
 	
 	
 	private boolean heroIsNearOgre(Ogre ogre) {
-		// Verify if the Hero is horizontally/vertically next to the Ogre
-		return (hero.isNear(ogre) || hero.collidesWith(ogre));
+		if (hero.hasClub()) {
+			// When the hero has a weapon , the one affected is the ogre! Stun the ogre!
+			if (hero.isNear(ogre)) {
+				ogre.stun();
+			}
+			return false;
+		}
+		else {
+			return (hero.isNear(ogre) || hero.collidesWith(ogre));
+		}
 	}
 	
 	

@@ -149,6 +149,10 @@ public class Game {
 		HashSet<Ogre> level2ogres = new HashSet<Ogre>();
 		level2ogres.add(new Ogre(4,1));
 		
+		// Multi-Ogre testing
+		//level2ogres.add(new Ogre(4,3));
+		//level2ogres.add(new Ogre(1,1));
+		
 		// Initialize level itself
 		return new Level(
 				2,
