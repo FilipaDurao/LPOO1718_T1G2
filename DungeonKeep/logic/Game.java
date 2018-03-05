@@ -13,8 +13,9 @@ public class Game {
 		
 		// Initialize the levels
 		levels = new ArrayList<Level>();
-		levels.add(initializeLevel1());
-		levels.add(initializeLevel2());
+		//levels.add(initializeLevel1());
+		//levels.add(initializeLevel2());
+		levels.add(initializeTestLevel());
 		
 		running = true;
 		currentLevelIndex = 0;
@@ -165,6 +166,83 @@ public class Game {
 				new Key(7, 1),
 				9,
 				9);
+		
+	}
+	
+	private static Level initializeTestLevel() {		
+		// Initialize the door
+		HashSet<Door> doors = new HashSet<Door>();
+		doors.add(new Door(9, 0, true));
+		
+		// Initialize the walls
+		HashSet<Wall> walls = new HashSet<Wall>();
+		
+		for(int i=0 ; i<19 ; i++) {
+			if (i != 9) {
+				walls.add(new Wall(i, 0));
+			}
+			walls.add(new Wall(i, 39));
+		}
+		
+		for(int i=1 ; i<39 ; i++) {
+			walls.add(new Wall(18, i));
+			walls.add(new Wall(0, i));
+		}
+		
+		for(int i=1 ; i<18 ; i++) {
+			if (i != 3) {
+				walls.add(new Wall(i , 10));
+			}
+		}
+		
+		for(int i=1 ; i<18 ; i++) {
+			if (i != 15) {
+				walls.add(new Wall(i , 14));
+			}
+		}
+		
+		// Initialize the ogres
+		HashSet<Ogre> ogres = new HashSet<Ogre>();
+		ogres.add(new Ogre(8,1));
+		ogres.add(new Ogre(10,1));
+		ogres.add(new Ogre(6,1));
+		ogres.add(new Ogre(12,1));
+		
+		// Initialize the guards
+		HashSet<Guard> guards = new HashSet<Guard>();
+		ArrayList<Guard.MoveDirection> guard1Moves = new ArrayList<Guard.MoveDirection>();
+		ArrayList<Guard.MoveDirection> guard2Moves = new ArrayList<Guard.MoveDirection>();
+		
+		for(int i=0 ; i<16 ; i++) {
+			guard1Moves.add(Guard.MoveDirection.RIGHT);
+			guard2Moves.add(Guard.MoveDirection.LEFT);
+		}
+		
+		for(int i=0 ; i<16 ; i++) {
+			guard1Moves.add(Guard.MoveDirection.LEFT);
+			guard2Moves.add(Guard.MoveDirection.RIGHT);
+		}
+		
+		guards.add(new RookieGuard(1, 35, guard1Moves));
+		guards.add(new RookieGuard(17, 33, guard2Moves));
+		guards.add(new RookieGuard(1, 31, guard1Moves));
+		guards.add(new RookieGuard(17, 29, guard2Moves));
+		guards.add(new RookieGuard(1, 27, guard1Moves));
+		guards.add(new DrunkenGuard(1, 11, guard1Moves));
+		guards.add(new DrunkenGuard(17, 13, guard2Moves));
+		
+		// Initialize level itself
+		return new Level(
+				2,
+				new Hero(9, 38, true),
+				walls,
+				doors,
+				guards,
+				ogres, 
+				null,
+				new Key(9, 12),
+				19,
+				40);
 		
 	}
 	
