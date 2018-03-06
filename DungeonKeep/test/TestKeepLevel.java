@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.ArrayList;
 
 import DungeonKeep.logic.*;
 
@@ -30,7 +29,7 @@ public class TestKeepLevel {
 		ArrayList<Door> doors = new ArrayList<Door>();
 		doors.add(new Door(3, 6, true));
 		
-		// Initialize Guard
+		// Initialize Ogre
 		ArrayList<Ogre> ogres = new ArrayList<Ogre>();
 		ogres.add(new Ogre(5, 1));
 		

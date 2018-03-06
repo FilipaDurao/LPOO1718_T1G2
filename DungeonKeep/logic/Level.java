@@ -269,5 +269,25 @@ public class Level {
 			}
 		}
 	}
+	
+	public boolean doesPositionHaveBarrier(int x, int y) {
+		
+		// Check if the position has walls
+		for(Wall w : walls) {
+			if(w.getX_pos() == x && w.getY_pos() == y) {
+				return true;
+			}
+		}
+		
+		// Check if the position has doors
+		for(Door d : doors) {
+			if(d.getX_pos() == x && d.getY_pos() == y) {
+				return true;
+			}
+		}
+		
+		// If the position doesn't have walls or doors then it's free to move to
+		return false;
+	}
 	 
 }
