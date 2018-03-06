@@ -1,6 +1,6 @@
 package DungeonKeep.logic;
 import java.util.Arrays;
-import java.util.HashSet;
+import java.util.ArrayList;
 
 public class Level {
 	
@@ -8,10 +8,10 @@ public class Level {
 
 	private int ID;
 	private Hero hero;
-	private HashSet<Wall> walls;
-	private HashSet<Door> doors;
-	private HashSet<Guard> guards;
-	private HashSet<Ogre> ogres;
+	private ArrayList<Wall> walls;
+	private ArrayList<Door> doors;
+	private ArrayList<Guard> guards;
+	private ArrayList<Ogre> ogres;
 	private Lever lever;
 	private Key key;
 	private int width;
@@ -21,10 +21,10 @@ public class Level {
 	public Level(
 			int ID,
 			Hero hero,
-			HashSet<Wall> walls,
-			HashSet<Door> doors,
-			HashSet<Guard> guards,
-			HashSet<Ogre> ogres,
+			ArrayList<Wall> walls,
+			ArrayList<Door> doors,
+			ArrayList<Guard> guards,
+			ArrayList<Ogre> ogres,
 			Lever lever,
 			Key key,
 			int width, 
@@ -71,19 +71,19 @@ public class Level {
 		return hero;
 	}
 
-	public HashSet<Wall> getWalls() {
+	public ArrayList<Wall> getWalls() {
 		return walls;
 	}
 
-	public HashSet<Door> getDoors() {
+	public ArrayList<Door> getDoors() {
 		return doors;
 	}
 
-	public HashSet<Guard> getGuards() {
+	public ArrayList<Guard> getGuards() {
 		return guards;
 	}
 
-	public HashSet<Ogre> getOgres() {
+	public ArrayList<Ogre> getOgres() {
 		return ogres;
 	}
 

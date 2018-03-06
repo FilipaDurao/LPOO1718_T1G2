@@ -1,5 +1,5 @@
 package DungeonKeep.logic;
-import java.util.HashSet;
+import java.util.ArrayList;
 
 public class Hero extends GameObject {
 	
@@ -43,7 +43,7 @@ public class Hero extends GameObject {
 	}
 	
 	
-	public void move(char keyPressed , HashSet<Wall> walls , HashSet<Door> doors , HashSet<Ogre> ogres) {
+	public void move(char keyPressed , ArrayList<Wall> walls , ArrayList<Door> doors , ArrayList<Ogre> ogres) {
 		int new_x_pos = this.getX_pos();
 		int new_y_pos = this.getY_pos();
 		MoveDirection dir;
@@ -78,7 +78,7 @@ public class Hero extends GameObject {
 	}
 	
 	
-	private boolean heroCollidesWithWalls(int new_x_pos , int new_y_pos , HashSet<Wall> walls) {
+	private boolean heroCollidesWithWalls(int new_x_pos , int new_y_pos , ArrayList<Wall> walls) {
 		for(Wall w : walls) {
 			// Check if hero collides with any of the walls
 			if (new_x_pos == w.getX_pos() &&
@@ -93,7 +93,7 @@ public class Hero extends GameObject {
 	}
 	
 	
-	private boolean heroCollidesWithDoors(int new_x_pos , int new_y_pos , HashSet<Door> doors) {
+	private boolean heroCollidesWithDoors(int new_x_pos , int new_y_pos , ArrayList<Door> doors) {
 		for(Door d : doors) {
 			// Check if hero collides with any of the closed doors
 			if (new_x_pos == d.getX_pos() &&
@@ -113,7 +113,7 @@ public class Hero extends GameObject {
 		return false;
 	}
 	
-	private boolean heroCollidesWithOgres(int new_x_pos , int new_y_pos , HashSet<Ogre> ogres) {
+	private boolean heroCollidesWithOgres(int new_x_pos , int new_y_pos , ArrayList<Ogre> ogres) {
 		for(Ogre o : ogres) {
 			// Check if hero collides with any of the ogres
 			if (new_x_pos == o.getX_pos() &&

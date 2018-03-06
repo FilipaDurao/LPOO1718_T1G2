@@ -1,11 +1,10 @@
 package DungeonKeep.test;
 
 import static org.junit.Assert.*;
+import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-
-import org.junit.Test;
+import java.util.ArrayList;
 
 import DungeonKeep.logic.*;
 
@@ -14,7 +13,7 @@ public class TestDungeonLevel {
 	private static Level initializeTestLevel() {
 		
 		// Initialize Walls
-		HashSet<Wall> walls = new HashSet<Wall>();
+		ArrayList<Wall> walls = new ArrayList<Wall>();
 		for(int i=0 ; i<5 ; i++) {
 			walls.add(new Wall(i, 0));
 			walls.add(new Wall(i, 4));
@@ -28,12 +27,12 @@ public class TestDungeonLevel {
 		}
 		
 		// Initialize Doors
-		HashSet<Door> doors = new HashSet<Door>();
+		ArrayList<Door> doors = new ArrayList<Door>();
 		doors.add(new Door(0, 2, true));
 		doors.add(new Door(0, 3, true));
 		
 		// Initialize Guard
-		HashSet<Guard> guards = new HashSet<Guard>();
+		ArrayList<Guard> guards = new ArrayList<Guard>();
 		guards.add(new RookieGuard(3, 1, new ArrayList<GameObject.MoveDirection>()));
 		
 		// Initialize Level itself
@@ -43,7 +42,7 @@ public class TestDungeonLevel {
 				walls,
 				doors,
 				guards,
-				new HashSet<Ogre>(),	// No ogres
+				new ArrayList<Ogre>(),	// No ogres
 				new Lever(3, 3),
 				null,					// No key
 				5,

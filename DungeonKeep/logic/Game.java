@@ -1,5 +1,4 @@
 package DungeonKeep.logic;
-import java.util.HashSet;
 import java.util.ArrayList;
 
 public class Game {
@@ -33,8 +32,8 @@ public class Game {
 	}
 	
 	private static Level initializeLevel1() {
-		HashSet<Wall> level1walls = new HashSet<Wall>();
-		HashSet<Door> level1doors = new HashSet<Door>();
+		ArrayList<Wall> level1walls = new ArrayList<Wall>();
+		ArrayList<Door> level1doors = new ArrayList<Door>();
 		
 		// Initialize the doors
 		level1doors.add(new Door(0, 5, true));
@@ -82,7 +81,7 @@ public class Game {
 		}
 		
 		// Initialize the guards
-		HashSet<Guard> level1guards = new HashSet<Guard>();
+		ArrayList<Guard> level1guards = new ArrayList<Guard>();
 		ArrayList<Guard.MoveDirection> guardMoves = new ArrayList<Guard.MoveDirection>();
 		guardMoves.add(Guard.MoveDirection.LEFT);
 		guardMoves.add(Guard.MoveDirection.DOWN);
@@ -118,7 +117,7 @@ public class Game {
 				level1walls,
 				level1doors,
 				level1guards,
-				new HashSet<Ogre>(),	// No ogres in this level
+				new ArrayList<Ogre>(),	// No ogres in this level
 				new Lever(7, 8),
 				null,
 				10,
@@ -126,8 +125,8 @@ public class Game {
 	}
 	
 	private static Level initializeLevel2() {
-		HashSet<Wall> level2walls = new HashSet<Wall>();
-		HashSet<Door> level2doors = new HashSet<Door>();
+		ArrayList<Wall> level2walls = new ArrayList<Wall>();
+		ArrayList<Door> level2doors = new ArrayList<Door>();
 		
 		// Initialize the door
 		level2doors.add(new Door(0, 1, true));
@@ -147,7 +146,7 @@ public class Game {
 		}
 		
 		// Initialize the ogres
-		HashSet<Ogre> level2ogres = new HashSet<Ogre>();
+		ArrayList<Ogre> level2ogres = new ArrayList<Ogre>();
 		level2ogres.add(new Ogre(4,1));
 		
 		// Multi-Ogre testing
@@ -160,7 +159,7 @@ public class Game {
 				new Hero(1, 7, true),
 				level2walls,
 				level2doors,
-				new HashSet<Guard>(),
+				new ArrayList<Guard>(),
 				level2ogres, 
 				null,
 				new Key(7, 1),
@@ -171,11 +170,11 @@ public class Game {
 	
 	private static Level initializeTestLevel() {		
 		// Initialize the door
-		HashSet<Door> doors = new HashSet<Door>();
+		ArrayList<Door> doors = new ArrayList<Door>();
 		doors.add(new Door(9, 0, true));
 		
 		// Initialize the walls
-		HashSet<Wall> walls = new HashSet<Wall>();
+		ArrayList<Wall> walls = new ArrayList<Wall>();
 		
 		for(int i=0 ; i<19 ; i++) {
 			if (i != 9) {
@@ -202,14 +201,14 @@ public class Game {
 		}
 		
 		// Initialize the ogres
-		HashSet<Ogre> ogres = new HashSet<Ogre>();
+		ArrayList<Ogre> ogres = new ArrayList<Ogre>();
 		ogres.add(new Ogre(8,1));
 		ogres.add(new Ogre(10,1));
 		ogres.add(new Ogre(6,1));
 		ogres.add(new Ogre(12,1));
 		
 		// Initialize the guards
-		HashSet<Guard> guards = new HashSet<Guard>();
+		ArrayList<Guard> guards = new ArrayList<Guard>();
 		ArrayList<Guard.MoveDirection> guard1Moves = new ArrayList<Guard.MoveDirection>();
 		ArrayList<Guard.MoveDirection> guard2Moves = new ArrayList<Guard.MoveDirection>();
 		

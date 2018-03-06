@@ -1,5 +1,5 @@
 package DungeonKeep.logic;
-import java.util.HashSet;
+import java.util.ArrayList;
 
 public class Ogre extends GameObject {
 	
@@ -7,6 +7,7 @@ public class Ogre extends GameObject {
 	private final char stunnedSymbol = '8';
 	private Club club = new Club(getX_pos() , getY_pos());
 	private boolean isStunned = false;
+	private boolean disabled = false;
 	private int stunnedTimer = 0;
 	
 	
@@ -28,6 +29,11 @@ public class Ogre extends GameObject {
 	}
 	
 	
+	public void disable() {
+		disabled = true;
+	}
+	
+	
 	@Override
 	public char getIdSymbol() {
 		if(this.isStunned) {
@@ -44,7 +50,12 @@ public class Ogre extends GameObject {
 	}
 	
 	
-	public void move(HashSet<Wall> walls , HashSet<Door> doors , HashSet<Ogre> ogres) {
+	public void move(ArrayList<Wall> walls , ArrayList<Door> doors , ArrayList<Ogre> ogres) {
+		// Check if the Ogre is disabled
+		if (this.disabled) {
+			return;
+		}
+		
 		// Check if the Ogre is stunned
 		if (this.stunnedTimer > 0) {
 			this.stunnedTimer--;
@@ -91,7 +102,7 @@ public class Ogre extends GameObject {
 	}
 	
 	
-	private void swingClub(HashSet<Wall> walls , HashSet<Door> doors , HashSet<Ogre> ogres) {
+	private void swingClub(ArrayList<Wall> walls , ArrayList<Door> doors , ArrayList<Ogre> ogres) {
 		MoveDirection dir;
 		
 		// Get a random valid direction to swing the club (not colliding with doors, walls or other ogres)
@@ -122,7 +133,7 @@ public class Ogre extends GameObject {
 	}
 	
 	
-	private boolean ogreCollidesWithWalls(int new_x_pos , int new_y_pos , HashSet<Wall> walls) {
+	private boolean ogreCollidesWithWalls(int new_x_pos , int new_y_pos , ArrayList<Wall> walls) {
 		for(Wall w : walls) {
 			// Check if ogre collides with any of the walls
 			if (new_x_pos == w.getX_pos() &&
@@ -137,7 +148,7 @@ public class Ogre extends GameObject {
 	}
 	
 	
-	private boolean ogreCollidesWithDoors(int new_x_pos , int new_y_pos , HashSet<Door> doors) {
+	private boolean ogreCollidesWithDoors(int new_x_pos , int new_y_pos , ArrayList<Door> doors) {
 		for(Door d : doors) {
 			// Check if club collides with any of the closed doors
 			if (new_x_pos == d.getX_pos() &&
@@ -152,7 +163,7 @@ public class Ogre extends GameObject {
 	}
 
 	
-	private boolean clubCollidesWithWalls(HashSet<Wall> walls) {
+	private boolean clubCollidesWithWalls(ArrayList<Wall> walls) {
 		for(Wall w : walls) {
 			// Check if club collides with any of the walls
 			if (club.collidesWith(w)) {
@@ -166,7 +177,7 @@ public class Ogre extends GameObject {
 	}
 	
 	
-	private boolean clubCollidesWithDoors(HashSet<Door> doors) {
+	private boolean clubCollidesWithDoors(ArrayList<Door> doors) {
 		for(Door d : doors) {
 			// Check if ogre collides with any of the closed doors
 			if (club.collidesWith(d)) {
@@ -180,7 +191,7 @@ public class Ogre extends GameObject {
 	}
 	
 	
-	private boolean clubCollidesWithOgres(HashSet<Ogre> ogres) {
+	private boolean clubCollidesWithOgres(ArrayList<Ogre> ogres) {
 		for(Ogre o : ogres) {
 			// Check if club collides with any of the walls
 			if (club.collidesWith(o)) {
