@@ -13,6 +13,11 @@ public class SuspiciousGuard extends Guard {
 	}
 	
 	
+	public boolean isMovingForward() {
+		return isMovingForward;
+	}
+	
+	
 	@Override
 	public void performStep() {
 		// Guard has a 30% chance to change direction
@@ -39,13 +44,8 @@ public class SuspiciousGuard extends Guard {
 	}
 	
 	
-	private void changeDirection() {
-		if(isMovingForward) {
-			isMovingForward = false;
-		}
-		else {
-			isMovingForward = true;
-		}
+	public void changeDirection() {
+		isMovingForward = !isMovingForward;
 	}
 
 

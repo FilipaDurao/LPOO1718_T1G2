@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.ArrayList;
 
 import DungeonKeep.logic.*;
 
@@ -87,9 +86,29 @@ public class TestLevelCreation {
 		assertEquals(testLevel.getLever().getX_pos() , 4);
 		assertEquals(testLevel.getLever().getY_pos() , 5);
 		
-		// Verify ogre position
-		// TODO complete this
+		// Verify correct number of ogres
+		assertEquals(ogres.size() , testLevel.getOgres().size());
 		
+		// Verify correct number of walls
+		assertEquals(walls.size() , testLevel.getWalls().size());
+		
+		// Verify correct number of guards
+		assertEquals(guards.size() , testLevel.getGuards().size());
+		
+		// Verify doors attributes
+		assertTrue(testLevel.getDoors().get(0).isExit());
+		assertFalse(testLevel.getDoors().get(1).isExit());
+		assertTrue(testLevel.getDoors().get(0).isClosed());
+		assertFalse(testLevel.getDoors().get(1).isOpen());
+		
+		// Verify Objects symbols
+		assertEquals(testLevel.getHero().getIdSymbol() , 'H');
+		assertEquals(testLevel.getLever().getIdSymbol() , 'k');
+		assertEquals(testLevel.getKey().getIdSymbol() , 'k');
+		assertEquals(testLevel.getOgres().get(0).getIdSymbol() , '0');
+		assertEquals(testLevel.getOgres().get(0).getClub().getIdSymbol() , '*');
+		assertEquals(testLevel.getDoors().get(0).getIdSymbol() , 'I');
+		assertEquals(testLevel.getGuards().get(0).getIdSymbol() , 'G');
+		assertEquals(testLevel.getWalls().get(0).getIdSymbol() , 'X');
 	}
-	
 }

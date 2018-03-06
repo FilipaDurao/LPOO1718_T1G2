@@ -15,13 +15,12 @@ public class DrunkenGuard extends Guard {
 		super(x_pos, y_pos, path);
 	}
 	
-	private void changeDirection() {
-		if(isMovingForward) {
-			isMovingForward = false;
-		}
-		else {
-			isMovingForward = true;
-		}
+	public boolean isMovingForward() {
+		return isMovingForward;
+	}
+	
+	public void changeDirection() {
+		isMovingForward = !isMovingForward;
 	}
 	
 	public boolean isAsleep() {

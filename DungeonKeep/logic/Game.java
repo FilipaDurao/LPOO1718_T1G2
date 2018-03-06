@@ -12,15 +12,14 @@ public class Game {
 		
 		// Initialize the levels
 		levels = new ArrayList<Level>();
-		//levels.add(initializeLevel1());
-		//levels.add(initializeLevel2());
-		levels.add(initializeTestLevel());
+		levels.add(initializeLevel1());
+		levels.add(initializeLevel2());
 		
 		running = true;
 		currentLevelIndex = 0;
 		
 		// Print the first level the first time
-		levels.get(currentLevelIndex).draw();
+		drawLevel();
 	}
 	
 	public boolean isRunning() {
@@ -168,84 +167,7 @@ public class Game {
 		
 	}
 	
-	private static Level initializeTestLevel() {		
-		// Initialize the door
-		ArrayList<Door> doors = new ArrayList<Door>();
-		doors.add(new Door(9, 0, true));
-		
-		// Initialize the walls
-		ArrayList<Wall> walls = new ArrayList<Wall>();
-		
-		for(int i=0 ; i<19 ; i++) {
-			if (i != 9) {
-				walls.add(new Wall(i, 0));
-			}
-			walls.add(new Wall(i, 39));
-		}
-		
-		for(int i=1 ; i<39 ; i++) {
-			walls.add(new Wall(18, i));
-			walls.add(new Wall(0, i));
-		}
-		
-		for(int i=1 ; i<18 ; i++) {
-			if (i != 3) {
-				walls.add(new Wall(i , 10));
-			}
-		}
-		
-		for(int i=1 ; i<18 ; i++) {
-			if (i != 15) {
-				walls.add(new Wall(i , 14));
-			}
-		}
-		
-		// Initialize the ogres
-		ArrayList<Ogre> ogres = new ArrayList<Ogre>();
-		ogres.add(new Ogre(8,1));
-		ogres.add(new Ogre(10,1));
-		ogres.add(new Ogre(6,1));
-		ogres.add(new Ogre(12,1));
-		
-		// Initialize the guards
-		ArrayList<Guard> guards = new ArrayList<Guard>();
-		ArrayList<Guard.MoveDirection> guard1Moves = new ArrayList<Guard.MoveDirection>();
-		ArrayList<Guard.MoveDirection> guard2Moves = new ArrayList<Guard.MoveDirection>();
-		
-		for(int i=0 ; i<16 ; i++) {
-			guard1Moves.add(Guard.MoveDirection.RIGHT);
-			guard2Moves.add(Guard.MoveDirection.LEFT);
-		}
-		
-		for(int i=0 ; i<16 ; i++) {
-			guard1Moves.add(Guard.MoveDirection.LEFT);
-			guard2Moves.add(Guard.MoveDirection.RIGHT);
-		}
-		
-		guards.add(new RookieGuard(1, 35, guard1Moves));
-		guards.add(new RookieGuard(17, 33, guard2Moves));
-		guards.add(new RookieGuard(1, 31, guard1Moves));
-		guards.add(new RookieGuard(17, 29, guard2Moves));
-		guards.add(new RookieGuard(1, 27, guard1Moves));
-		guards.add(new DrunkenGuard(1, 11, guard1Moves));
-		guards.add(new DrunkenGuard(17, 13, guard2Moves));
-		
-		// Initialize level itself
-		return new Level(
-				2,
-				new Hero(9, 38, true),
-				walls,
-				doors,
-				guards,
-				ogres, 
-				null,
-				new Key(9, 12),
-				19,
-				40);
-		
-	}
-	
-	private static boolean keyIsValid(char keyPressed) {
+	public static boolean keyIsValid(char keyPressed) {
 		return (keyPressed=='w' || keyPressed=='W' || keyPressed=='s' || keyPressed=='S' ||
 				keyPressed=='a' || keyPressed=='A' || keyPressed=='d' || keyPressed=='D');
 	}
