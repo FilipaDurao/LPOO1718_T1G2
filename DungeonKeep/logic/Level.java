@@ -188,7 +188,6 @@ public class Level {
 		for(Guard g : guards) {
 			if(heroIsNearGuard(g)) {
 				status = LevelStatus.DEFEAT;
-				draw();
 				return;
 			}
 		}
@@ -197,7 +196,6 @@ public class Level {
 		for(Ogre o : ogres) {
 			if(heroIsNearOgre(o) || heroIsNearOgreClub(o)) {
 				status = LevelStatus.DEFEAT;
-				draw();
 				return;
 			}
 		}
@@ -206,8 +204,6 @@ public class Level {
 		if(heroCollidesWithOpenDoor()) {
 			status = LevelStatus.VICTORY;
 		}
-		
-		draw();
 	}
 	
 	

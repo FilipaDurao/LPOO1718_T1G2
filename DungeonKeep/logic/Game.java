@@ -251,6 +251,10 @@ public class Game {
 				keyPressed=='a' || keyPressed=='A' || keyPressed=='d' || keyPressed=='D');
 	}
 	
+	private void drawLevel() {
+		levels.get(currentLevelIndex).draw();
+	}
+	
 	
 	public void update(char keyPressed) {
 		// Check if the key is relevant
@@ -260,6 +264,7 @@ public class Game {
 		
 		// Update the level
 		levels.get(currentLevelIndex).update(keyPressed);
+		drawLevel();
 		
 		// Check if level ended
 		Level.LevelStatus levelStatus = levels.get(currentLevelIndex).getStatus();
@@ -282,7 +287,7 @@ public class Game {
 			}
 			else {
 				// Draw the new level for the player
-				levels.get(currentLevelIndex).draw();
+				drawLevel();
 			}
 		}
 		

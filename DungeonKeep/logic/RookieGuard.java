@@ -10,7 +10,10 @@ public class RookieGuard extends Guard {
 	
 	@Override
 	public void performStep() {
-		move(path.get(pathStep));
-		pathStep = (pathStep + 1) % path.size();
+		if(!path.isEmpty()) {
+			move(path.get(pathStep));
+			pathStep = (pathStep + 1) % path.size();
+		}
 	}
+	
 }
