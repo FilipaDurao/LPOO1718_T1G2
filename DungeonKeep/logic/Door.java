@@ -12,11 +12,11 @@ public class Door extends GameObject {
 		this.isExit = isExit;
 	}
 	
-	void close() {
+	public void close() {
 		this.isClosed = true;
 	}
 	
-	void open() {
+	public void open() {
 		this.isClosed = false;
 	}
 	

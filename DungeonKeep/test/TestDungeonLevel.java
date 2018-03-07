@@ -109,6 +109,25 @@ public class TestDungeonLevel {
 		assertTrue(testLevel.getStatus() == Level.LevelStatus.DEFEAT);
 	}
 	
+	@Test 
+	public void testDoors() {
+		Door door = new Door(0 , 0 , true);
+		
+		// Verify that the door is closed
+		assertTrue(door.isClosed());
+		assertEquals(door.getIdSymbol() , 'I');
+		
+		// Open the door
+		door.open();
+		assertTrue(door.isOpen());
+		assertEquals(door.getIdSymbol() , 'S');
+		
+		// Re-close the door
+		door.close();
+		assertTrue(door.isClosed());
+		assertEquals(door.getIdSymbol() , 'I');
+	}
+	
 	@Test
 	public void testMoveHeroIntoClosedDoors() {	
 		Level testLevel = initializeTestLevel();

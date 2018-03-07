@@ -43,6 +43,11 @@ public class Hero extends GameObject {
 	}
 	
 	
+	public void catchClub() {
+		this.hasClub = true;
+	}
+	
+	
 	public void move(char keyPressed , ArrayList<Wall> walls , ArrayList<Door> doors , ArrayList<Ogre> ogres) {
 		int new_x_pos = this.getX_pos();
 		int new_y_pos = this.getY_pos();

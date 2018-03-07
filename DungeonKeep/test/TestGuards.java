@@ -89,9 +89,9 @@ public class TestGuards {
 		assertFalse(guard.isMovingForward());
 		
 		// Perform a few steps and confirm the guard isn't in the beggining place
-		guard.performStep();
-		guard.performStep();
-		guard.performStep();
+		for (int i = 0 ; i<25 ; i++) {
+			guard.performStep();
+		}
 		assertFalse(guard.getX_pos() == 1   &&   guard.getY_pos() == 1);
 	}
 	
@@ -112,15 +112,18 @@ public class TestGuards {
 		
 		// Verify sleeping related methods
 		assertTrue(guard.isAwake());
+		assertEquals(guard.getIdSymbol() , 'G');
 		guard.fallAsleep();
 		assertTrue(guard.isAsleep());
+		assertEquals(guard.getIdSymbol() , 'g');
 		guard.wakeUp();
 		assertTrue(guard.isAwake());
+		assertEquals(guard.getIdSymbol() , 'G');
 		
 		// Perform a few steps and confirm the guard isn't in the beggining place
-		guard.performStep();
-		guard.performStep();
-		guard.performStep();
+		for (int i = 0 ; i<25 ; i++) {
+			guard.performStep();
+		}
 	}
 
 }

@@ -233,6 +233,33 @@ public class TestKeepLevel {
 		assertTrue(testLevel.getStatus() == Level.LevelStatus.VICTORY);
 	}
 	
+	@Test
+	public void testHeroClub() {
+		Hero hero = new Hero(0 , 0 , false);	// Hero starts without the club
+		
+		// Verify that hero has no club and no key
+		assertFalse(hero.hasClub());
+		assertFalse(hero.hasKey());
+		assertEquals(hero.getIdSymbol() , 'H');
+		
+		// Catch the club and verify representation changes
+		hero.catchClub();
+		assertTrue(hero.hasClub());
+		assertFalse(hero.hasKey());
+		assertEquals(hero.getIdSymbol() , 'A');
+		
+		// Catch the key and verify representation changes
+		hero.catchKey();
+		assertTrue(hero.hasClub());
+		assertTrue(hero.hasKey());
+		assertEquals(hero.getIdSymbol() , 'K');
+		
+		// Test hero constructor with club
+		Hero armedHero = new Hero(1 , 1 , true);
+		assertTrue(armedHero.hasClub());
+		assertFalse(armedHero.hasKey());
+	}
+	
 }
 
 
