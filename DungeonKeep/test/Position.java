@@ -1,4 +1,4 @@
-package DungeonKeep.logic;
+package DungeonKeep.test;
 
 public class Position {
 
@@ -24,5 +24,12 @@ public class Position {
 
 	public void setY(int y) {
 		this.y = y;
+	}
+	
+	public boolean equals(Object other) {
+		return (other != null &&
+				other instanceof Position &&
+				((Position) other).x == this.x &&
+				((Position) other).y == this.y);
 	}
 }
