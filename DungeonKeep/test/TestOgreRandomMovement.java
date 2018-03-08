@@ -49,15 +49,41 @@ public class TestOgreRandomMovement {
 		return level;
 	}
 	
-	@Test(timeout = 1000)
-	public void testOgreRandomMovement() {
+	@Test
+	public void testOgreVariables() {
 		Level testLevel = initializeTestLevel();
 		Ogre ogre = testLevel.getOgres().get(0);
+		
+		// Test if the ogre symbol is correct
+		assertEquals('0', ogre.getIdSymbol());
+		assertFalse(ogre.isStunned());
+		
+		// Test the ogre's stunned symbol
+		ogre.stun();
+		assertEquals('8', ogre.getIdSymbol());
+	}
+	
+	
+	@Test //(timeout = 1000)
+	public void testOgreRandomMovement() {
+		Level testLevel = initializeTestLevel();							// Initialize the level
+		Ogre ogre = testLevel.getOgres().get(0);							// Get the level's ogre
+		
+		// ArayList in which we will store the freePositions in each one of the ogre's locations
 		ArrayList<Position> freePositions = new ArrayList<Position>();
 		
-		int x, y;
+		// Variables for easier access to the level's components
+		ArrayList<Door> doors = testLevel.getDoors();
+		ArrayList<Wall> walls = testLevel.getWalls();
+		ArrayList<Ogre> ogres = new ArrayList<Ogre>();
 		
-		while(true) {
+		// Auxiliar variables
+		int x, y;
+		boolean isValid = false;	// To check at the end of an iteration if it was a valid position
+		int counter = 0;			// Iteration counter
+		
+		// Run the cicle 10.000.000 times to make sure we cover many options
+		while(counter < 10000000) {
 		
 			x = ogre.getX_pos();
 			y = ogre.getY_pos();
@@ -82,13 +108,27 @@ public class TestOgreRandomMovement {
 				freePositions.add(new Position(x,y+1));
 			}
 			
+			// Actually move the ogre
+			ogre.move(walls, doors, ogres);
 			
+			// Check if the position was valid
+			for (Position p : freePositions) {
+				if(p.getX() == ogre.getX_pos() && p.getY() == ogre.getY_pos()) {
+					isValid = true;
+					continue;
+				}
+			}
 			
+			// Fail the test if the position wasn't valid
+			if(!isValid) {
+				fail("Test failed");
+			}
 			
+			// Prepare the variables for the next iteration
+			isValid = false;		
+			freePositions.clear();
+			counter++;
 		}
-		
-		
 	}
-	
 	
 }
