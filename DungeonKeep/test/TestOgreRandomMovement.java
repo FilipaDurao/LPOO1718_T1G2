@@ -61,6 +61,7 @@ public class TestOgreRandomMovement {
 		// Test the ogre's stunned symbol
 		ogre.stun();
 		assertEquals('8', ogre.getIdSymbol());
+		assertTrue(ogre.isStunned());
 	}
 	
 	
@@ -115,7 +116,7 @@ public class TestOgreRandomMovement {
 			for (Position p : freePositions) {
 				if(p.getX() == ogre.getX_pos() && p.getY() == ogre.getY_pos()) {
 					isValid = true;
-					continue;
+					break;
 				}
 			}
 			
