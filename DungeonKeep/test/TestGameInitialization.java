@@ -27,20 +27,17 @@ public class TestGameInitialization {
 		// Confirm the game is running
 		assertTrue(game.isRunning());
 		
-		// Confirm correct key validation
-		assertTrue(Game.keyIsValid('W'));
-		assertTrue(Game.keyIsValid('w'));
-		assertTrue(Game.keyIsValid('S'));
-		assertTrue(Game.keyIsValid('s'));
-		assertTrue(Game.keyIsValid('A'));
-		assertTrue(Game.keyIsValid('a'));
-		assertTrue(Game.keyIsValid('D'));
-		assertTrue(Game.keyIsValid('d'));
-		assertFalse(Game.keyIsValid('q'));
-		assertFalse(Game.keyIsValid('6'));
-		assertFalse(Game.keyIsValid('l'));
-		assertFalse(Game.keyIsValid('ç'));
-		assertFalse(Game.keyIsValid('P'));
+		// Test parsing key pressed by the user
+		assertEquals(Game.parseKeyPressed('W') , Hero.MoveDirection.UP);
+		assertEquals(Game.parseKeyPressed('w') , Hero.MoveDirection.UP);
+		assertEquals(Game.parseKeyPressed('S') , Hero.MoveDirection.DOWN);
+		assertEquals(Game.parseKeyPressed('s') , Hero.MoveDirection.DOWN);
+		assertEquals(Game.parseKeyPressed('A') , Hero.MoveDirection.LEFT);
+		assertEquals(Game.parseKeyPressed('a') , Hero.MoveDirection.LEFT);
+		assertEquals(Game.parseKeyPressed('D') , Hero.MoveDirection.RIGHT);
+		assertEquals(Game.parseKeyPressed('d') , Hero.MoveDirection.RIGHT);
+		assertEquals(Game.parseKeyPressed('H') , Hero.MoveDirection.INVALID);
+		assertEquals(Game.parseKeyPressed('ç') , Hero.MoveDirection.INVALID);
 	}
 
 }

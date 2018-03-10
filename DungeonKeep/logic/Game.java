@@ -167,9 +167,23 @@ public class Game {
 		
 	}
 	
-	public static boolean keyIsValid(char keyPressed) {
-		return (keyPressed=='w' || keyPressed=='W' || keyPressed=='s' || keyPressed=='S' ||
-				keyPressed=='a' || keyPressed=='A' || keyPressed=='d' || keyPressed=='D');
+	public static Hero.MoveDirection parseKeyPressed(char keyPressed) {
+		switch(keyPressed) {
+		case 'W':
+		case 'w':
+			return Hero.MoveDirection.UP;
+		case 'S':
+		case 's':
+			return Hero.MoveDirection.DOWN;
+		case 'D':
+		case 'd':
+			return Hero.MoveDirection.RIGHT;
+		case 'A':
+		case 'a':
+			return Hero.MoveDirection.LEFT;
+		default:
+			return Hero.MoveDirection.INVALID;
+		}
 	}
 	
 	private void drawLevel() {
@@ -179,12 +193,10 @@ public class Game {
 	
 	public void update(char keyPressed) {
 		// Check if the key is relevant
-		if(!keyIsValid(keyPressed)) {
-			return;
-		}
+		Hero.MoveDirection dir = parseKeyPressed(keyPressed);
 		
 		// Update the level
-		levels.get(currentLevelIndex).update(keyPressed);
+		levels.get(currentLevelIndex).update(dir);
 		drawLevel();
 		
 		// Check if level ended

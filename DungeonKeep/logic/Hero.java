@@ -48,28 +48,24 @@ public class Hero extends GameObject {
 	}
 	
 	
-	public void move(char keyPressed , ArrayList<Wall> walls , ArrayList<Door> doors , ArrayList<Ogre> ogres) {
+	public void move(MoveDirection dir , ArrayList<Wall> walls , ArrayList<Door> doors , ArrayList<Ogre> ogres) {
 		int new_x_pos = this.getX_pos();
 		int new_y_pos = this.getY_pos();
-		MoveDirection dir;
 		
-		if (keyPressed=='w' || keyPressed=='W') {		// Walk up
+		switch(dir) {
+		case UP:
 			new_y_pos--;
-			dir = MoveDirection.UP;
-		}
-		else if (keyPressed=='s' || keyPressed=='S') {	// Walk down
+			break;
+		case DOWN:
 			new_y_pos++;
-			dir = MoveDirection.DOWN;
-		}
-		else if (keyPressed=='d' || keyPressed=='D') {	// Walk right
-			new_x_pos++;
-			dir = MoveDirection.RIGHT;
-		}
-		else if (keyPressed=='a' || keyPressed=='A') {	// Walk left
+			break;
+		case LEFT:
 			new_x_pos--;
-			dir = MoveDirection.LEFT;
-		}
-		else {
+			break;
+		case RIGHT:
+			new_x_pos++;
+			break;
+		default:
 			return;
 		}
 		

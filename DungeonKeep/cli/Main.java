@@ -15,6 +15,11 @@ public class Main {
 		System.out.print("\n\nEnter a move: ");	
 		return (inputReader.next().charAt(0));
 	}
+	
+	public static boolean keyIsValid(char keyPressed) {
+		return (keyPressed=='w' || keyPressed=='W' || keyPressed=='s' || keyPressed=='S' ||
+				keyPressed=='a' || keyPressed=='A' || keyPressed=='d' || keyPressed=='D');
+	}
 
 	public static void main(String[] args) {
 		System.out.println("Welcome to Dungeon Keep!\n");
@@ -25,7 +30,10 @@ public class Main {
 		
 		while(dungeonKeep.isRunning()) {
 			keyPressed = getUserInput();
-			dungeonKeep.update(keyPressed);
+			
+			if (keyIsValid(keyPressed)) {
+				dungeonKeep.update(keyPressed);
+			}
 		}
 		
 		// Close the scanner

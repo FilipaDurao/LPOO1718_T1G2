@@ -158,7 +158,7 @@ public class Level {
 	}
 	
 	
-	public void update(char keyPressed) {
+	public void update(Hero.MoveDirection heroDirection) {
 		
 		// Move the Guards
 		for(Guard g : guards) {
@@ -171,7 +171,7 @@ public class Level {
 		}
 		
 		// Move the Hero
-		hero.move(keyPressed, walls, doors, ogres);
+		hero.move(heroDirection, walls, doors, ogres);
 		
 		// Check for collision with lever (if existent)
 		if(lever != null && hero.collidesWith(lever)) {

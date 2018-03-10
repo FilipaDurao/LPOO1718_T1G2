@@ -62,9 +62,9 @@ public class TestKeepLevel {
 		assertEquals(1, hero.getY_pos());		
 		
 		// Move hero right -> right -> right
-		testLevel.update('D');
-		testLevel.update('D');
-		testLevel.update('D');
+		testLevel.update(Hero.MoveDirection.RIGHT);
+		testLevel.update(Hero.MoveDirection.RIGHT);
+		testLevel.update(Hero.MoveDirection.RIGHT);
 		assertEquals(4, hero.getX_pos());
 		assertEquals(1, hero.getY_pos());
 		assertTrue(testLevel.getStatus() == Level.LevelStatus.DEFEAT);
@@ -77,11 +77,11 @@ public class TestKeepLevel {
 		testLevel.getOgres().get(0).disable();
 
 		// Move hero down -> right -> right
-		testLevel.update('S');
-		testLevel.update('D');
-		testLevel.update('D');
-		testLevel.update('D');
-		testLevel.update('D');
+		testLevel.update(Hero.MoveDirection.DOWN);
+		testLevel.update(Hero.MoveDirection.RIGHT);
+		testLevel.update(Hero.MoveDirection.RIGHT);
+		testLevel.update(Hero.MoveDirection.RIGHT);
+		testLevel.update(Hero.MoveDirection.RIGHT);
 		assertEquals(5, hero.getX_pos());
 		assertEquals(2, hero.getY_pos());
 		assertTrue(testLevel.getStatus() == Level.LevelStatus.DEFEAT);
@@ -100,16 +100,16 @@ public class TestKeepLevel {
 		assertEquals(1, hero.getY_pos());		
 		
 		// Move hero down -> down -> down -> down -> right -> right -> right -> right
-		testLevel.update('S');
-		testLevel.update('S');
-		testLevel.update('S');
-		testLevel.update('S');
+		testLevel.update(Hero.MoveDirection.DOWN);
+		testLevel.update(Hero.MoveDirection.DOWN);
+		testLevel.update(Hero.MoveDirection.DOWN);
+		testLevel.update(Hero.MoveDirection.DOWN);
 		assertEquals(1, hero.getX_pos());
 		assertEquals(5, hero.getY_pos());
-		testLevel.update('D');
-		testLevel.update('D');
-		testLevel.update('D');
-		testLevel.update('D');
+		testLevel.update(Hero.MoveDirection.RIGHT);
+		testLevel.update(Hero.MoveDirection.RIGHT);
+		testLevel.update(Hero.MoveDirection.RIGHT);
+		testLevel.update(Hero.MoveDirection.RIGHT);
 		assertEquals(5, hero.getX_pos());
 		assertEquals(5, hero.getY_pos());
 		
@@ -131,19 +131,19 @@ public class TestKeepLevel {
 		assertTrue(door.isClosed());
 		
 		// Move hero down -> down -> down -> down -> right -> right
-		testLevel.update('S');
-		testLevel.update('S');
-		testLevel.update('S');
-		testLevel.update('S');
+		testLevel.update(Hero.MoveDirection.DOWN);
+		testLevel.update(Hero.MoveDirection.DOWN);
+		testLevel.update(Hero.MoveDirection.DOWN);
+		testLevel.update(Hero.MoveDirection.DOWN);
 		assertEquals(1, hero.getX_pos());
 		assertEquals(5, hero.getY_pos());
-		testLevel.update('D');
-		testLevel.update('D');
+		testLevel.update(Hero.MoveDirection.RIGHT);
+		testLevel.update(Hero.MoveDirection.RIGHT);
 		assertEquals(3, hero.getX_pos());
 		assertEquals(5, hero.getY_pos());
 		
 		// Try to, unsuccessfully, open the door
-		testLevel.update('S');
+		testLevel.update(Hero.MoveDirection.DOWN);
 		assertEquals(3, hero.getX_pos());
 		assertEquals(5, hero.getY_pos());
 		assertTrue(door.isClosed());
@@ -162,16 +162,16 @@ public class TestKeepLevel {
 		assertTrue(door.isClosed());
 		
 		// Move hero down -> down -> down -> down -> right -> right -> right -> right
-		testLevel.update('S');
-		testLevel.update('S');
-		testLevel.update('S');
-		testLevel.update('S');
+		testLevel.update(Hero.MoveDirection.DOWN);
+		testLevel.update(Hero.MoveDirection.DOWN);
+		testLevel.update(Hero.MoveDirection.DOWN);
+		testLevel.update(Hero.MoveDirection.DOWN);
 		assertEquals(1, hero.getX_pos());
 		assertEquals(5, hero.getY_pos());
-		testLevel.update('D');
-		testLevel.update('D');
-		testLevel.update('D');
-		testLevel.update('D');
+		testLevel.update(Hero.MoveDirection.RIGHT);
+		testLevel.update(Hero.MoveDirection.RIGHT);
+		testLevel.update(Hero.MoveDirection.RIGHT);
+		testLevel.update(Hero.MoveDirection.RIGHT);
 		assertEquals(5, hero.getX_pos());
 		assertEquals(5, hero.getY_pos());
 		
@@ -179,11 +179,11 @@ public class TestKeepLevel {
 		assertTrue(hero.hasKey());
 		
 		// Move next to the door
-		testLevel.update('A');
-		testLevel.update('A');
+		testLevel.update(Hero.MoveDirection.LEFT);
+		testLevel.update(Hero.MoveDirection.LEFT);
 		
 		// Open door and Verify that the door is open
-		testLevel.update('S');
+		testLevel.update(Hero.MoveDirection.DOWN);
 		assertEquals(3, hero.getX_pos());
 		assertEquals(5, hero.getY_pos());
 		assertTrue(door.isOpen());
@@ -202,16 +202,16 @@ public class TestKeepLevel {
 		assertTrue(door.isClosed());
 		
 		// Move hero down -> down -> down -> down -> right -> right -> right -> right
-		testLevel.update('S');
-		testLevel.update('S');
-		testLevel.update('S');
-		testLevel.update('S');
+		testLevel.update(Hero.MoveDirection.DOWN);
+		testLevel.update(Hero.MoveDirection.DOWN);
+		testLevel.update(Hero.MoveDirection.DOWN);
+		testLevel.update(Hero.MoveDirection.DOWN);
 		assertEquals(1, hero.getX_pos());
 		assertEquals(5, hero.getY_pos());
-		testLevel.update('D');
-		testLevel.update('D');
-		testLevel.update('D');
-		testLevel.update('D');
+		testLevel.update(Hero.MoveDirection.RIGHT);
+		testLevel.update(Hero.MoveDirection.RIGHT);
+		testLevel.update(Hero.MoveDirection.RIGHT);
+		testLevel.update(Hero.MoveDirection.RIGHT);
 		assertEquals(5, hero.getX_pos());
 		assertEquals(5, hero.getY_pos());
 		
@@ -219,15 +219,15 @@ public class TestKeepLevel {
 		assertTrue(hero.hasKey());
 		
 		// Move next to the door
-		testLevel.update('A');
-		testLevel.update('A');
+		testLevel.update(Hero.MoveDirection.LEFT);
+		testLevel.update(Hero.MoveDirection.LEFT);
 		
 		// Open door and Verify that the door is open
-		testLevel.update('S');
+		testLevel.update(Hero.MoveDirection.DOWN);
 		assertTrue(door.isOpen());
 		
 		// Enter door and win level
-		testLevel.update('S');
+		testLevel.update(Hero.MoveDirection.DOWN);
 		assertEquals(3, hero.getX_pos());
 		assertEquals(6, hero.getY_pos());
 		assertTrue(testLevel.getStatus() == Level.LevelStatus.VICTORY);
