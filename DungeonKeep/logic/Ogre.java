@@ -65,35 +65,17 @@ public class Ogre extends GameObject {
 		else {
 			this.isStunned = false;
 		
-			int new_x_pos , new_y_pos;
-			MoveDirection dir;
-	
-			// Get a random valid move (can't go through doors or walls) for the Ogre
-			do {
-				dir = getRandomMoveDirection();
-				
-				// Perform "Hypothetical" move
-				if(dir == MoveDirection.UP) {
-					new_x_pos = this.getX_pos();
-					new_y_pos = this.getY_pos() - 1;
-				}
-				else if(dir == MoveDirection.DOWN) {
-					new_x_pos = this.getX_pos();
-					new_y_pos = this.getY_pos() + 1;
-				}
-				else if(dir == MoveDirection.RIGHT) {
-					new_x_pos = this.getX_pos() + 1;
-					new_y_pos = this.getY_pos();
-				}
-				else {
-					new_x_pos = this.getX_pos() - 1;
-					new_y_pos = this.getY_pos();
-				}
-						
-			} while(ogreCollidesWithWalls(new_x_pos , new_y_pos , walls) ||
-					ogreCollidesWithDoors(new_x_pos , new_y_pos , doors));
+			ArrayList<MoveDirection> possibleMoveDirections = getPossibleDirections(walls, doors, ogres);
 			
-			// Perform the step in the given direction
+			// If there are no possible direction, the ogre does not move.
+			if (possibleMoveDirections.isEmpty()) {
+				return;
+			}
+			
+			// Perform the step in one of the random directions
+			MoveDirection dir = possibleMoveDirections.get( 
+					(int) Math.floor(Math.random()*possibleMoveDirections.size()) );
+			
 			step(dir);
 		}
 		
@@ -103,104 +85,112 @@ public class Ogre extends GameObject {
 	
 	
 	private void swingClub(ArrayList<Wall> walls , ArrayList<Door> doors , ArrayList<Ogre> ogres) {
-		MoveDirection dir;
+		ArrayList<MoveDirection> possibleSwingDirections = getClubPossibleDirections(walls, doors, ogres);
 		
-		// Get a random valid direction to swing the club (not colliding with doors, walls or other ogres)
-		do {
-			dir = getRandomMoveDirection();
-			
-			// Perform "Hypothetical" move
-			if(dir == MoveDirection.UP) {
-				club.setX_pos( getX_pos() );
-				club.setY_pos( getY_pos() + 1 );
-			}
-			else if(dir == MoveDirection.DOWN) {
-				club.setX_pos( getX_pos() );
-				club.setY_pos( getY_pos() - 1 );
-			}
-			else if(dir == MoveDirection.RIGHT) {
-				club.setX_pos( getX_pos() + 1);
-				club.setY_pos( getY_pos() );
-			}
-			else {
-				club.setX_pos( getX_pos() - 1);
-				club.setY_pos( getY_pos() );
-			}
-					
-		} while(clubCollidesWithWalls(walls) ||
-				clubCollidesWithDoors(doors) ||
-				clubCollidesWithOgres(ogres));
+		// If there are no possible directions for the club, the ogre does not swing it.
+		if (possibleSwingDirections.isEmpty()) {
+			return;
+		}
+		
+		// Perform the swing in one of the random directions
+		MoveDirection dir = possibleSwingDirections.get( 
+				(int) Math.floor(Math.random()*possibleSwingDirections.size()) );
+		
+		performClubSwing(dir);
 	}
 	
+	private ArrayList<MoveDirection> getPossibleDirections(ArrayList<Wall> walls , 
+			ArrayList<Door> doors , ArrayList<Ogre> ogres) {
+		
+		ArrayList<MoveDirection> possibleDirections = new ArrayList<MoveDirection>();
+		
+		// Analise 4 possible moves
+		if (!(positionHasWall(this.getX_pos() , this.getY_pos()-1 , walls) ||
+			  positionHasDoor(this.getX_pos() , this.getY_pos()-1 , doors))) {
+			possibleDirections.add(MoveDirection.UP);
+		}
+		if (!(positionHasWall(this.getX_pos() , this.getY_pos()+1 , walls) ||
+			  positionHasDoor(this.getX_pos() , this.getY_pos()+1 , doors))) {
+			possibleDirections.add(MoveDirection.DOWN);
+		}
+		if (!(positionHasWall(this.getX_pos()-1 , this.getY_pos() , walls) ||
+			  positionHasDoor(this.getX_pos()-1 , this.getY_pos() , doors))) {
+			possibleDirections.add(MoveDirection.LEFT);
+		}
+		if (!(positionHasWall(this.getX_pos()+1 , this.getY_pos() , walls) ||
+			  positionHasDoor(this.getX_pos()+1 , this.getY_pos() , doors))) {
+			possibleDirections.add(MoveDirection.RIGHT);
+		}
+		
+		System.out.println("\nNum of Ogre Moves: " + possibleDirections.size());
+		
+		return possibleDirections;
+	}
 	
-	private boolean ogreCollidesWithWalls(int new_x_pos , int new_y_pos , ArrayList<Wall> walls) {
-		for(Wall w : walls) {
-			// Check if ogre collides with any of the walls
-			if (new_x_pos == w.getX_pos() &&
-				new_y_pos == w.getY_pos()) {
-				
+	private ArrayList<MoveDirection> getClubPossibleDirections(ArrayList<Wall> walls , 
+			ArrayList<Door> doors , ArrayList<Ogre> ogres) {
+		
+		ArrayList<MoveDirection> possibleDirections = new ArrayList<MoveDirection>();
+		
+		System.out.println("Ogre position: " + this.getX_pos() + " , " + this.getY_pos());
+		
+		// Analise 4 possible moves
+		if (!(positionHasWall(this.getX_pos() , this.getY_pos()-1 , walls) ||
+			  positionHasDoor(this.getX_pos() , this.getY_pos()-1 , doors) ||
+			  positionHasOgre(this.getX_pos() , this.getY_pos()-1 , ogres))) {
+			possibleDirections.add(MoveDirection.UP);
+		}
+		if (!(positionHasWall(this.getX_pos() , this.getY_pos()+1 , walls) ||
+			  positionHasDoor(this.getX_pos() , this.getY_pos()+1 , doors) ||
+			  positionHasOgre(this.getX_pos() , this.getY_pos()+1 , ogres))) {
+			possibleDirections.add(MoveDirection.DOWN);
+		}
+		if (!(positionHasWall(this.getX_pos()-1 , this.getY_pos() , walls) ||
+			  positionHasDoor(this.getX_pos()-1 , this.getY_pos() , doors) ||
+			  positionHasOgre(this.getX_pos()-1 , this.getY_pos() , ogres))) {
+			possibleDirections.add(MoveDirection.LEFT);
+		}
+		if (!(positionHasWall(this.getX_pos()+1 , this.getY_pos() , walls) ||
+			  positionHasDoor(this.getX_pos()+1 , this.getY_pos() , doors) ||
+			  positionHasOgre(this.getX_pos()+1 , this.getY_pos() , ogres))) {
+			possibleDirections.add(MoveDirection.RIGHT);
+		}
+		
+		System.out.println("Num of Club Moves: " + possibleDirections.size());
+		
+		return possibleDirections;
+	}
+	
+	private boolean positionHasOgre(int x , int y , ArrayList<Ogre> ogres) {
+		for (Ogre ogre : ogres) {
+			if (ogre.getX_pos() == x  &&  ogre.getY_pos() == y) {
 				return true;
 			}
 		}
 		
-		// No collision was found
+		// No ogre found it the position (x,y)
 		return false;
 	}
 	
-	
-	private boolean ogreCollidesWithDoors(int new_x_pos , int new_y_pos , ArrayList<Door> doors) {
-		for(Door d : doors) {
-			// Check if club collides with any of the closed doors
-			if (new_x_pos == d.getX_pos() &&
-				new_y_pos == d.getY_pos()) {
-				
+	private boolean positionHasWall(int x , int y , ArrayList<Wall> walls) {
+		for (Wall wall : walls) {
+			if (wall.getX_pos() == x  &&  wall.getY_pos() == y) {
 				return true;
 			}
 		}
 		
-		// No collision was found
-		return false;
-	}
-
-	
-	private boolean clubCollidesWithWalls(ArrayList<Wall> walls) {
-		for(Wall w : walls) {
-			// Check if club collides with any of the walls
-			if (club.collidesWith(w)) {
-				
-				return true;
-			}
-		}
-		
-		// No collision was found
+		// No wall found it the position (x,y)
 		return false;
 	}
 	
-	
-	private boolean clubCollidesWithDoors(ArrayList<Door> doors) {
-		for(Door d : doors) {
-			// Check if ogre collides with any of the closed doors
-			if (club.collidesWith(d)) {
-				
+	private boolean positionHasDoor(int x , int y , ArrayList<Door> doors) {
+		for (Door door : doors) {
+			if (door.getX_pos() == x  &&  door.getY_pos() == y) {
 				return true;
 			}
 		}
 		
-		// No collision was found
-		return false;
-	}
-	
-	
-	private boolean clubCollidesWithOgres(ArrayList<Ogre> ogres) {
-		for(Ogre o : ogres) {
-			// Check if club collides with any of the walls
-			if (club.collidesWith(o)) {
-				
-				return true;
-			}
-		}
-		
-		// No collision was found
+		// No door found it the position (x,y)
 		return false;
 	}
 	
@@ -219,25 +209,33 @@ public class Ogre extends GameObject {
 		case LEFT:
 			this.setX_pos(this.getX_pos() - 1);
 			break;
+		default:
+			return;
 		}		
 	}
 	
 	
-	private static MoveDirection getRandomMoveDirection() {
-		int randomDir = (int) Math.ceil(Math.random()*4);
-		
-		if (randomDir == 1) {
-			return MoveDirection.UP;
-		}
-		else if (randomDir == 2) {
-			return MoveDirection.DOWN;
-		}
-		else if (randomDir == 3) {
-			return MoveDirection.RIGHT;
-		}
-		else {
-			return MoveDirection.LEFT;
-		}
+	private void performClubSwing (MoveDirection dir) {
+		switch (dir) {
+		case UP:
+			club.setX_pos(this.getX_pos());
+			club.setY_pos(this.getY_pos() - 1);
+			break;
+		case DOWN:
+			club.setX_pos(this.getX_pos());
+			club.setY_pos(this.getY_pos() + 1);
+			break;
+		case RIGHT:
+			club.setX_pos(this.getX_pos() + 1);
+			club.setY_pos(this.getY_pos());
+			break;
+		case LEFT:
+			club.setX_pos(this.getX_pos() - 1);
+			club.setY_pos(this.getY_pos());
+			break;
+		default:
+			return;
+		}		
 	}
 
 }
