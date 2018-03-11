@@ -33,6 +33,8 @@ public abstract class Guard extends GameObject {
 		case LEFT:
 			this.setX_pos(this.getX_pos() - 1);
 			break;
+		default:
+			return;
 		}		
 	}
 
