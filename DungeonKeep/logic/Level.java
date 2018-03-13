@@ -133,17 +133,22 @@ public class Level {
 		}
 		
 		// Draw Key
-		if(key != null) {
-			symbols[key.getY_pos()][key.getX_pos()] = key.getIdSymbol();
-			
-			// If Key and Ogre or Club are colliding, draw a '$' colliding symbol instead of the key symbol
-			for (Ogre o : ogres) {
-				if (symbols[key.getY_pos()][key.getX_pos()] == o.getIdSymbol() || 
-					symbols[key.getY_pos()][key.getX_pos()] == o.getClub().getIdSymbol()) {
+		if(key != null) {			
+			// Check if square already has an ogre or club in it
+			if (!ogres.isEmpty()) {
+				Ogre ogre = ogres.get(0);
+				
+				if (symbols[key.getY_pos()][key.getX_pos()] == ogre.getIdSymbol() ||
+					symbols[key.getY_pos()][key.getX_pos()] == ogre.getClub().getIdSymbol()) {
 					
 					symbols[key.getY_pos()][key.getX_pos()] = '$';
-					break;
 				}
+				else {
+					symbols[key.getY_pos()][key.getX_pos()] = key.getIdSymbol();
+				}
+			}
+			else {
+				symbols[key.getY_pos()][key.getX_pos()] = key.getIdSymbol();
 			}
 		}
 		

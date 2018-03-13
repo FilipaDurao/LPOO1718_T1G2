@@ -12,7 +12,7 @@ public class Game {
 		
 		// Initialize the levels
 		levels = new ArrayList<Level>();
-		levels.add(initializeLevel1());
+		//levels.add(initializeLevel1());
 		levels.add(initializeLevel2());
 		
 		running = true;
@@ -147,10 +147,6 @@ public class Game {
 		// Initialize the ogres
 		ArrayList<Ogre> level2ogres = new ArrayList<Ogre>();
 		level2ogres.add(new Ogre(4,1));
-		
-		// Multi-Ogre testing
-		//level2ogres.add(new Ogre(4,3));
-		//level2ogres.add(new Ogre(1,1));
 		
 		// Initialize level itself
 		return new Level(
