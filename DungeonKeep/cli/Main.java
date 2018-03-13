@@ -2,6 +2,7 @@ package DungeonKeep.cli;
 import java.util.Scanner;
 
 import DungeonKeep.logic.Game;
+import DungeonKeep.logic.IStatus;
 
 public class Main {
 
@@ -25,15 +26,24 @@ public class Main {
 		System.out.println("Welcome to Dungeon Keep!\n");
 		
 		// Initialize the Game
-		Game dungeonKeep = new Game();
+		Game dungeonKeep = new Game(1 , "Rookie");
 		char keyPressed;
+		System.out.print(dungeonKeep.getGameMatrixString());	// Draw the game for the first time
 		
-		while(dungeonKeep.isRunning()) {
+		while(dungeonKeep.getStatus() == Game.Status.RUNNING) {
 			keyPressed = getUserInput();
 			
 			if (keyIsValid(keyPressed)) {
 				dungeonKeep.update(keyPressed);
+				System.out.print(dungeonKeep.getGameMatrixString());
 			}
+		}
+		
+		if (dungeonKeep.getStatus() == Game.Status.DEFEAT) {
+			System.out.println("\nYou lost the game ...");
+		}
+		else {
+			System.out.println("\nYou won the game!! :D");
 		}
 		
 		// Close the scanner

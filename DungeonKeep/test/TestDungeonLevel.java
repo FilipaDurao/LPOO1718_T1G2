@@ -94,7 +94,7 @@ public class TestDungeonLevel {
 		testLevel.update(Hero.MoveDirection.RIGHT);
 		assertEquals(2, hero.getX_pos());
 		assertEquals(1, hero.getY_pos());
-		assertTrue(testLevel.getStatus() == Level.LevelStatus.DEFEAT);
+		assertTrue(testLevel.getStatus() == Level.Status.DEFEAT);
 		
 		// Reset the level
 		testLevel = initializeTestLevel();
@@ -106,7 +106,7 @@ public class TestDungeonLevel {
 		testLevel.update(Hero.MoveDirection.RIGHT);
 		assertEquals(3, hero.getX_pos());
 		assertEquals(2, hero.getY_pos());
-		assertTrue(testLevel.getStatus() == Level.LevelStatus.DEFEAT);
+		assertTrue(testLevel.getStatus() == Level.Status.DEFEAT);
 	}
 	
 	@Test 
@@ -194,7 +194,7 @@ public class TestDungeonLevel {
 		testLevel.update(Hero.MoveDirection.LEFT);
 		assertEquals(0, hero.getX_pos());
 		assertEquals(3, hero.getY_pos());
-		assertTrue(testLevel.getStatus() == Level.LevelStatus.VICTORY);
+		assertTrue(testLevel.getStatus() == Level.Status.VICTORY);
 		
 		// Reset the level
 		testLevel = initializeTestLevel();
@@ -215,7 +215,7 @@ public class TestDungeonLevel {
 		testLevel.update(Hero.MoveDirection.LEFT);
 		assertEquals(0, hero.getX_pos());
 		assertEquals(2, hero.getY_pos());
-		assertTrue(testLevel.getStatus() == Level.LevelStatus.VICTORY);
+		assertTrue(testLevel.getStatus() == Level.Status.VICTORY);
 	}
 	
 }

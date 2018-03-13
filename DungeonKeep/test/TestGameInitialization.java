@@ -11,7 +11,7 @@ public class TestGameInitialization {
 
 	@Test
 	public void testGameInitialization() {
-		Game game = new Game();
+		Game game = new Game(1,"Rookie");
 		
 		// Verify if the correct levels were created
 		ArrayList<Level> gameLevels = game.getLevels();
@@ -22,10 +22,10 @@ public class TestGameInitialization {
 	
 	@Test
 	public void testGameMethods() {
-		Game game = new Game();
+		Game game = new Game(2,"Suspicious");
 		
 		// Confirm the game is running
-		assertTrue(game.isRunning());
+		assertTrue(game.getStatus() == Game.Status.RUNNING);
 		
 		// Test parsing key pressed by the user
 		assertEquals(Game.parseKeyPressed('W') , Hero.MoveDirection.UP);

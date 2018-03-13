@@ -2,9 +2,7 @@ package DungeonKeep.logic;
 import java.util.Arrays;
 import java.util.ArrayList;
 
-public class Level {
-	
-	public enum LevelStatus { RUNNING , DEFEAT , VICTORY }
+public class Level implements IStatus {
 
 	private int ID;
 	private Hero hero;
@@ -16,7 +14,7 @@ public class Level {
 	private Key key;
 	private int width;
 	private int heigth;
-	private LevelStatus status = LevelStatus.RUNNING;
+	private Status status = Status.RUNNING;
 	
 	public Level(
 			int ID,
@@ -47,7 +45,7 @@ public class Level {
 		return ID;
 	}
 	
-	public LevelStatus getStatus() {
+	public Status getStatus() {
 		return status;
 	}
 
@@ -95,7 +93,7 @@ public class Level {
 		return key;
 	}
 
-	public void draw() {
+	public String getGameMatrix() {
 		char[][] symbols = new char[heigth][width];
 		
 		// Initialize matrix with spaces
@@ -152,14 +150,16 @@ public class Level {
 			}
 		}
 		
-		//Print the matrix to the screen
+		// Parse the matrix to a string
+		String gameMatrixString = "";
 		for(char[] row : symbols) {
-			System.out.println();
 			for(char c : row) {
-				System.out.print(c);
-				System.out.print(' ');
+				gameMatrixString += Character.toString(c) + " ";
 			}
+			gameMatrixString += "\n";
 		}		
+		
+		return gameMatrixString;
 	}
 	
 	
@@ -192,7 +192,7 @@ public class Level {
 		// Check for proximity with guards
 		for(Guard g : guards) {
 			if(heroIsNearGuard(g)) {
-				status = LevelStatus.DEFEAT;
+				status = Status.DEFEAT;
 				return;
 			}
 		}
@@ -200,14 +200,14 @@ public class Level {
 		// Check for proximity with ogres / ogres' club
 		for(Ogre o : ogres) {
 			if(heroIsNearOgre(o) || heroIsNearOgreClub(o)) {
-				status = LevelStatus.DEFEAT;
+				status = Status.DEFEAT;
 				return;
 			}
 		}
 		
 		// Check with collision with open door
 		if(heroCollidesWithOpenDoor()) {
-			status = LevelStatus.VICTORY;
+			status = Status.VICTORY;
 		}
 	}
 	

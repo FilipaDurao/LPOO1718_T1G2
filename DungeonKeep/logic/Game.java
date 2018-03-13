@@ -1,36 +1,36 @@
 package DungeonKeep.logic;
 import java.util.ArrayList;
 
-public class Game {
+public class Game implements IStatus {
 	
-	private boolean running;
 	private ArrayList<Level> levels;
 	private int currentLevelIndex;
+	private Status status = Status.RUNNING;
 	
-	public Game() {
+	public Game(int numOgres , String guardPersonality) {
 		super();
 		
 		// Initialize the levels
 		levels = new ArrayList<Level>();
-		//levels.add(initializeLevel1());
-		levels.add(initializeLevel2());
+		levels.add(initializeDungeonLevel(guardPersonality));
+		levels.add(initializeKeepLevel(numOgres));
 		
-		running = true;
 		currentLevelIndex = 0;
-		
-		// Print the first level the first time
-		drawLevel();
 	}
 	
-	public boolean isRunning() {
-		return running;
+	public Status getStatus() {
+		return status;
 	}
 	
 	public ArrayList<Level> getLevels() {
 		return levels; 
 	}
 	
-	private static Level initializeLevel1() {
+	public String getGameMatrixString() {
+		return levels.get(currentLevelIndex).getGameMatrix();
+	}
+	
+	private static Level initializeDungeonLevel(String guardPersonality) {
 		ArrayList<Wall> level1walls = new ArrayList<Wall>();
 		ArrayList<Door> level1doors = new ArrayList<Door>();
 		
@@ -106,7 +106,18 @@ public class Game {
 		guardMoves.add(Guard.MoveDirection.UP);
 		guardMoves.add(Guard.MoveDirection.UP);
 		guardMoves.add(Guard.MoveDirection.UP);
-		level1guards.add(new RookieGuard(8, 1, guardMoves));
+		
+		switch(guardPersonality) {
+		case "Rookie":
+			level1guards.add(new RookieGuard(8, 1, guardMoves));
+			break;
+		case "Drunken":
+			level1guards.add(new DrunkenGuard(8, 1, guardMoves));
+			break;
+		case "Suspicious":
+			level1guards.add(new SuspiciousGuard(8, 1, guardMoves));
+			break;	
+		}
 		
 		
 		// Initialize level itself
@@ -123,7 +134,7 @@ public class Game {
 				10);
 	}
 	
-	private static Level initializeLevel2() {
+	private static Level initializeKeepLevel(int numOgres) {
 		ArrayList<Wall> level2walls = new ArrayList<Wall>();
 		ArrayList<Door> level2doors = new ArrayList<Door>();
 		
@@ -146,7 +157,9 @@ public class Game {
 		
 		// Initialize the ogres
 		ArrayList<Ogre> level2ogres = new ArrayList<Ogre>();
-		level2ogres.add(new Ogre(4,1));
+		for (int i=0 ; i<numOgres ; i++) {
+			level2ogres.add(new Ogre(4,1));
+		}
 		
 		// Initialize level itself
 		return new Level(
@@ -180,12 +193,7 @@ public class Game {
 		default:
 			return Hero.MoveDirection.INVALID;
 		}
-	}
-	
-	private void drawLevel() {
-		levels.get(currentLevelIndex).draw();
-	}
-	
+	}	
 	
 	public void update(char keyPressed) {
 		// Check if the key is relevant
@@ -193,30 +201,22 @@ public class Game {
 		
 		// Update the level
 		levels.get(currentLevelIndex).update(dir);
-		drawLevel();
 		
 		// Check if level ended
-		Level.LevelStatus levelStatus = levels.get(currentLevelIndex).getStatus();
+		Level.Status levelStatus = levels.get(currentLevelIndex).getStatus();
 		
-		if (levelStatus == Level.LevelStatus.DEFEAT) {
+		if (levelStatus == Status.DEFEAT) {
 			// Game Over
-			System.out.println("\n\nYou lost...");
-			running = false;
-			return;
+			this.status = Status.DEFEAT;
 		}
-		else if (levelStatus == Level.LevelStatus.VICTORY) {
+		else if (levelStatus == Status.VICTORY) {
 			// Advance to next level
-			System.out.println("\n\nLevel Completed!\n");
-			currentLevelIndex++;
-			
-			// Check if all levels are complete
-			if (currentLevelIndex >= levels.size()) {
-				System.out.println("\n\nVictory! You win!\n");
-				running = false;
+			if (currentLevelIndex != levels.size()-1) {
+				currentLevelIndex++;
 			}
+			// Last level completed!
 			else {
-				// Draw the new level for the player
-				drawLevel();
+				this.status = Status.VICTORY;
 			}
 		}
 		

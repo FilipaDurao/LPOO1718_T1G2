@@ -67,7 +67,7 @@ public class TestKeepLevel {
 		testLevel.update(Hero.MoveDirection.RIGHT);
 		assertEquals(4, hero.getX_pos());
 		assertEquals(1, hero.getY_pos());
-		assertTrue(testLevel.getStatus() == Level.LevelStatus.DEFEAT);
+		assertTrue(testLevel.getStatus() == Level.Status.DEFEAT);
 		
 		// Reset the level
 		testLevel = initializeTestLevel();
@@ -84,7 +84,7 @@ public class TestKeepLevel {
 		testLevel.update(Hero.MoveDirection.RIGHT);
 		assertEquals(5, hero.getX_pos());
 		assertEquals(2, hero.getY_pos());
-		assertTrue(testLevel.getStatus() == Level.LevelStatus.DEFEAT);
+		assertTrue(testLevel.getStatus() == Level.Status.DEFEAT);
 	}
 	
 	@Test
@@ -230,7 +230,7 @@ public class TestKeepLevel {
 		testLevel.update(Hero.MoveDirection.DOWN);
 		assertEquals(3, hero.getX_pos());
 		assertEquals(6, hero.getY_pos());
-		assertTrue(testLevel.getStatus() == Level.LevelStatus.VICTORY);
+		assertTrue(testLevel.getStatus() == Level.Status.VICTORY);
 	}
 	
 	@Test

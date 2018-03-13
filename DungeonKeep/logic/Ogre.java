@@ -122,8 +122,6 @@ public class Ogre extends GameObject implements Movable {
 			possibleDirections.add(MoveDirection.RIGHT);
 		}
 		
-		System.out.println("\nNum of Ogre Moves: " + possibleDirections.size());
-		
 		return possibleDirections;
 	}
 	
@@ -131,8 +129,6 @@ public class Ogre extends GameObject implements Movable {
 			ArrayList<Door> doors , ArrayList<Ogre> ogres) {
 		
 		ArrayList<MoveDirection> possibleDirections = new ArrayList<MoveDirection>();
-		
-		System.out.println("Ogre position: " + this.getX_pos() + " , " + this.getY_pos());
 		
 		// Analise 4 possible moves
 		if (!(positionHasWall(this.getX_pos() , this.getY_pos()-1 , walls) ||
@@ -155,8 +151,6 @@ public class Ogre extends GameObject implements Movable {
 			  positionHasOgre(this.getX_pos()+1 , this.getY_pos() , ogres))) {
 			possibleDirections.add(MoveDirection.RIGHT);
 		}
-		
-		System.out.println("Num of Club Moves: " + possibleDirections.size());
 		
 		return possibleDirections;
 	}
