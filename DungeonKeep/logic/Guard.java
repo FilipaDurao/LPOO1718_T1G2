@@ -1,7 +1,7 @@
 package DungeonKeep.logic;
 import java.util.ArrayList;
 
-public abstract class Guard extends GameObject {
+public abstract class Guard extends GameObject implements Movable {
 	
 	protected final char idSymbol = 'G';
 	protected ArrayList<MoveDirection> path;

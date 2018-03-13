@@ -1,7 +1,7 @@
 package DungeonKeep.logic;
 import java.util.ArrayList;
 
-public class Ogre extends GameObject {
+public class Ogre extends GameObject implements Movable {
 	
 	private final char regularSymbol = '0';
 	private final char stunnedSymbol = '8';
@@ -50,7 +50,7 @@ public class Ogre extends GameObject {
 	}
 	
 	
-	public void move(ArrayList<Wall> walls , ArrayList<Door> doors , ArrayList<Ogre> ogres) {
+	public void update(ArrayList<Wall> walls , ArrayList<Door> doors , ArrayList<Ogre> ogres) {
 		// Check if the Ogre is disabled
 		if (this.disabled) {
 			return;
@@ -76,7 +76,7 @@ public class Ogre extends GameObject {
 			MoveDirection dir = possibleMoveDirections.get( 
 					(int) Math.floor(Math.random()*possibleMoveDirections.size()) );
 			
-			step(dir);
+			move(dir);
 		}
 		
 		// Swing the club
@@ -195,7 +195,7 @@ public class Ogre extends GameObject {
 	}
 	
 	
-	private void step (MoveDirection dir) {
+	public void move (MoveDirection dir) {
 		switch (dir) {
 		case UP:
 			this.setY_pos(this.getY_pos() - 1);

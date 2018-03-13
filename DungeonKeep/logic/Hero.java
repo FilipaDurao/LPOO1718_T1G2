@@ -1,7 +1,7 @@
 package DungeonKeep.logic;
 import java.util.ArrayList;
 
-public class Hero extends GameObject {
+public class Hero extends GameObject implements Movable {
 	
 	private final char standartHeroSymbol = 'H';
 	private final char heroWithKeySymbol = 'K';
@@ -48,7 +48,7 @@ public class Hero extends GameObject {
 	}
 	
 	
-	public void move(MoveDirection dir , ArrayList<Wall> walls , ArrayList<Door> doors , ArrayList<Ogre> ogres) {
+	public void update(MoveDirection dir , ArrayList<Wall> walls , ArrayList<Door> doors , ArrayList<Ogre> ogres) {
 		int new_x_pos = this.getX_pos();
 		int new_y_pos = this.getY_pos();
 		
@@ -74,7 +74,7 @@ public class Hero extends GameObject {
 			!heroCollidesWithDoors(new_x_pos , new_y_pos , doors) &&
 			!heroCollidesWithOgres(new_x_pos , new_y_pos , ogres)) {
 			
-			step(dir);
+			move(dir);
 		}
 	}
 	
@@ -129,7 +129,7 @@ public class Hero extends GameObject {
 	}
 	
 	
-	private void step (MoveDirection dir) {
+	public void move (MoveDirection dir) {
 		switch (dir) {
 		case UP:
 			this.setY_pos(this.getY_pos() - 1);

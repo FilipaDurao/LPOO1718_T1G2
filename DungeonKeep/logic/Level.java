@@ -167,11 +167,11 @@ public class Level {
 		
 		// Move the Ogres
 		for(Ogre o : ogres) {
-			o.move(walls , doors , ogres);
+			o.update(walls , doors , ogres);
 		}
 		
 		// Move the Hero
-		hero.move(heroDirection, walls, doors, ogres);
+		hero.update(heroDirection, walls, doors, ogres);
 		
 		// Check for collision with lever (if existent)
 		if(lever != null && hero.collidesWith(lever)) {

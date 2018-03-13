@@ -110,7 +110,7 @@ public class TestOgreRandomMovement {
 			}
 			
 			// Actually move the ogre
-			ogre.move(walls, doors, ogres);
+			ogre.update(walls, doors, ogres);
 			
 			// Check if the position was valid
 			for (Position p : freePositions) {
