@@ -9,7 +9,7 @@ import DungeonKeep.logic.*;
 
 public class TestDungeonLevel {
 
-	private static Level initializeTestLevel() {
+	private static DungeonLevel initializeTestDungeonLevel() {
 		
 		// Initialize Walls
 		ArrayList<Wall> walls = new ArrayList<Wall>();
@@ -31,82 +31,79 @@ public class TestDungeonLevel {
 		doors.add(new Door(0, 3, true));
 		
 		// Initialize Guard
-		ArrayList<Guard> guards = new ArrayList<Guard>();
-		guards.add(new RookieGuard(3, 1, new ArrayList<GameObject.MoveDirection>()));
+		Guard guard = new RookieGuard(3, 1, new ArrayList<GameObject.MoveDirection>());
 		
-		// Initialize Level itself
-		Level level = new Level(
+		// Initialize DungeonLevel itself
+		DungeonLevel DungeonLevel = new DungeonLevel(
 				0,
 				new Hero(1, 1, false),
 				walls,
 				doors,
-				guards,
-				new ArrayList<Ogre>(),	// No ogres
+				guard,
 				new Lever(3, 3),
-				null,					// No key
 				5,
 				5);
 		
-		return level;
+		return DungeonLevel;
 	}
 		
 	@Test
 	public void testMoveHeroIntoFreeCell() {	
-		Level testLevel = initializeTestLevel();
-		Hero hero = testLevel.getHero();
+		DungeonLevel testDungeonLevel = initializeTestDungeonLevel();
+		Hero hero = testDungeonLevel.getHero();
 
 		// Test if hero begins in position (1, 1)
 		assertEquals(1, hero.getX_pos());
 		assertEquals(1, hero.getY_pos());		
 		
 		// Move hero down successfully
-		testLevel.update(Hero.MoveDirection.DOWN);
+		testDungeonLevel.update(Hero.MoveDirection.DOWN);
 		assertEquals(1, hero.getX_pos());
 		assertEquals(2, hero.getY_pos());
 	}
 		
 	@Test
 	public void testMoveHeroIntoWall() {	
-		Level testLevel = initializeTestLevel();
-		Hero hero = testLevel.getHero();
+		DungeonLevel testDungeonLevel = initializeTestDungeonLevel();
+		Hero hero = testDungeonLevel.getHero();
 
 		// Test if hero begins in position (1, 1)
 		assertEquals(1, hero.getX_pos());
 		assertEquals(1, hero.getY_pos());
 		
 		// Try to move hero up
-		testLevel.update(Hero.MoveDirection.UP);
+		testDungeonLevel.update(Hero.MoveDirection.UP);
 		assertEquals(1, hero.getX_pos());
 		assertEquals(1, hero.getY_pos());
 		
 		// Try to move hero left
-		testLevel.update(Hero.MoveDirection.LEFT);
+		testDungeonLevel.update(Hero.MoveDirection.LEFT);
 		assertEquals(1, hero.getX_pos());
 		assertEquals(1, hero.getY_pos());
 	}
 	
 	@Test
 	public void testMoveHeroNextToGuard() {	
-		Level testLevel = initializeTestLevel();
-		Hero hero = testLevel.getHero();
+		DungeonLevel testDungeonLevel = initializeTestDungeonLevel();
+		Hero hero = testDungeonLevel.getHero();
 		
 		// Move hero to the right
-		testLevel.update(Hero.MoveDirection.RIGHT);
+		testDungeonLevel.update(Hero.MoveDirection.RIGHT);
 		assertEquals(2, hero.getX_pos());
 		assertEquals(1, hero.getY_pos());
-		assertTrue(testLevel.getStatus() == Level.Status.DEFEAT);
+		assertTrue(testDungeonLevel.getStatus() == DungeonLevel.Status.DEFEAT);
 		
-		// Reset the level
-		testLevel = initializeTestLevel();
-		hero = testLevel.getHero();
+		// Reset the DungeonLevel
+		testDungeonLevel = initializeTestDungeonLevel();
+		hero = testDungeonLevel.getHero();
 
 		// Move hero down -> right -> right
-		testLevel.update(Hero.MoveDirection.DOWN);
-		testLevel.update(Hero.MoveDirection.RIGHT);
-		testLevel.update(Hero.MoveDirection.RIGHT);
+		testDungeonLevel.update(Hero.MoveDirection.DOWN);
+		testDungeonLevel.update(Hero.MoveDirection.RIGHT);
+		testDungeonLevel.update(Hero.MoveDirection.RIGHT);
 		assertEquals(3, hero.getX_pos());
 		assertEquals(2, hero.getY_pos());
-		assertTrue(testLevel.getStatus() == Level.Status.DEFEAT);
+		assertTrue(testDungeonLevel.getStatus() == DungeonLevel.Status.DEFEAT);
 	}
 	
 	@Test 
@@ -130,45 +127,45 @@ public class TestDungeonLevel {
 	
 	@Test
 	public void testMoveHeroIntoClosedDoors() {	
-		Level testLevel = initializeTestLevel();
-		Hero hero = testLevel.getHero();
+		DungeonLevel testDungeonLevel = initializeTestDungeonLevel();
+		Hero hero = testDungeonLevel.getHero();
 		
 		// Move hero down 
-		testLevel.update(Hero.MoveDirection.DOWN);
+		testDungeonLevel.update(Hero.MoveDirection.DOWN);
 		assertEquals(1, hero.getX_pos());
 		assertEquals(2, hero.getY_pos());
 		
 		// Try to walk into first closed door
-		testLevel.update(Hero.MoveDirection.LEFT);
+		testDungeonLevel.update(Hero.MoveDirection.LEFT);
 		assertEquals(1, hero.getX_pos());
 		assertEquals(2, hero.getY_pos());
 		
 		// Move hero down
-		testLevel.update(Hero.MoveDirection.DOWN);
+		testDungeonLevel.update(Hero.MoveDirection.DOWN);
 		assertEquals(1, hero.getX_pos());
 		assertEquals(3, hero.getY_pos());
 		
 		// Try to walk into second closed door
-		testLevel.update(Hero.MoveDirection.LEFT);
+		testDungeonLevel.update(Hero.MoveDirection.LEFT);
 		assertEquals(1, hero.getX_pos());
 		assertEquals(3, hero.getY_pos());	
 	}
 	
 	@Test
 	public void testMoveHeroIntoLeverAndOpenDoors() {	
-		Level testLevel = initializeTestLevel();
-		Hero hero = testLevel.getHero();
+		DungeonLevel testDungeonLevel = initializeTestDungeonLevel();
+		Hero hero = testDungeonLevel.getHero();
 		
 		// Move hero down -> down -> right -> right
-		testLevel.update(Hero.MoveDirection.DOWN);
-		testLevel.update(Hero.MoveDirection.DOWN);
-		testLevel.update(Hero.MoveDirection.RIGHT);
-		testLevel.update(Hero.MoveDirection.RIGHT);
+		testDungeonLevel.update(Hero.MoveDirection.DOWN);
+		testDungeonLevel.update(Hero.MoveDirection.DOWN);
+		testDungeonLevel.update(Hero.MoveDirection.RIGHT);
+		testDungeonLevel.update(Hero.MoveDirection.RIGHT);
 		assertEquals(3, hero.getX_pos());
 		assertEquals(3, hero.getY_pos());
 		
 		// Test if the exit doors are open
-		for(Door d : testLevel.getDoors()) {
+		for(Door d : testDungeonLevel.getDoors()) {
 			if(d.isExit()) {
 				assertTrue(d.isOpen());
 			}
@@ -177,45 +174,45 @@ public class TestDungeonLevel {
 	
 	@Test
 	public void testMoveHeroIntoOpenDoors() {	
-		Level testLevel = initializeTestLevel();
-		Hero hero = testLevel.getHero();
+		DungeonLevel testDungeonLevel = initializeTestDungeonLevel();
+		Hero hero = testDungeonLevel.getHero();
 		
 		// Move hero down -> down -> right -> right (to the lever)
-		testLevel.update(Hero.MoveDirection.DOWN);
-		testLevel.update(Hero.MoveDirection.DOWN);
-		testLevel.update(Hero.MoveDirection.RIGHT);
-		testLevel.update(Hero.MoveDirection.RIGHT);
+		testDungeonLevel.update(Hero.MoveDirection.DOWN);
+		testDungeonLevel.update(Hero.MoveDirection.DOWN);
+		testDungeonLevel.update(Hero.MoveDirection.RIGHT);
+		testDungeonLevel.update(Hero.MoveDirection.RIGHT);
 		assertEquals(3, hero.getX_pos());
 		assertEquals(3, hero.getY_pos());
 		
 		// Move into the "southest" door
-		testLevel.update(Hero.MoveDirection.LEFT);
-		testLevel.update(Hero.MoveDirection.LEFT);
-		testLevel.update(Hero.MoveDirection.LEFT);
+		testDungeonLevel.update(Hero.MoveDirection.LEFT);
+		testDungeonLevel.update(Hero.MoveDirection.LEFT);
+		testDungeonLevel.update(Hero.MoveDirection.LEFT);
 		assertEquals(0, hero.getX_pos());
 		assertEquals(3, hero.getY_pos());
-		assertTrue(testLevel.getStatus() == Level.Status.VICTORY);
+		assertTrue(testDungeonLevel.getStatus() == DungeonLevel.Status.VICTORY);
 		
-		// Reset the level
-		testLevel = initializeTestLevel();
-		hero = testLevel.getHero();
+		// Reset the DungeonLevel
+		testDungeonLevel = initializeTestDungeonLevel();
+		hero = testDungeonLevel.getHero();
 		
 		// Move hero down -> down -> right -> right (to the lever)
-		testLevel.update(Hero.MoveDirection.DOWN);
-		testLevel.update(Hero.MoveDirection.DOWN);
-		testLevel.update(Hero.MoveDirection.RIGHT);
-		testLevel.update(Hero.MoveDirection.RIGHT);
+		testDungeonLevel.update(Hero.MoveDirection.DOWN);
+		testDungeonLevel.update(Hero.MoveDirection.DOWN);
+		testDungeonLevel.update(Hero.MoveDirection.RIGHT);
+		testDungeonLevel.update(Hero.MoveDirection.RIGHT);
 		assertEquals(3, hero.getX_pos());
 		assertEquals(3, hero.getY_pos());
 		
 		// Move into the "northest" door
-		testLevel.update(Hero.MoveDirection.LEFT);
-		testLevel.update(Hero.MoveDirection.LEFT);
-		testLevel.update(Hero.MoveDirection.UP);
-		testLevel.update(Hero.MoveDirection.LEFT);
+		testDungeonLevel.update(Hero.MoveDirection.LEFT);
+		testDungeonLevel.update(Hero.MoveDirection.LEFT);
+		testDungeonLevel.update(Hero.MoveDirection.UP);
+		testDungeonLevel.update(Hero.MoveDirection.LEFT);
 		assertEquals(0, hero.getX_pos());
 		assertEquals(2, hero.getY_pos());
-		assertTrue(testLevel.getStatus() == Level.Status.VICTORY);
+		assertTrue(testDungeonLevel.getStatus() == DungeonLevel.Status.VICTORY);
 	}
 	
 }
