@@ -2,7 +2,6 @@ package DungeonKeep.cli;
 import java.util.Scanner;
 
 import DungeonKeep.logic.Game;
-import DungeonKeep.logic.IStatus;
 
 public class Main {
 

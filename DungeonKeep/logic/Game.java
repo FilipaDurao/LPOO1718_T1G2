@@ -12,7 +12,7 @@ public class Game implements IStatus {
 		
 		// Initialize the levels
 		levels = new ArrayList<Level>();
-		//levels.add(initializeDungeonLevel(guardPersonality));
+		levels.add(initializeDungeonLevel(guardPersonality));
 		levels.add(initializeKeepLevel(numOgres));
 		
 		currentLevelIndex = 0;

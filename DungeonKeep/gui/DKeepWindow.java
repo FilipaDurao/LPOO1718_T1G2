@@ -118,7 +118,7 @@ public class DKeepWindow {
 		DKeep.getContentPane().add(guardPersonalityLabel);
 		
 		String[] guardPersonalities = {"Rookie" , "Drunken" , "Suspicious"};
-		JComboBox guardPersonalitiesComboBox = new JComboBox(guardPersonalities);
+		JComboBox<String> guardPersonalitiesComboBox = new JComboBox<String>(guardPersonalities);
 		guardPersonalitiesComboBox.setBackground(Color.WHITE);
 		guardPersonalitiesComboBox.setBounds(179, 70, 158, 24);
 		DKeep.getContentPane().add(guardPersonalitiesComboBox);
