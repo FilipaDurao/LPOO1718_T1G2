@@ -25,7 +25,7 @@ public class DungeonLevel extends Level {
 		this.lever = lever;
 	}
 	
-	public Guard getGuards() { 
+	public Guard getGuard() { 
 		return guard;
 	}
 

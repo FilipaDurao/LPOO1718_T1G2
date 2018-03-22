@@ -1,5 +1,9 @@
 package DungeonKeep.logic;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 public class Ogre extends GameObject implements Movable {
 	
@@ -9,10 +13,17 @@ public class Ogre extends GameObject implements Movable {
 	private boolean isStunned = false;
 	private boolean disabled = false;
 	private int stunnedTimer = 0;
-	
+
 	
 	public Ogre(int x_pos, int y_pos) {
 		super(x_pos, y_pos);
+		
+		try {
+			sprite = ImageIO.read(new File("/home/rui/FEUP/LPOO1718_T1G2/Images/ogre.png"));
+		} 
+		catch (IOException e) {
+            e.printStackTrace();
+		}
 	}
 	
 	

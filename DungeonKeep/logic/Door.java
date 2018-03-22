@@ -1,5 +1,10 @@
 package DungeonKeep.logic;
 
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
 public class Door extends GameObject {
 	
 	private final char closedSymbol = 'I';
@@ -10,6 +15,13 @@ public class Door extends GameObject {
 	public Door(int x_pos, int y_pos, boolean isExit) {
 		super(x_pos, y_pos);
 		this.isExit = isExit;
+		
+		try {
+			sprite = ImageIO.read(new File("/home/rui/FEUP/LPOO1718_T1G2/Images/door.png"));
+		} 
+		catch (IOException e) {
+            e.printStackTrace();
+		}
 	}
 	
 	public void close() {

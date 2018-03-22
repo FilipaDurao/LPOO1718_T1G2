@@ -30,6 +30,10 @@ public class Game implements IStatus {
 		return levels.get(currentLevelIndex).getGameMatrix();
 	}
 	
+	public Level getCurrentLevel() {
+		return levels.get(currentLevelIndex);
+	}
+	
 	private static DungeonLevel initializeDungeonLevel(String guardPersonality) {
 		ArrayList<Wall> walls = new ArrayList<Wall>();
 		ArrayList<Door> doors = new ArrayList<Door>();

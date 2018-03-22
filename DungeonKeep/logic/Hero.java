@@ -1,5 +1,10 @@
 package DungeonKeep.logic;
+
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 public class Hero extends GameObject implements Movable {
 	
@@ -12,6 +17,13 @@ public class Hero extends GameObject implements Movable {
 	public Hero(int x_pos, int y_pos, boolean hasClub) {
 		super(x_pos, y_pos);
 		this.hasClub = hasClub;
+		
+		try {
+			sprite = ImageIO.read(new File("/home/rui/FEUP/LPOO1718_T1G2/Images/hero.png"));
+		} 
+		catch (IOException e) {
+            e.printStackTrace();
+		}
 	}
 	
 	@Override

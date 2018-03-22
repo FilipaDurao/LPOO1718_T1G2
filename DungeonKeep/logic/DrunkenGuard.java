@@ -1,6 +1,10 @@
 package DungeonKeep.logic;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 public class DrunkenGuard extends Guard {
 	
@@ -10,9 +14,16 @@ public class DrunkenGuard extends Guard {
 	private final double fallAsleepProbability = 0.15;	// 15%
 	private boolean isMovingForward = true;
 	private boolean isAsleep = false;
-
+	
 	public DrunkenGuard(int x_pos, int y_pos, ArrayList<MoveDirection> path) {
 		super(x_pos, y_pos, path);
+		
+		try {
+			sprite = ImageIO.read(new File("/home/rui/FEUP/LPOO1718_T1G2/Images/drunkenGuard.png"));
+		} 
+		catch (IOException e) {
+            e.printStackTrace();
+		}
 	}
 	
 	public boolean isMovingForward() {
@@ -88,7 +99,5 @@ public class DrunkenGuard extends Guard {
 			move(getOppositeMoveDirection(path.get(pathStep)));
 		}
 	}
-	
-	
 
 }

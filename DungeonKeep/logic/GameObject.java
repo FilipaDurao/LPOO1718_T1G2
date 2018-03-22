@@ -1,10 +1,14 @@
 package DungeonKeep.logic;
-public abstract class GameObject {
+
+import java.awt.image.BufferedImage;
+
+public abstract class GameObject implements Drawable {
 
 	public enum MoveDirection {UP, DOWN, RIGHT, LEFT, INVALID}
 	
 	private int x_pos;
 	private int y_pos;
+	protected BufferedImage sprite;
 	
 	public GameObject(int x_pos, int y_pos) {
 		super();
@@ -56,5 +60,9 @@ public abstract class GameObject {
 	}
 	
 	public abstract char getIdSymbol();
+	
+	public BufferedImage getSprite() {
+		return sprite;
+	}
 	
 }

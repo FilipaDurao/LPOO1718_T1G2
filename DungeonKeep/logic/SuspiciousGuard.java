@@ -1,6 +1,10 @@
 package DungeonKeep.logic;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 public class SuspiciousGuard extends Guard {
 	
@@ -10,6 +14,13 @@ public class SuspiciousGuard extends Guard {
 	
 	public SuspiciousGuard(int x_pos, int y_pos, ArrayList<MoveDirection> path) {
 		super(x_pos, y_pos, path);
+		
+		try {
+			sprite = ImageIO.read(new File("/home/rui/FEUP/LPOO1718_T1G2/Images/suspiciousGuard.png"));
+		} 
+		catch (IOException e) {
+            e.printStackTrace();
+		}
 	}
 	
 	

@@ -1,11 +1,23 @@
 package DungeonKeep.logic;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
+
 public class RookieGuard extends Guard {
+	
 
 	public RookieGuard(int x_pos, int y_pos, ArrayList<MoveDirection> path) {
 		super(x_pos, y_pos, path);
+		
+		try {
+			sprite = ImageIO.read(new File("/home/rui/FEUP/LPOO1718_T1G2/Images/rookieGuard.png"));
+		} 
+		catch (IOException e) {
+            e.printStackTrace();
+		}
 	}
 	
 	@Override
