@@ -7,12 +7,15 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
+
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+
 import javax.swing.JButton;
-import javax.swing.JTextArea;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -20,7 +23,7 @@ public class DKeepWindow {
 
 	private JFrame DKeep;
 	private JTextField numOgresTextField;
-	JTextArea consoleArea;
+	DKeepScreen gameScreen;
 	JLabel gameStatusLabel;
 	JButton downButton;
 	JButton upButton;
@@ -55,7 +58,7 @@ public class DKeepWindow {
 	 * Draw the game.
 	 */
 	public void drawGame() {
-		consoleArea.setText(game.getGameMatrixString());
+		gameScreen.repaint();
 	}
 	
 	public void enablePlayButtons() {
@@ -100,7 +103,8 @@ public class DKeepWindow {
 	 */
 	private void initialize() {
 		DKeep = new JFrame();
-		DKeep.setBounds(100, 100, 720, 550);
+		DKeep.setBounds(100, 100, 920, 840);
+		DKeep.setPreferredSize(new Dimension(920 , 840));
 		DKeep.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		DKeep.getContentPane().setLayout(null);
 		
@@ -124,7 +128,7 @@ public class DKeepWindow {
 		DKeep.getContentPane().add(guardPersonalitiesComboBox);
 		
 		gameStatusLabel = new JLabel("You can start a new game.");
-		gameStatusLabel.setBounds(29, 475, 443, 15);
+		gameStatusLabel.setBounds(30, 745, 443, 15);
 		DKeep.getContentPane().add(gameStatusLabel);
 		
 		upButton = new JButton("Up");
@@ -136,7 +140,7 @@ public class DKeepWindow {
 		});
 		upButton.setBackground(Color.WHITE);
 		upButton.setEnabled(false);
-		upButton.setBounds(548, 217, 83, 25);
+		upButton.setBounds(720, 217, 83, 25);
 		DKeep.getContentPane().add(upButton);
 		
 		leftButton = new JButton("Left");
@@ -148,7 +152,7 @@ public class DKeepWindow {
 		});
 		leftButton.setEnabled(false);
 		leftButton.setBackground(Color.WHITE);
-		leftButton.setBounds(494, 256, 83, 25);
+		leftButton.setBounds(665, 256, 83, 25);
 		DKeep.getContentPane().add(leftButton);
 		
 		downButton = new JButton("Down");
@@ -160,7 +164,7 @@ public class DKeepWindow {
 		});
 		downButton.setEnabled(false);
 		downButton.setBackground(Color.WHITE);
-		downButton.setBounds(548, 294, 83, 25);
+		downButton.setBounds(720, 294, 83, 25);
 		DKeep.getContentPane().add(downButton);
 		
 		rightButton = new JButton("Right");
@@ -172,7 +176,7 @@ public class DKeepWindow {
 		});
 		rightButton.setEnabled(false);
 		rightButton.setBackground(Color.WHITE);
-		rightButton.setBounds(600, 256, 83, 25);
+		rightButton.setBounds(770, 256, 83, 25);
 		DKeep.getContentPane().add(rightButton);
 		
 		JButton newGameButton = new JButton("New Game");
@@ -211,12 +215,13 @@ public class DKeepWindow {
 				updateGameStatusLabel("You can play now.");
 				
 				// Draw the game for the first time
+				gameScreen.setLevelToDraw(game.getCurrentLevel());
 				drawGame();
 			}
 			
 		});
 		newGameButton.setBackground(Color.WHITE);
-		newGameButton.setBounds(532, 120, 117, 25);
+		newGameButton.setBounds(702, 120, 117, 25);
 		DKeep.getContentPane().add(newGameButton);
 		
 		JButton exitButton = new JButton("Exit");
@@ -226,13 +231,16 @@ public class DKeepWindow {
 			}
 		});
 		exitButton.setBackground(Color.WHITE);
-		exitButton.setBounds(532, 429, 117, 25);
+		exitButton.setBounds(702, 429, 117, 25);
 		DKeep.getContentPane().add(exitButton);
 		
-		consoleArea = new JTextArea();
-		consoleArea.setFont(new Font("Courier New", Font.BOLD, 27));
-		consoleArea.setEditable(false);
-		consoleArea.setBounds(29, 125, 443, 329);
-		DKeep.getContentPane().add(consoleArea);
+		gameScreen = new DKeepScreen();
+		gameScreen.setBackground(Color.WHITE);
+		gameScreen.setBounds(20, 120, 600, 600);
+		gameScreen.setPreferredSize(new Dimension(600, 600));
+		DKeep.getContentPane().add(gameScreen);
+		DKeep.pack();
+		DKeep.setVisible(true);
+		
 	}
 }
