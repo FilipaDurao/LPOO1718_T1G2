@@ -3,16 +3,26 @@ package DungeonKeep.gui;
 import DungeonKeep.logic.Game;
 
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SpringLayout;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,7 +32,6 @@ import java.awt.event.KeyListener;
 public class DKeepWindow implements KeyListener {
 
 	private JFrame DKeep;
-	private JTextField numOgresTextField;
 	DKeepScreen gameScreen;
 	JLabel gameStatusLabel;
 	JButton downButton;
@@ -107,32 +116,31 @@ public class DKeepWindow implements KeyListener {
 	 */
 	private void initialize() {
 		DKeep = new JFrame();
-		DKeep.setBounds(100, 100, 920, 840);
-		DKeep.setPreferredSize(new Dimension(920 , 840));
+		DKeep.setBounds(100, 100, 900, 750);
+		DKeep.setPreferredSize(new Dimension(900 , 740));
 		DKeep.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		DKeep.getContentPane().setLayout(null);
 		
-		JLabel numOgresLabel = new JLabel("Number of Ogres");
-		numOgresLabel.setBounds(29, 31, 145, 15);
-		DKeep.getContentPane().add(numOgresLabel);
-		
-		numOgresTextField = new JTextField();
-		numOgresTextField.setBounds(179, 27, 48, 24);
-		DKeep.getContentPane().add(numOgresTextField);
+		JPanel ogreDataPanel = new JPanel();
+		JTextField numOgresTextField = new JTextField();
 		numOgresTextField.setColumns(10);
+		ogreDataPanel.add(new JLabel("Number of Ogres"));
+		ogreDataPanel.add(numOgresTextField);
 		
-		JLabel guardPersonalityLabel = new JLabel("Guard Personality");
-		guardPersonalityLabel.setBounds(29, 75, 158, 15);
-		DKeep.getContentPane().add(guardPersonalityLabel);
-		
+		JPanel guardDataPanel = new JPanel();
 		String[] guardPersonalities = {"Rookie" , "Drunken" , "Suspicious"};
 		JComboBox<String> guardPersonalitiesComboBox = new JComboBox<String>(guardPersonalities);
-		guardPersonalitiesComboBox.setBackground(Color.WHITE);
-		guardPersonalitiesComboBox.setBounds(179, 70, 158, 24);
-		DKeep.getContentPane().add(guardPersonalitiesComboBox);
+		guardPersonalitiesComboBox.setBackground(Color.WHITE);	
+		guardDataPanel.add(new JLabel("Guard Personality"));	
+		guardDataPanel.add(guardPersonalitiesComboBox);	
+		
+		JPanel levelDataPanel = new JPanel();
+		levelDataPanel.setLayout(new GridLayout(2,1));      
+		levelDataPanel.add(ogreDataPanel);
+		levelDataPanel.add(guardDataPanel);
 		
 		gameStatusLabel = new JLabel("You can start a new game.");
-		gameStatusLabel.setBounds(30, 745, 443, 15);
+		gameStatusLabel.setBounds(30, 655, 443, 15);
 		DKeep.getContentPane().add(gameStatusLabel);
 		
 		upButton = new JButton("Up");
@@ -144,7 +152,7 @@ public class DKeepWindow implements KeyListener {
 		});
 		upButton.setBackground(Color.WHITE);
 		upButton.setEnabled(false);
-		upButton.setBounds(720, 217, 83, 25);
+		upButton.setBounds(720, 127, 83, 25);
 		DKeep.getContentPane().add(upButton);
 		
 		leftButton = new JButton("Left");
@@ -156,7 +164,7 @@ public class DKeepWindow implements KeyListener {
 		});
 		leftButton.setEnabled(false);
 		leftButton.setBackground(Color.WHITE);
-		leftButton.setBounds(665, 256, 83, 25);
+		leftButton.setBounds(665, 166, 83, 25);
 		DKeep.getContentPane().add(leftButton);
 		
 		downButton = new JButton("Down");
@@ -168,7 +176,7 @@ public class DKeepWindow implements KeyListener {
 		});
 		downButton.setEnabled(false);
 		downButton.setBackground(Color.WHITE);
-		downButton.setBounds(720, 294, 83, 25);
+		downButton.setBounds(720, 204, 83, 25);
 		DKeep.getContentPane().add(downButton);
 		
 		rightButton = new JButton("Right");
@@ -180,13 +188,26 @@ public class DKeepWindow implements KeyListener {
 		});
 		rightButton.setEnabled(false);
 		rightButton.setBackground(Color.WHITE);
-		rightButton.setBounds(770, 256, 83, 25);
+		rightButton.setBounds(770, 166, 83, 25);
 		DKeep.getContentPane().add(rightButton);
 		
 		JButton newGameButton = new JButton("New Game");
 		newGameButton.addActionListener(new ActionListener() {
 			
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent arg0) {	
+				
+				int levelDataResult = JOptionPane.showConfirmDialog(
+						DKeep, 
+						levelDataPanel,
+						"Game Parameters", 
+			            JOptionPane.DEFAULT_OPTION,
+			            -1);
+				
+				if (levelDataResult != JOptionPane.OK_OPTION) {
+					gameScreen.requestFocusInWindow();
+					return;
+				}
+				
 				// Parse Inputs
 				String guardPersonality = (String) guardPersonalitiesComboBox.getSelectedItem();
 				int numOgres;
@@ -197,12 +218,14 @@ public class DKeepWindow implements KeyListener {
 				catch (Exception e) {
 					numOgresTextField.setText("");	// Clear text area
 					JOptionPane.showMessageDialog(DKeep, "Invalid number of Ogres.");
+					gameScreen.requestFocusInWindow();
 					return;
 				}
 				
 				if (numOgres <= 0 || numOgres > 5) {
 					numOgresTextField.setText("");	// Clear text area
 					JOptionPane.showMessageDialog(DKeep, "Invalid number of Ogres.");
+					gameScreen.requestFocusInWindow();
 					return;
 				}
 
@@ -226,7 +249,7 @@ public class DKeepWindow implements KeyListener {
 			
 		});
 		newGameButton.setBackground(Color.WHITE);
-		newGameButton.setBounds(702, 120, 117, 25);
+		newGameButton.setBounds(702, 30, 117, 25);
 		DKeep.getContentPane().add(newGameButton);
 		
 		JButton exitButton = new JButton("Exit");
@@ -236,12 +259,12 @@ public class DKeepWindow implements KeyListener {
 			}
 		});
 		exitButton.setBackground(Color.WHITE);
-		exitButton.setBounds(702, 429, 117, 25);
+		exitButton.setBounds(702, 301, 117, 25);
 		DKeep.getContentPane().add(exitButton);
 		
 		gameScreen = new DKeepScreen();
 		gameScreen.setBackground(Color.WHITE);
-		gameScreen.setBounds(20, 120, 600, 600);
+		gameScreen.setBounds(20, 30, 600, 600);
 		gameScreen.setPreferredSize(new Dimension(600, 600));
 		DKeep.getContentPane().add(gameScreen);
 		DKeep.pack();
