@@ -13,7 +13,7 @@ public class Lever extends GameObject {
 		super(x_pos, y_pos);
 		
 		try {
-			sprite = ImageIO.read(new File("/home/rui/FEUP/LPOO1718_T1G2/Images/lever.png"));
+			sprite = ImageIO.read(new File("./bin/Images/lever.png"));
 		} 
 		catch (IOException e) {
             e.printStackTrace();

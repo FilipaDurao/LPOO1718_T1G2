@@ -13,7 +13,7 @@ public class Club extends GameObject {
 		super(x_pos, y_pos);
 		
 		try {
-			sprite = ImageIO.read(new File("/home/rui/FEUP/LPOO1718_T1G2/Images/club.png"));
+			sprite = ImageIO.read(new File("./bin/Images/club.png"));
 		} 
 		catch (IOException e) {
             e.printStackTrace();

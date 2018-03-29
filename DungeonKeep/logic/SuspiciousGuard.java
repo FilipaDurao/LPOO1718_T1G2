@@ -16,7 +16,7 @@ public class SuspiciousGuard extends Guard {
 		super(x_pos, y_pos, path);
 		
 		try {
-			sprite = ImageIO.read(new File("/home/rui/FEUP/LPOO1718_T1G2/Images/suspiciousGuard.png"));
+			sprite = ImageIO.read(new File("./bin/Images/suspiciousGuard.png"));
 		} 
 		catch (IOException e) {
             e.printStackTrace();

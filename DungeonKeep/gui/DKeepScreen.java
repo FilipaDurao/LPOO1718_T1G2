@@ -32,7 +32,6 @@ public class DKeepScreen extends JPanel {
 	
 	@Override
 	public void paintComponent(Graphics g){ 
-		System.out.println("Here.");
 		super.paintComponent(g);
 		
 		// If no level is set, return
@@ -69,7 +68,9 @@ public class DKeepScreen extends JPanel {
 		else {
 			// Draw key
 			Key key = ((KeepLevel) levelToDraw).getKey();
-			g.drawImage(key.getSprite() , key.getX_pos()*spriteSize , key.getY_pos()*spriteSize , null);
+			if(key != null) {
+				g.drawImage(key.getSprite() , key.getX_pos()*spriteSize , key.getY_pos()*spriteSize , null);
+			}
 			
 			// Draw hero
 			g.drawImage(hero.getSprite() , hero.getX_pos()*spriteSize , hero.getY_pos()*spriteSize , null);
