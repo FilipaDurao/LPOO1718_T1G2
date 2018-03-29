@@ -1,5 +1,6 @@
 package DungeonKeep.gui;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 import javax.swing.JPanel;
@@ -37,6 +38,19 @@ public class DKeepScreen extends JPanel {
 		// If no level is set, return
 		if (levelToDraw == null) {
 			return;
+		}
+	
+		// Draw Background
+		for (int i=0 ; i<levelToDraw.getHeigth()*3 ; i++) {
+			for (int j=0 ; j<levelToDraw.getWidth()*3 ; j++) {
+				if ((i+j)%2 == 0) {
+					g.setColor(new Color(220, 220, 220));
+				}
+				else {
+					g.setColor(new Color(195, 195, 195));
+				}
+				g.fillRect(i*spriteSize/3, j*spriteSize/3, spriteSize/3, spriteSize/3);
+			}
 		}
 		
 		// Draw Walls

@@ -263,7 +263,6 @@ public class DKeepWindow implements KeyListener {
 		DKeep.getContentPane().add(exitButton);
 		
 		gameScreen = new DKeepScreen();
-		gameScreen.setBackground(Color.WHITE);
 		gameScreen.setBounds(20, 30, 600, 600);
 		gameScreen.setPreferredSize(new Dimension(600, 600));
 		DKeep.getContentPane().add(gameScreen);
