@@ -14,7 +14,7 @@ public class Key extends GameObject {
 		super(x_pos, y_pos);
 		
 		try {
-			sprite = ImageIO.read(new File("/home/rui/FEUP/LPOO1718_T1G2/Images/key.png"));
+			sprite = ImageIO.read(new File("./bin/Images/key.png"));
 		} 
 		catch (IOException e) {
             e.printStackTrace();

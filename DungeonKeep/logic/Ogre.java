@@ -1,4 +1,5 @@
 package DungeonKeep.logic;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,17 +10,25 @@ public class Ogre extends GameObject implements Movable {
 	
 	private final char regularSymbol = '0';
 	private final char stunnedSymbol = '8';
-	private Club club = new Club(getX_pos() , getY_pos());
+	private Club club = new Club(getX_pos()+1 , getY_pos());
 	private boolean isStunned = false;
 	private boolean disabled = false;
 	private int stunnedTimer = 0;
+	private BufferedImage spriteStunned;
 
 	
 	public Ogre(int x_pos, int y_pos) {
 		super(x_pos, y_pos);
 		
 		try {
-			sprite = ImageIO.read(new File("/home/rui/FEUP/LPOO1718_T1G2/Images/ogre.png"));
+			sprite = ImageIO.read(new File("./bin/Images/ogre.png"));
+		} 
+		catch (IOException e) {
+            e.printStackTrace();
+		}
+		
+		try {
+			spriteStunned = ImageIO.read(new File("./bin/Images/ogreStunned.png"));
 		} 
 		catch (IOException e) {
             e.printStackTrace();
@@ -241,6 +250,16 @@ public class Ogre extends GameObject implements Movable {
 		default:
 			return;
 		}		
+	}
+	
+	@Override
+	public BufferedImage getSprite() {
+		if(isStunned) {
+			return spriteStunned;
+		}
+		else {
+			return sprite;
+		}
 	}
 
 }

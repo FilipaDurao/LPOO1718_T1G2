@@ -13,7 +13,7 @@ public class RookieGuard extends Guard {
 		super(x_pos, y_pos, path);
 		
 		try {
-			sprite = ImageIO.read(new File("/home/rui/FEUP/LPOO1718_T1G2/Images/rookieGuard.png"));
+			sprite = ImageIO.read(new File("./bin/Images/rookieGuard.png"));
 		} 
 		catch (IOException e) {
             e.printStackTrace();

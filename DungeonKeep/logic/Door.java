@@ -17,7 +17,7 @@ public class Door extends GameObject {
 		this.isExit = isExit;
 		
 		try {
-			sprite = ImageIO.read(new File("/home/rui/FEUP/LPOO1718_T1G2/Images/door.png"));
+			sprite = ImageIO.read(new File("./bin/Images/door.png"));
 		} 
 		catch (IOException e) {
             e.printStackTrace();

@@ -1,5 +1,6 @@
 package DungeonKeep.logic;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,13 +14,21 @@ public class Hero extends GameObject implements Movable {
 	private final char heroWithClubSymbol = 'A';
 	private boolean hasKey = false;
 	private boolean hasClub;
+	private BufferedImage spriteArmed;
 
 	public Hero(int x_pos, int y_pos, boolean hasClub) {
 		super(x_pos, y_pos);
 		this.hasClub = hasClub;
 		
 		try {
-			sprite = ImageIO.read(new File("/home/rui/FEUP/LPOO1718_T1G2/Images/hero.png"));
+			sprite = ImageIO.read(new File("./bin/Images/hero.png"));
+		} 
+		catch (IOException e) {
+            e.printStackTrace();
+		}
+		
+		try {
+			spriteArmed = ImageIO.read(new File("./bin/Images/heroWithWeapon.png"));
 		} 
 		catch (IOException e) {
             e.printStackTrace();
@@ -158,6 +167,16 @@ public class Hero extends GameObject implements Movable {
 		default:
 			return;
 		}		
+	}
+	
+	@Override
+	public BufferedImage getSprite() {
+		if(hasClub) {
+			return spriteArmed;
+		}
+		else {
+			return sprite;
+		}
 	}
 
 }

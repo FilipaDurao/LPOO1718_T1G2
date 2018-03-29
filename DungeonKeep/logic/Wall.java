@@ -13,7 +13,7 @@ public class Wall extends GameObject {
 		super(x_pos, y_pos);
 		
 		try {
-			sprite = ImageIO.read(new File("/home/rui/FEUP/LPOO1718_T1G2/Images/wall.png"));
+			sprite = ImageIO.read(new File("./bin/Images/wall.png"));
 		} 
 		catch (IOException e) {
             e.printStackTrace();
