@@ -7,19 +7,19 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 
 import javax.swing.JButton;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
-public class DKeepWindow {
+public class DKeepWindow implements KeyListener {
 
 	private JFrame DKeep;
 	private JTextField numOgresTextField;
@@ -79,7 +79,8 @@ public class DKeepWindow {
 		gameStatusLabel.setText(message);
 	}
 	
-	public void updateGame() {
+	public void updateGame(char direction) {
+		game.update(direction);
 		Game.Status gameStatus = game.getStatus();
 		
 		switch(gameStatus) {
@@ -91,6 +92,9 @@ public class DKeepWindow {
 			updateGameStatusLabel("Defeat, you lost the game ...");
 			disablePlayButtons();
 			break;
+		case LEVELCHANGED:
+			// Update level to draw
+			gameScreen.setLevelToDraw(game.getCurrentLevel());
 		default:
 			break;
 		}
@@ -134,8 +138,8 @@ public class DKeepWindow {
 		upButton = new JButton("Up");
 		upButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				game.update('W');	// Up Key
-				updateGame();
+				updateGame('W');	// Up Key
+				gameScreen.requestFocusInWindow();
 			}
 		});
 		upButton.setBackground(Color.WHITE);
@@ -146,8 +150,8 @@ public class DKeepWindow {
 		leftButton = new JButton("Left");
 		leftButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				game.update('A');	// Left Key
-				updateGame();
+				updateGame('A');	// Left Key
+				gameScreen.requestFocusInWindow();
 			}
 		});
 		leftButton.setEnabled(false);
@@ -158,8 +162,8 @@ public class DKeepWindow {
 		downButton = new JButton("Down");
 		downButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				game.update('S');	// Down Key
-				updateGame();
+				updateGame('S');	// Down Key
+				gameScreen.requestFocusInWindow();
 			}
 		});
 		downButton.setEnabled(false);
@@ -170,8 +174,8 @@ public class DKeepWindow {
 		rightButton = new JButton("Right");
 		rightButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				game.update('D');	// Right Key
-				updateGame();
+				updateGame('D');	// Right Key
+				gameScreen.requestFocusInWindow();
 			}
 		});
 		rightButton.setEnabled(false);
@@ -216,6 +220,7 @@ public class DKeepWindow {
 				
 				// Draw the game for the first time
 				gameScreen.setLevelToDraw(game.getCurrentLevel());
+				gameScreen.requestFocusInWindow();
 				drawGame();
 			}
 			
@@ -242,5 +247,46 @@ public class DKeepWindow {
 		DKeep.pack();
 		DKeep.setVisible(true);
 		
+		// Events
+		gameScreen.addKeyListener(this);
 	}
+
+	
+	
+	@Override
+	public void keyPressed(KeyEvent evt) {
+		if (game == null ||
+			game.getStatus() == Game.Status.VICTORY ||
+			game.getStatus() == Game.Status.DEFEAT) {
+			
+			return;
+		}
+		
+		switch(evt.getKeyCode()){
+		case KeyEvent.VK_LEFT:
+		case KeyEvent.VK_A:
+			updateGame('A');
+			break;
+		case KeyEvent.VK_RIGHT:
+		case KeyEvent.VK_D:
+			updateGame('D');
+			break;
+		case KeyEvent.VK_UP:
+		case KeyEvent.VK_W:
+			updateGame('W');
+			break;
+		case KeyEvent.VK_DOWN:
+		case KeyEvent.VK_S:
+			updateGame('S');
+		 	break;
+		}
+	}
+
+	
+	@Override
+	public void keyReleased(KeyEvent evt) {}
+
+	
+	@Override
+	public void keyTyped(KeyEvent evt) {}
 }

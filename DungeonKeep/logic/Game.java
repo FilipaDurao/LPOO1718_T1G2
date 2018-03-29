@@ -12,7 +12,7 @@ public class Game implements IStatus {
 		
 		// Initialize the levels
 		levels = new ArrayList<Level>();
-		//levels.add(initializeDungeonLevel(guardPersonality));
+		levels.add(initializeDungeonLevel(guardPersonality));
 		levels.add(initializeKeepLevel(numOgres));
 		
 		currentLevelIndex = 0;
@@ -213,6 +213,7 @@ public class Game implements IStatus {
 			// Advance to next level
 			if (currentLevelIndex != levels.size()-1) {
 				currentLevelIndex++;
+				this.status = Status.LEVELCHANGED;
 			}
 			// Last level completed!
 			else {
