@@ -1,8 +1,10 @@
 package DungeonKeep.logic;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Game implements IStatus {
+public class Game implements IStatus , Serializable {
 	
+	private static final long serialVersionUID = 1L;	// To allow file writing
 	private ArrayList<Level> levels;
 	private int currentLevelIndex;
 	private Status status = Status.RUNNING;

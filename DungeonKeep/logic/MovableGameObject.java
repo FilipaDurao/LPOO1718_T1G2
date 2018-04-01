@@ -2,6 +2,8 @@ package DungeonKeep.logic;
 
 public abstract class MovableGameObject extends GameObject {
 	
+	private static final long serialVersionUID = 1L;	// To allow file writing
+
 	public enum MoveDirection {UP, DOWN, RIGHT, LEFT, INVALID}
 	
 	public MovableGameObject(int x_pos, int y_pos) {

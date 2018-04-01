@@ -6,7 +6,8 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class Door extends GameObject {
-	
+
+	private static final long serialVersionUID = 1L;	// To allow file writing
 	private final char closedSymbol = 'I';
 	private final char openedSymbol = 'S';
 	private boolean isClosed = true;

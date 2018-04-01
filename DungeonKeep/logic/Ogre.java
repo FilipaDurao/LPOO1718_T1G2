@@ -7,7 +7,8 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 public class Ogre extends MovableGameObject {
-	
+
+	private static final long serialVersionUID = 1L;	// To allow file writing
 	private final char regularSymbol = '0';
 	private final char stunnedSymbol = '8';
 	private Club club = new Club(getX_pos() , getY_pos()+1);

@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -20,6 +21,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 public class DKeepWindow implements KeyListener {
 
@@ -118,6 +126,8 @@ public class DKeepWindow implements KeyListener {
 		initDownButton();
 		initNewGameButton();
 		initExitButton();
+		initSaveGameButton();
+		initLoadGameButton();
 		initStatusLabel();
 		initLevelDrawer();
 		
@@ -194,7 +204,7 @@ public class DKeepWindow implements KeyListener {
 			}
 		});
 		exitButton.setBackground(Color.WHITE);
-		exitButton.setBounds(702, 301, 117, 25);
+		exitButton.setBounds(702, 607, 117, 25);
 		DKeep.getContentPane().add(exitButton);
 	}
 	
@@ -204,6 +214,45 @@ public class DKeepWindow implements KeyListener {
 		newGameButton.setBackground(Color.WHITE);
 		newGameButton.setBounds(702, 30, 117, 25);
 		DKeep.getContentPane().add(newGameButton);
+	}
+	
+	private void initSaveGameButton() {
+		JButton saveGameButton = new JButton("Save Game");
+		saveGameButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (game == null) {
+					JOptionPane.showMessageDialog(DKeep, "No game to save.");
+					return;
+				}
+				
+				JFileChooser fileChooser = new JFileChooser();
+				int result = fileChooser.showSaveDialog(DKeep);
+				
+				if (result == JFileChooser.APPROVE_OPTION) {
+					// TODO Complete
+				}
+			}
+		});
+		saveGameButton.setBackground(Color.WHITE);
+		saveGameButton.setBounds(702, 420, 117, 25);
+		DKeep.getContentPane().add(saveGameButton);
+	}
+	
+	private void initLoadGameButton() {
+		JButton loadGameButton = new JButton("Load Game");
+		loadGameButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {				
+				JFileChooser fileChooser = new JFileChooser();
+				int result = fileChooser.showOpenDialog(DKeep);
+				
+				if (result == JFileChooser.APPROVE_OPTION) {
+					// TODO Complete
+				}
+			}
+		});
+		loadGameButton.setBackground(Color.WHITE);
+		loadGameButton.setBounds(702, 470, 117, 25);
+		DKeep.getContentPane().add(loadGameButton);
 	}
 	
 	private int popLevelDataPanel() {

@@ -2,7 +2,8 @@ package DungeonKeep.logic;
 import java.util.ArrayList;
 
 public abstract class Guard extends MovableGameObject {
-	
+
+	private static final long serialVersionUID = 1L;	// To allow file writing
 	protected final char idSymbol = 'G';
 	protected ArrayList<MoveDirection> path;
 	protected int pathStep = 0;

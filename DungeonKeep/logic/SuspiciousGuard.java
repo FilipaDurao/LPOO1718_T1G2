@@ -8,6 +8,7 @@ import javax.imageio.ImageIO;
 
 public class SuspiciousGuard extends Guard {
 	
+	private static final long serialVersionUID = 1L;	// To allow file writing
 	private final double reversePathProbability = 0.3;	// 30% 
 	private boolean isMovingForward = true;
 

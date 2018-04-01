@@ -5,6 +5,7 @@ import java.util.Arrays;
 
 public class KeepLevel extends Level {
 	
+	private static final long serialVersionUID = 1L;	// To allow file writing
 	private ArrayList<Ogre> ogres;
 	private Key key;
 

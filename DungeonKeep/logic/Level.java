@@ -1,8 +1,10 @@
 package DungeonKeep.logic;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public abstract class Level implements IStatus {
+public abstract class Level implements IStatus, Serializable {
 
+	private static final long serialVersionUID = 1L;	// To allow file writing
 	protected int ID;
 	protected Hero hero;
 	protected ArrayList<Wall> walls;

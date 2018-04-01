@@ -8,7 +8,8 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 public class DrunkenGuard extends Guard {
-	
+
+	private static final long serialVersionUID = 1L;	// To allow file writing
 	protected final char asleepSymbol = 'g';
 	private final double reversePathProbability = 0.5;	// 50%
 	private final double wakeUpProbability = 0.2;		// 20%

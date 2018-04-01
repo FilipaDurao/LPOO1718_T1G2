@@ -9,6 +9,7 @@ import javax.imageio.ImageIO;
 
 public class Hero extends MovableGameObject {
 	
+	private static final long serialVersionUID = 1L;	// To allow file writing
 	private final char standartHeroSymbol = 'H';
 	private final char heroWithKeySymbol = 'K';
 	private final char heroWithClubSymbol = 'A';
@@ -21,7 +22,7 @@ public class Hero extends MovableGameObject {
 		this.hasClub = hasClub;
 		
 		try {
-			sprite = ImageIO.read(new File("./bin/Images/hero.png"));
+			sprite =ImageIO.read(new File("./bin/Images/hero.png"));
 			spriteArmed = ImageIO.read(new File("./bin/Images/heroWithWeapon.png"));
 		} 
 		catch (IOException e) {

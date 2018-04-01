@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class DungeonLevel extends Level {
-	
+
+	private static final long serialVersionUID = 1L;	// To allow file writing
 	private Guard guard;
 	private Lever lever;
 
