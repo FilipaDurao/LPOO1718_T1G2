@@ -285,32 +285,30 @@ public class DKeepWindow implements KeyListener {
 		gameScreen.addKeyListener(this);
 	}
 
+	private boolean isGameReadyToUpdate() {
+		return !(game == null ||
+				 game.getStatus() == Game.Status.VICTORY ||
+				 game.getStatus() == Game.Status.DEFEAT);
+	}
 	
 	
 	@Override
 	public void keyPressed(KeyEvent evt) {
-		if (game == null ||
-			game.getStatus() == Game.Status.VICTORY ||
-			game.getStatus() == Game.Status.DEFEAT) {
-			
+		if (!isGameReadyToUpdate()) {
 			return;
 		}
 		
 		switch(evt.getKeyCode()){
 		case KeyEvent.VK_LEFT:
-		case KeyEvent.VK_A:
 			updateGame('A');
 			break;
 		case KeyEvent.VK_RIGHT:
-		case KeyEvent.VK_D:
 			updateGame('D');
 			break;
 		case KeyEvent.VK_UP:
-		case KeyEvent.VK_W:
 			updateGame('W');
 			break;
 		case KeyEvent.VK_DOWN:
-		case KeyEvent.VK_S:
 			updateGame('S');
 		 	break;
 		}

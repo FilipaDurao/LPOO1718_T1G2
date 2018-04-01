@@ -17,8 +17,9 @@ public class Main {
 	}
 	
 	public static boolean keyIsValid(char keyPressed) {
-		return (keyPressed=='w' || keyPressed=='W' || keyPressed=='s' || keyPressed=='S' ||
-				keyPressed=='a' || keyPressed=='A' || keyPressed=='d' || keyPressed=='D');
+		keyPressed = Character.toUpperCase(keyPressed);
+		
+		return (keyPressed=='W' || keyPressed=='S' || keyPressed=='A' || keyPressed=='D');
 	}
 
 	public static void main(String[] args) {

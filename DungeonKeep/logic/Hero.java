@@ -86,12 +86,18 @@ public class Hero extends MovableGameObject {
 		}
 		
 		// Move, if the hero isn't colliding with any wall or closed door
-		if (!heroCollidesWithWalls(new_x_pos , new_y_pos , walls) &&
-			!heroCollidesWithDoors(new_x_pos , new_y_pos , doors) &&
-			!heroCollidesWithOgres(new_x_pos , new_y_pos , ogres)) {
-			
+		if (!heroCollides(new_x_pos, new_y_pos, walls, doors, ogres)) {
 			move(dir);
 		}
+	}
+	
+	
+	private boolean heroCollides(int new_x_pos, int new_y_pos, ArrayList<Wall> walls,
+			ArrayList<Door> doors, ArrayList<Ogre> ogres) {
+		
+		return (heroCollidesWithWalls(new_x_pos , new_y_pos , walls) ||
+				heroCollidesWithDoors(new_x_pos , new_y_pos , doors) ||
+				heroCollidesWithOgres(new_x_pos , new_y_pos , ogres));
 	}
 	
 	

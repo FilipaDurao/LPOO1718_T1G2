@@ -34,6 +34,31 @@ public class Game implements IStatus {
 		return levels.get(currentLevelIndex);
 	}
 	
+	private static ArrayList<Guard.MoveDirection> initGuardPath() {
+		ArrayList<Guard.MoveDirection> guardMoves = new ArrayList<Guard.MoveDirection>();
+		guardMoves.add(Guard.MoveDirection.LEFT);
+		
+		for (int i=0 ; i<4 ; i++) {
+			guardMoves.add(Guard.MoveDirection.DOWN);
+		}
+		
+		for (int i=0 ; i<6 ; i++) {
+			guardMoves.add(Guard.MoveDirection.LEFT);
+		}
+		
+		guardMoves.add(Guard.MoveDirection.DOWN);
+		
+		for (int i=0 ; i<7 ; i++) {
+			guardMoves.add(Guard.MoveDirection.RIGHT);
+		}
+		
+		for (int i=0 ; i<5 ; i++) {
+			guardMoves.add(Guard.MoveDirection.UP);
+		}
+		
+		return guardMoves;
+	}
+	
 	private static DungeonLevel initializeDungeonLevel(String guardPersonality) {
 		ArrayList<Wall> walls = new ArrayList<Wall>();
 		ArrayList<Door> doors = new ArrayList<Door>();
@@ -84,38 +109,17 @@ public class Game implements IStatus {
 		}
 		
 		// Initialize the guard
-		Guard guard;
-		ArrayList<Guard.MoveDirection> guardMoves = new ArrayList<Guard.MoveDirection>();
-		guardMoves.add(Guard.MoveDirection.LEFT);
-		
-		for (int i=0 ; i<4 ; i++) {
-			guardMoves.add(Guard.MoveDirection.DOWN);
-		}
-		
-		for (int i=0 ; i<6 ; i++) {
-			guardMoves.add(Guard.MoveDirection.LEFT);
-		}
-		
-		guardMoves.add(Guard.MoveDirection.DOWN);
-		
-		for (int i=0 ; i<7 ; i++) {
-			guardMoves.add(Guard.MoveDirection.RIGHT);
-		}
-		
-		for (int i=0 ; i<5 ; i++) {
-			guardMoves.add(Guard.MoveDirection.UP);
-		}
-		
+		Guard guard;		
 		
 		switch(guardPersonality) {
 		case "Drunken":
-			guard = new DrunkenGuard(8, 1, guardMoves);
+			guard = new DrunkenGuard(8, 1, initGuardPath());
 			break;
 		case "Suspicious":
-			guard = new SuspiciousGuard(8, 1, guardMoves);
+			guard = new SuspiciousGuard(8, 1, initGuardPath());
 			break;
 		default:	// Rookie
-			guard = new RookieGuard(8, 1, guardMoves);
+			guard = new RookieGuard(8, 1, initGuardPath());
 			break;
 		}
 		
@@ -173,18 +177,16 @@ public class Game implements IStatus {
 	}
 	
 	public static Hero.MoveDirection parseKeyPressed(char keyPressed) {
+		keyPressed = Character.toUpperCase(keyPressed);
+		
 		switch(keyPressed) {
 		case 'W':
-		case 'w':
 			return Hero.MoveDirection.UP;
 		case 'S':
-		case 's':
 			return Hero.MoveDirection.DOWN;
 		case 'D':
-		case 'd':
 			return Hero.MoveDirection.RIGHT;
 		case 'A':
-		case 'a':
 			return Hero.MoveDirection.LEFT;
 		default:
 			return Hero.MoveDirection.INVALID;

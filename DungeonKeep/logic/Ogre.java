@@ -120,20 +120,16 @@ public class Ogre extends MovableGameObject {
 		ArrayList<MoveDirection> possibleDirections = new ArrayList<MoveDirection>();
 		
 		// Analise 4 possible moves
-		if (!(positionHasWall(this.getX_pos() , this.getY_pos()-1 , walls) ||
-			  positionHasDoor(this.getX_pos() , this.getY_pos()-1 , doors))) {
+		if (!positionHasWallDoor(this.getX_pos(), this.getY_pos()-1, walls, doors)) {
 			possibleDirections.add(MoveDirection.UP);
 		}
-		if (!(positionHasWall(this.getX_pos() , this.getY_pos()+1 , walls) ||
-			  positionHasDoor(this.getX_pos() , this.getY_pos()+1 , doors))) {
+		if (!positionHasWallDoor(this.getX_pos() , this.getY_pos()+1 , walls, doors)) {
 			possibleDirections.add(MoveDirection.DOWN);
 		}
-		if (!(positionHasWall(this.getX_pos()-1 , this.getY_pos() , walls) ||
-			  positionHasDoor(this.getX_pos()-1 , this.getY_pos() , doors))) {
+		if (!positionHasWallDoor(this.getX_pos()-1 , this.getY_pos() , walls, doors)) {
 			possibleDirections.add(MoveDirection.LEFT);
 		}
-		if (!(positionHasWall(this.getX_pos()+1 , this.getY_pos() , walls) ||
-			  positionHasDoor(this.getX_pos()+1 , this.getY_pos() , doors))) {
+		if (!positionHasWallDoor(this.getX_pos()+1 , this.getY_pos() , walls, doors)) {
 			possibleDirections.add(MoveDirection.RIGHT);
 		}
 		
@@ -146,28 +142,32 @@ public class Ogre extends MovableGameObject {
 		ArrayList<MoveDirection> possibleDirections = new ArrayList<MoveDirection>();
 		
 		// Analise 4 possible moves
-		if (!(positionHasWall(this.getX_pos() , this.getY_pos()-1 , walls) ||
-			  positionHasDoor(this.getX_pos() , this.getY_pos()-1 , doors) ||
-			  positionHasOgre(this.getX_pos() , this.getY_pos()-1 , ogres))) {
+		if (!positionHasWallDoorOgre(this.getX_pos() , this.getY_pos()-1 , walls, doors, ogres)) {
 			possibleDirections.add(MoveDirection.UP);
 		}
-		if (!(positionHasWall(this.getX_pos() , this.getY_pos()+1 , walls) ||
-			  positionHasDoor(this.getX_pos() , this.getY_pos()+1 , doors) ||
-			  positionHasOgre(this.getX_pos() , this.getY_pos()+1 , ogres))) {
+		if (!positionHasWallDoorOgre(this.getX_pos() , this.getY_pos()+1 , walls, doors, ogres)) {
 			possibleDirections.add(MoveDirection.DOWN);
 		}
-		if (!(positionHasWall(this.getX_pos()-1 , this.getY_pos() , walls) ||
-			  positionHasDoor(this.getX_pos()-1 , this.getY_pos() , doors) ||
-			  positionHasOgre(this.getX_pos()-1 , this.getY_pos() , ogres))) {
+		if (!positionHasWallDoorOgre(this.getX_pos()-1 , this.getY_pos() , walls, doors, ogres)) {
 			possibleDirections.add(MoveDirection.LEFT);
 		}
-		if (!(positionHasWall(this.getX_pos()+1 , this.getY_pos() , walls) ||
-			  positionHasDoor(this.getX_pos()+1 , this.getY_pos() , doors) ||
-			  positionHasOgre(this.getX_pos()+1 , this.getY_pos() , ogres))) {
+		if (!positionHasWallDoorOgre(this.getX_pos()+1 , this.getY_pos() , walls, doors, ogres)) {
 			possibleDirections.add(MoveDirection.RIGHT);
 		}
 		
 		return possibleDirections;
+	}
+	
+	private boolean positionHasWallDoorOgre(int x, int y, ArrayList<Wall> walls, 
+			ArrayList<Door> doors, ArrayList<Ogre> ogres) {
+		
+		return (positionHasWallDoor(x , y , walls, doors) ||
+				positionHasOgre(this.getX_pos()+1 , this.getY_pos() , ogres));
+	}
+	
+	private boolean positionHasWallDoor(int x, int y, ArrayList<Wall> walls, ArrayList<Door> doors) {
+		return (positionHasWall(x , y , walls) ||
+				positionHasDoor(x , y , doors));
 	}
 	
 	private boolean positionHasOgre(int x , int y , ArrayList<Ogre> ogres) {
