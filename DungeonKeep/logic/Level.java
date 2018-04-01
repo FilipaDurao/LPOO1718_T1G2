@@ -98,5 +98,18 @@ public abstract class Level implements IStatus {
 		// If the position doesn't have walls or doors then it's free to move to
 		return false;
 	}
+	
+	protected String parseMatrixToString(char[][] matrix) {
+		String gameMatrixString = "";
+		
+		for(char[] row : matrix) {
+			for(char c : row) {
+				gameMatrixString += Character.toString(c) + " ";
+			}
+			gameMatrixString += "\n";
+		}
+		
+		return gameMatrixString;
+	}
 	 
 }

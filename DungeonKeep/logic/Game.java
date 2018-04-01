@@ -87,29 +87,25 @@ public class Game implements IStatus {
 		Guard guard;
 		ArrayList<Guard.MoveDirection> guardMoves = new ArrayList<Guard.MoveDirection>();
 		guardMoves.add(Guard.MoveDirection.LEFT);
+		
+		for (int i=0 ; i<4 ; i++) {
+			guardMoves.add(Guard.MoveDirection.DOWN);
+		}
+		
+		for (int i=0 ; i<6 ; i++) {
+			guardMoves.add(Guard.MoveDirection.LEFT);
+		}
+		
 		guardMoves.add(Guard.MoveDirection.DOWN);
-		guardMoves.add(Guard.MoveDirection.DOWN);
-		guardMoves.add(Guard.MoveDirection.DOWN);
-		guardMoves.add(Guard.MoveDirection.DOWN);
-		guardMoves.add(Guard.MoveDirection.LEFT);
-		guardMoves.add(Guard.MoveDirection.LEFT);
-		guardMoves.add(Guard.MoveDirection.LEFT);
-		guardMoves.add(Guard.MoveDirection.LEFT);
-		guardMoves.add(Guard.MoveDirection.LEFT);
-		guardMoves.add(Guard.MoveDirection.LEFT);
-		guardMoves.add(Guard.MoveDirection.DOWN);
-		guardMoves.add(Guard.MoveDirection.RIGHT);
-		guardMoves.add(Guard.MoveDirection.RIGHT);
-		guardMoves.add(Guard.MoveDirection.RIGHT);
-		guardMoves.add(Guard.MoveDirection.RIGHT);
-		guardMoves.add(Guard.MoveDirection.RIGHT);
-		guardMoves.add(Guard.MoveDirection.RIGHT);
-		guardMoves.add(Guard.MoveDirection.RIGHT);
-		guardMoves.add(Guard.MoveDirection.UP);
-		guardMoves.add(Guard.MoveDirection.UP);
-		guardMoves.add(Guard.MoveDirection.UP);
-		guardMoves.add(Guard.MoveDirection.UP);
-		guardMoves.add(Guard.MoveDirection.UP);
+		
+		for (int i=0 ; i<7 ; i++) {
+			guardMoves.add(Guard.MoveDirection.RIGHT);
+		}
+		
+		for (int i=0 ; i<5 ; i++) {
+			guardMoves.add(Guard.MoveDirection.UP);
+		}
+		
 		
 		switch(guardPersonality) {
 		case "Drunken":

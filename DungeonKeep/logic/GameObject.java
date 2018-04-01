@@ -3,8 +3,6 @@ package DungeonKeep.logic;
 import java.awt.image.BufferedImage;
 
 public abstract class GameObject implements Drawable {
-
-	public enum MoveDirection {UP, DOWN, RIGHT, LEFT, INVALID}
 	
 	private int x_pos;
 	private int y_pos;
@@ -30,21 +28,6 @@ public abstract class GameObject implements Drawable {
 
 	public void setY_pos(int y_pos) {
 		this.y_pos = y_pos;
-	}
-	
-	public static MoveDirection getOppositeMoveDirection(MoveDirection dir) {
-		if (dir == MoveDirection.UP) {
-			return MoveDirection.DOWN;
-		}
-		else if (dir == MoveDirection.DOWN) {
-			return MoveDirection.UP;
-		}
-		else if (dir == MoveDirection.RIGHT) {
-			return MoveDirection.LEFT;
-		}
-		else {
-			return MoveDirection.RIGHT;
-		}
 	}
 	
 	public boolean collidesWith(GameObject other) {

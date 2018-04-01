@@ -10,16 +10,16 @@ import DungeonKeep.logic.*;
 
 public class TestGuards {
 		
-	private static ArrayList<GameObject.MoveDirection> getGuardMoves(){
-		ArrayList<GameObject.MoveDirection> guardMoves = new ArrayList<GameObject.MoveDirection>();
-		guardMoves.add(GameObject.MoveDirection.RIGHT);
-		guardMoves.add(GameObject.MoveDirection.RIGHT);
-		guardMoves.add(GameObject.MoveDirection.DOWN);
-		guardMoves.add(GameObject.MoveDirection.DOWN);
-		guardMoves.add(GameObject.MoveDirection.LEFT);
-		guardMoves.add(GameObject.MoveDirection.LEFT);
-		guardMoves.add(GameObject.MoveDirection.UP);
-		guardMoves.add(GameObject.MoveDirection.UP);
+	private static ArrayList<MovableGameObject.MoveDirection> getGuardMoves(){
+		ArrayList<MovableGameObject.MoveDirection> guardMoves = new ArrayList<MovableGameObject.MoveDirection>();
+		guardMoves.add(MovableGameObject.MoveDirection.RIGHT);
+		guardMoves.add(MovableGameObject.MoveDirection.RIGHT);
+		guardMoves.add(MovableGameObject.MoveDirection.DOWN);
+		guardMoves.add(MovableGameObject.MoveDirection.DOWN);
+		guardMoves.add(MovableGameObject.MoveDirection.LEFT);
+		guardMoves.add(MovableGameObject.MoveDirection.LEFT);
+		guardMoves.add(MovableGameObject.MoveDirection.UP);
+		guardMoves.add(MovableGameObject.MoveDirection.UP);
 		
 		return guardMoves;
 	}

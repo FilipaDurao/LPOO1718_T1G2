@@ -3,8 +3,6 @@ package DungeonKeep.logic;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import DungeonKeep.logic.GameObject.MoveDirection;
-
 public class DungeonLevel extends Level {
 	
 	private Guard guard;
@@ -62,19 +60,11 @@ public class DungeonLevel extends Level {
 		symbols[guard.getY_pos()][guard.getX_pos()] = guard.getIdSymbol();
 				
 		// Parse the matrix to a string
-		String gameMatrixString = "";
-		for(char[] row : symbols) {
-			for(char c : row) {
-				gameMatrixString += Character.toString(c) + " ";
-			}
-			gameMatrixString += "\n";
-		}		
-		
-		return gameMatrixString;
+		return parseMatrixToString(symbols);
 	}
 
 	@Override
-	public void update(MoveDirection heroDirection) {
+	public void update(Hero.MoveDirection heroDirection) {
 		// Move the Guard
 		guard.performStep();
 		

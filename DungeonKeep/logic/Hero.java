@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
-public class Hero extends GameObject implements Movable {
+public class Hero extends MovableGameObject {
 	
 	private final char standartHeroSymbol = 'H';
 	private final char heroWithKeySymbol = 'K';
@@ -142,26 +142,6 @@ public class Hero extends GameObject implements Movable {
 		
 		// No collision was found
 		return false;
-	}
-	
-	
-	public void move (MoveDirection dir) {
-		switch (dir) {
-		case UP:
-			this.setY_pos(this.getY_pos() - 1);
-			break;
-		case DOWN:
-			this.setY_pos(this.getY_pos() + 1);
-			break;
-		case RIGHT:
-			this.setX_pos(this.getX_pos() + 1);
-			break;
-		case LEFT:
-			this.setX_pos(this.getX_pos() - 1);
-			break;
-		default:
-			return;
-		}		
 	}
 	
 	@Override

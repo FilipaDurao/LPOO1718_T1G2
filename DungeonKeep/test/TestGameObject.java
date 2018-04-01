@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import DungeonKeep.logic.GameObject;
 import DungeonKeep.logic.Hero;
+import DungeonKeep.logic.MovableGameObject;
 import DungeonKeep.logic.Wall;
 
 public class TestGameObject {
@@ -47,25 +48,41 @@ public class TestGameObject {
 	
 	@Test
 	public void testGameObjectDirections() {
-		assertEquals(GameObject.getOppositeMoveDirection(GameObject.MoveDirection.UP) , GameObject.MoveDirection.DOWN);
-		assertNotEquals(GameObject.getOppositeMoveDirection(GameObject.MoveDirection.UP) , GameObject.MoveDirection.LEFT);
-		assertNotEquals(GameObject.getOppositeMoveDirection(GameObject.MoveDirection.UP) , GameObject.MoveDirection.RIGHT);
-		assertNotEquals(GameObject.getOppositeMoveDirection(GameObject.MoveDirection.UP) , GameObject.MoveDirection.UP);
+		assertEquals(MovableGameObject.getOppositeMoveDirection(MovableGameObject.MoveDirection.UP), 
+					 MovableGameObject.MoveDirection.DOWN);
+		assertNotEquals(MovableGameObject.getOppositeMoveDirection(MovableGameObject.MoveDirection.UP), 
+						MovableGameObject.MoveDirection.LEFT);
+		assertNotEquals(MovableGameObject.getOppositeMoveDirection(MovableGameObject.MoveDirection.UP), 
+						MovableGameObject.MoveDirection.RIGHT);
+		assertNotEquals(MovableGameObject.getOppositeMoveDirection(MovableGameObject.MoveDirection.UP), 
+						MovableGameObject.MoveDirection.UP);
 
-		assertEquals(GameObject.getOppositeMoveDirection(GameObject.MoveDirection.DOWN) , GameObject.MoveDirection.UP);
-		assertNotEquals(GameObject.getOppositeMoveDirection(GameObject.MoveDirection.DOWN) , GameObject.MoveDirection.LEFT);
-		assertNotEquals(GameObject.getOppositeMoveDirection(GameObject.MoveDirection.DOWN) , GameObject.MoveDirection.RIGHT);
-		assertNotEquals(GameObject.getOppositeMoveDirection(GameObject.MoveDirection.DOWN) , GameObject.MoveDirection.DOWN);
+		assertEquals(MovableGameObject.getOppositeMoveDirection(MovableGameObject.MoveDirection.DOWN) , 
+				     MovableGameObject.MoveDirection.UP);
+		assertNotEquals(MovableGameObject.getOppositeMoveDirection(MovableGameObject.MoveDirection.DOWN) , 
+						MovableGameObject.MoveDirection.LEFT);
+		assertNotEquals(MovableGameObject.getOppositeMoveDirection(MovableGameObject.MoveDirection.DOWN) , 
+						MovableGameObject.MoveDirection.RIGHT);
+		assertNotEquals(MovableGameObject.getOppositeMoveDirection(MovableGameObject.MoveDirection.DOWN) , 
+						MovableGameObject.MoveDirection.DOWN);
 
-		assertEquals(GameObject.getOppositeMoveDirection(GameObject.MoveDirection.LEFT) , GameObject.MoveDirection.RIGHT);
-		assertNotEquals(GameObject.getOppositeMoveDirection(GameObject.MoveDirection.LEFT) , GameObject.MoveDirection.LEFT);
-		assertNotEquals(GameObject.getOppositeMoveDirection(GameObject.MoveDirection.LEFT) , GameObject.MoveDirection.UP);
-		assertNotEquals(GameObject.getOppositeMoveDirection(GameObject.MoveDirection.LEFT) , GameObject.MoveDirection.DOWN);
+		assertEquals(MovableGameObject.getOppositeMoveDirection(MovableGameObject.MoveDirection.LEFT) , 
+					 MovableGameObject.MoveDirection.RIGHT);
+		assertNotEquals(MovableGameObject.getOppositeMoveDirection(MovableGameObject.MoveDirection.LEFT) , 
+						MovableGameObject.MoveDirection.LEFT);
+		assertNotEquals(MovableGameObject.getOppositeMoveDirection(MovableGameObject.MoveDirection.LEFT) , 
+						MovableGameObject.MoveDirection.UP);
+		assertNotEquals(MovableGameObject.getOppositeMoveDirection(MovableGameObject.MoveDirection.LEFT) , 
+						MovableGameObject.MoveDirection.DOWN);
 
-		assertEquals(GameObject.getOppositeMoveDirection(GameObject.MoveDirection.RIGHT) , GameObject.MoveDirection.LEFT);
-		assertNotEquals(GameObject.getOppositeMoveDirection(GameObject.MoveDirection.RIGHT) , GameObject.MoveDirection.RIGHT);
-		assertNotEquals(GameObject.getOppositeMoveDirection(GameObject.MoveDirection.RIGHT) , GameObject.MoveDirection.UP);
-		assertNotEquals(GameObject.getOppositeMoveDirection(GameObject.MoveDirection.RIGHT) , GameObject.MoveDirection.DOWN);
+		assertEquals(MovableGameObject.getOppositeMoveDirection(MovableGameObject.MoveDirection.RIGHT) , 
+					 MovableGameObject.MoveDirection.LEFT);
+		assertNotEquals(MovableGameObject.getOppositeMoveDirection(MovableGameObject.MoveDirection.RIGHT) , 
+						MovableGameObject.MoveDirection.RIGHT);
+		assertNotEquals(MovableGameObject.getOppositeMoveDirection(MovableGameObject.MoveDirection.RIGHT) , 
+						MovableGameObject.MoveDirection.UP);
+		assertNotEquals(MovableGameObject.getOppositeMoveDirection(MovableGameObject.MoveDirection.RIGHT) , 
+						MovableGameObject.MoveDirection.DOWN);
 	}
 
 }

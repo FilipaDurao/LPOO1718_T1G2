@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
-public class Ogre extends GameObject implements Movable {
+public class Ogre extends MovableGameObject {
 	
 	private final char regularSymbol = '0';
 	private final char stunnedSymbol = '8';
@@ -201,28 +201,7 @@ public class Ogre extends GameObject implements Movable {
 		
 		// No door found it the position (x,y)
 		return false;
-	}
-	
-	
-	public void move (MoveDirection dir) {
-		switch (dir) {
-		case UP:
-			this.setY_pos(this.getY_pos() - 1);
-			break;
-		case DOWN:
-			this.setY_pos(this.getY_pos() + 1);
-			break;
-		case RIGHT:
-			this.setX_pos(this.getX_pos() + 1);
-			break;
-		case LEFT:
-			this.setX_pos(this.getX_pos() - 1);
-			break;
-		default:
-			return;
-		}		
-	}
-	
+	}	
 	
 	private void performClubSwing (MoveDirection dir) {
 		switch (dir) {

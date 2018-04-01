@@ -31,7 +31,7 @@ public class TestDungeonLevel {
 		doors.add(new Door(0, 3, true));
 		
 		// Initialize Guard
-		Guard guard = new RookieGuard(3, 1, new ArrayList<GameObject.MoveDirection>());
+		Guard guard = new RookieGuard(3, 1, new ArrayList<MovableGameObject.MoveDirection>());
 		
 		// Initialize DungeonLevel itself
 		DungeonLevel DungeonLevel = new DungeonLevel(

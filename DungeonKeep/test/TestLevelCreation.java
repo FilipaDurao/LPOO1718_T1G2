@@ -36,7 +36,7 @@ public class TestLevelCreation {
 		doors.add(d2);
 		
 		// Initialize Guard
-		Guard guard = new RookieGuard(5, 1, new ArrayList<GameObject.MoveDirection>());
+		Guard guard = new RookieGuard(5, 1, new ArrayList<MovableGameObject.MoveDirection>());
 		
 		// Initialize the Lever
 		Lever lever = new Lever(4, 5);
