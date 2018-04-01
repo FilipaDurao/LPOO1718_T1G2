@@ -24,12 +24,15 @@ import java.awt.event.KeyListener;
 public class DKeepWindow implements KeyListener {
 
 	private JFrame DKeep;
-	LevelDrawer gameScreen;
-	JLabel gameStatusLabel;
-	JButton downButton;
-	JButton upButton;
-	JButton leftButton;
-	JButton rightButton;
+	private LevelDrawer gameScreen;
+	private JLabel gameStatusLabel;
+	private JButton downButton;
+	private JButton upButton;
+	private JButton leftButton;
+	private JButton rightButton;
+	private JTextField numOgresTextField;
+	private JComboBox<String> guardPersonalitiesComboBox;
+	private JPanel levelDataPanel;
 	private Game game;
 
 	/**
@@ -107,41 +110,27 @@ public class DKeepWindow implements KeyListener {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		// Main Frame
-		DKeep = new JFrame();
-		DKeep.setBounds(100, 100, 900, 750);
-		DKeep.setPreferredSize(new Dimension(900 , 740));
-		DKeep.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		DKeep.getContentPane().setLayout(null);
+		initFrame();
+		initLevelDataPanel();
+		initUpButton();
+		initLeftButton();
+		initRightButton();
+		initDownButton();
+		initNewGameButton();
+		initExitButton();
+		initStatusLabel();
+		initLevelDrawer();
 		
-		
-		// "Configuration Menu"
-		JPanel ogreDataPanel = new JPanel();
-		JTextField numOgresTextField = new JTextField();
-		numOgresTextField.setColumns(10);
-		ogreDataPanel.add(new JLabel("Number of Ogres"));
-		ogreDataPanel.add(numOgresTextField);
-		
-		JPanel guardDataPanel = new JPanel();
-		String[] guardPersonalities = {"Rookie" , "Drunken" , "Suspicious"};
-		JComboBox<String> guardPersonalitiesComboBox = new JComboBox<String>(guardPersonalities);
-		guardPersonalitiesComboBox.setBackground(Color.WHITE);	
-		guardDataPanel.add(new JLabel("Guard Personality"));	
-		guardDataPanel.add(guardPersonalitiesComboBox);	
-		
-		JPanel levelDataPanel = new JPanel();
-		levelDataPanel.setLayout(new GridLayout(2,1));      
-		levelDataPanel.add(ogreDataPanel);
-		levelDataPanel.add(guardDataPanel);
-		
-		
-		// Status Label
-		gameStatusLabel = new JLabel("You can start a new game.");
-		gameStatusLabel.setBounds(30, 655, 443, 15);
-		DKeep.getContentPane().add(gameStatusLabel);
-		
-		
-		// Up Button
+		gameScreen.addKeyListener(this);
+	}
+
+	private boolean isGameReadyToUpdate() {
+		return !(game == null ||
+				 game.getStatus() == Game.Status.VICTORY ||
+				 game.getStatus() == Game.Status.DEFEAT);
+	}
+	
+	private void initUpButton() {
 		upButton = new JButton("Up");
 		upButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -153,23 +142,9 @@ public class DKeepWindow implements KeyListener {
 		upButton.setEnabled(false);
 		upButton.setBounds(720, 127, 83, 25);
 		DKeep.getContentPane().add(upButton);
-		
-		
-		// Left Button
-		leftButton = new JButton("Left");
-		leftButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				updateGame('A');	// Left Key
-				gameScreen.requestFocusInWindow();
-			}
-		});
-		leftButton.setEnabled(false);
-		leftButton.setBackground(Color.WHITE);
-		leftButton.setBounds(665, 166, 83, 25);
-		DKeep.getContentPane().add(leftButton);
-		
-		
-		// Down Button
+	}
+	
+	private void initDownButton() {
 		downButton = new JButton("Down");
 		downButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -181,9 +156,23 @@ public class DKeepWindow implements KeyListener {
 		downButton.setBackground(Color.WHITE);
 		downButton.setBounds(720, 204, 83, 25);
 		DKeep.getContentPane().add(downButton);
-		
-		
-		// Right Button
+	}
+	
+	private void initLeftButton() {
+		leftButton = new JButton("Left");
+		leftButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				updateGame('A');	// Left Key
+				gameScreen.requestFocusInWindow();
+			}
+		});
+		leftButton.setEnabled(false);
+		leftButton.setBackground(Color.WHITE);
+		leftButton.setBounds(665, 166, 83, 25);
+		DKeep.getContentPane().add(leftButton);
+	}
+
+	private void initRightButton() {
 		rightButton = new JButton("Right");
 		rightButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -195,72 +184,9 @@ public class DKeepWindow implements KeyListener {
 		rightButton.setBackground(Color.WHITE);
 		rightButton.setBounds(770, 166, 83, 25);
 		DKeep.getContentPane().add(rightButton);
-		
-		
-		// New Game Button
-		JButton newGameButton = new JButton("New Game");
-		newGameButton.addActionListener(new ActionListener() {
-			
-			public void actionPerformed(ActionEvent arg0) {	
-				
-				int levelDataResult = JOptionPane.showConfirmDialog(
-						DKeep, 
-						levelDataPanel,
-						"Game Parameters", 
-			            JOptionPane.DEFAULT_OPTION,
-			            -1);
-				
-				if (levelDataResult != JOptionPane.OK_OPTION) {
-					gameScreen.requestFocusInWindow();
-					return;
-				}
-				
-				// Parse Inputs
-				String guardPersonality = (String) guardPersonalitiesComboBox.getSelectedItem();
-				int numOgres;
-				
-				try {
-					numOgres = Integer.parseInt(numOgresTextField.getText());
-				}
-				catch (Exception e) {
-					numOgresTextField.setText("");	// Clear text area
-					JOptionPane.showMessageDialog(DKeep, "Invalid number of Ogres.");
-					gameScreen.requestFocusInWindow();
-					return;
-				}
-				
-				if (numOgres <= 0 || numOgres > 5) {
-					numOgresTextField.setText("");	// Clear text area
-					JOptionPane.showMessageDialog(DKeep, "Invalid number of Ogres.");
-					gameScreen.requestFocusInWindow();
-					return;
-				}
-
-				// Clear text area
-				numOgresTextField.setText("");
-				
-				// Create the game
-				game = new Game(numOgres , guardPersonality);
-				
-				// Enable Movement Buttons
-				enablePlayButtons();
-				
-				// Update status message
-				updateGameStatusLabel("You can play now.");
-				
-				// Draw the game for the first time
-				gameScreen.setLevelToDraw(game.getCurrentLevel());
-				gameScreen.requestFocusInWindow();
-				drawGame();
-			}
-			
-		});
-		newGameButton.setBackground(Color.WHITE);
-		newGameButton.setBounds(702, 30, 117, 25);
-		DKeep.getContentPane().add(newGameButton);
-		
-		
-		// Exit Button
+	}
+	
+	private void initExitButton() {
 		JButton exitButton = new JButton("Exit");
 		exitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -270,25 +196,113 @@ public class DKeepWindow implements KeyListener {
 		exitButton.setBackground(Color.WHITE);
 		exitButton.setBounds(702, 301, 117, 25);
 		DKeep.getContentPane().add(exitButton);
-		
-		
-		// Level Drawer Initialization
+	}
+	
+	private void initNewGameButton() {
+		JButton newGameButton = new JButton("New Game");
+		newGameButton.addActionListener(initNewGameButtonActionListener());
+		newGameButton.setBackground(Color.WHITE);
+		newGameButton.setBounds(702, 30, 117, 25);
+		DKeep.getContentPane().add(newGameButton);
+	}
+	
+	private int popLevelDataPanel() {
+		return JOptionPane.showConfirmDialog(
+				DKeep, 
+				levelDataPanel,
+				"Game Parameters", 
+				JOptionPane.DEFAULT_OPTION,-1);
+	}
+	
+	private void initLevelDrawer() {
 		gameScreen = new LevelDrawer();
 		gameScreen.setBounds(20, 30, 600, 600);
 		gameScreen.setPreferredSize(new Dimension(600, 600));
 		DKeep.getContentPane().add(gameScreen);
 		DKeep.pack();
 		DKeep.setVisible(true);
-		
-		
-		// Event Handlers
-		gameScreen.addKeyListener(this);
 	}
+	
+	private void initFrame() {
+		DKeep = new JFrame();
+		DKeep.setBounds(100, 100, 900, 750);
+		DKeep.setPreferredSize(new Dimension(900 , 740));
+		DKeep.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		DKeep.getContentPane().setLayout(null);
+	}
+	
+	private void initLevelDataPanel() {
+		JPanel ogreDataPanel = new JPanel();
+		numOgresTextField = new JTextField();
+		numOgresTextField.setColumns(10);
+		ogreDataPanel.add(new JLabel("Number of Ogres"));
+		ogreDataPanel.add(numOgresTextField);
+		
+		JPanel guardDataPanel = new JPanel();
+		String[] guardPersonalities = {"Rookie" , "Drunken" , "Suspicious"};
+		guardPersonalitiesComboBox = new JComboBox<String>(guardPersonalities);
+		guardPersonalitiesComboBox.setBackground(Color.WHITE);	
+		guardDataPanel.add(new JLabel("Guard Personality"));	
+		guardDataPanel.add(guardPersonalitiesComboBox);	
+		
+		levelDataPanel = new JPanel();
+		levelDataPanel.setLayout(new GridLayout(2,1));      
+		levelDataPanel.add(ogreDataPanel);
+		levelDataPanel.add(guardDataPanel);
+	}
+	
+	private void initStatusLabel() {
+		gameStatusLabel = new JLabel("You can start a new game.");
+		gameStatusLabel.setBounds(30, 655, 443, 15);
+		DKeep.getContentPane().add(gameStatusLabel);	
+	}
+	
+	private void initGame(String guardPersonality, int numOgres) {
+		numOgresTextField.setText("");
+		game = new Game(numOgres , guardPersonality);
+		enablePlayButtons();
+		updateGameStatusLabel("You can play now.");
+		
+		gameScreen.setLevelToDraw(game.getCurrentLevel());
+		gameScreen.requestFocusInWindow();
+		drawGame();
+	}
+	
+	private ActionListener initNewGameButtonActionListener() {
+		return new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {	
+				int levelDataResult = popLevelDataPanel();
+				
+				if (levelDataResult != JOptionPane.OK_OPTION) {
+					gameScreen.requestFocusInWindow();
+					return;
+				}
+				
+				String guardPersonality = (String) guardPersonalitiesComboBox.getSelectedItem();
+				int numOgres;
+				
+				try {
+					numOgres = Integer.parseInt(numOgresTextField.getText());
+				}
+				catch (Exception e) {
+					popInvalidNumOgres();
+					return;
+				}
+				
+				if (numOgres <= 0 || numOgres > 5) {
+					popInvalidNumOgres();
+					return;
+				}
 
-	private boolean isGameReadyToUpdate() {
-		return !(game == null ||
-				 game.getStatus() == Game.Status.VICTORY ||
-				 game.getStatus() == Game.Status.DEFEAT);
+				initGame(guardPersonality, numOgres);
+			}
+		};
+	}
+	
+	private void popInvalidNumOgres() {
+		numOgresTextField.setText("");	// Clear text area
+		JOptionPane.showMessageDialog(DKeep, "Invalid number of Ogres.");
+		gameScreen.requestFocusInWindow();
 	}
 	
 	
@@ -313,7 +327,6 @@ public class DKeepWindow implements KeyListener {
 		 	break;
 		}
 	}
-
 	
 	@Override
 	public void keyReleased(KeyEvent evt) {}	// Key Released Events are ignored

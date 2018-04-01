@@ -59,44 +59,17 @@ public class Game implements IStatus {
 		return guardMoves;
 	}
 	
-	private static DungeonLevel initializeDungeonLevel(String guardPersonality) {
+	private static ArrayList<Wall> initDungeonLevelWalls() {
 		ArrayList<Wall> walls = new ArrayList<Wall>();
-		ArrayList<Door> doors = new ArrayList<Door>();
 		
-		// Initialize the doors
-		doors.add(new Door(0, 5, true));
-		doors.add(new Door(0, 6, true));
-		doors.add(new Door(2, 3, false));
-		doors.add(new Door(4, 3, false));
-		doors.add(new Door(4, 1, false));
-		doors.add(new Door(2, 8, false));
-		doors.add(new Door(4, 8, false));
-		
-		// Initialize the walls
-		walls.add(new Wall(1, 2));
-		walls.add(new Wall(2, 2));
-		walls.add(new Wall(4, 2));
-		walls.add(new Wall(5, 2));
-		walls.add(new Wall(6, 2));
-		walls.add(new Wall(1, 4));
-		walls.add(new Wall(2, 4));
-		walls.add(new Wall(4, 4));
-		walls.add(new Wall(5, 4));
-		walls.add(new Wall(6, 4));
-		walls.add(new Wall(6, 1));
-		walls.add(new Wall(6, 3));
-		walls.add(new Wall(1, 7));
-		walls.add(new Wall(2, 7));
-		walls.add(new Wall(4, 7));
-		walls.add(new Wall(5, 7));
-		walls.add(new Wall(6, 7));
-		walls.add(new Wall(7, 7));
-		walls.add(new Wall(6, 8));
-		walls.add(new Wall(0, 1));
-		walls.add(new Wall(0, 2));
-		walls.add(new Wall(0, 3));
-		walls.add(new Wall(0, 4));
-		walls.add(new Wall(0, 7));
+		walls.add(new Wall(1, 2)); walls.add(new Wall(2, 2)); walls.add(new Wall(4, 2));
+		walls.add(new Wall(5, 2)); walls.add(new Wall(6, 2)); walls.add(new Wall(1, 4));
+		walls.add(new Wall(2, 4)); walls.add(new Wall(4, 4)); walls.add(new Wall(5, 4));
+		walls.add(new Wall(6, 4)); walls.add(new Wall(6, 1)); walls.add(new Wall(6, 3));
+		walls.add(new Wall(1, 7)); walls.add(new Wall(2, 7)); walls.add(new Wall(4, 7));
+		walls.add(new Wall(5, 7)); walls.add(new Wall(6, 7)); walls.add(new Wall(7, 7)); 
+		walls.add(new Wall(6, 8)); walls.add(new Wall(0, 1)); walls.add(new Wall(0, 2));
+		walls.add(new Wall(0, 3)); walls.add(new Wall(0, 4)); walls.add(new Wall(0, 7));
 		walls.add(new Wall(0, 8));
 		
 		for(int i=0 ; i<10 ; i++) {
@@ -107,6 +80,27 @@ public class Game implements IStatus {
 		for(int i=1 ; i<9 ; i++) {
 			walls.add(new Wall(9, i));
 		}
+		
+		return walls;
+	}
+	
+	private static ArrayList<Door> initDungeonLevelDoors() {
+		ArrayList<Door> doors = new ArrayList<Door>();
+		
+		doors.add(new Door(0, 5, true));
+		doors.add(new Door(0, 6, true));
+		doors.add(new Door(2, 3, false));
+		doors.add(new Door(4, 3, false));
+		doors.add(new Door(4, 1, false));
+		doors.add(new Door(2, 8, false));
+		doors.add(new Door(4, 8, false));
+		
+		return doors;
+	}
+	
+	private static DungeonLevel initializeDungeonLevel(String guardPersonality) {
+		ArrayList<Wall> walls = initDungeonLevelWalls();
+		ArrayList<Door> doors = initDungeonLevelDoors();
 		
 		// Initialize the guard
 		Guard guard;		
@@ -122,7 +116,6 @@ public class Game implements IStatus {
 			guard = new RookieGuard(8, 1, initGuardPath());
 			break;
 		}
-		
 		
 		// Initialize level itself
 		return new DungeonLevel(
