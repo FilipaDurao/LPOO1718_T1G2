@@ -17,6 +17,8 @@ public class RookieGuard extends Guard {
 		} 
 		catch (IOException e) {
             e.printStackTrace();
+			System.out.println("\nRookie Guard sprite not found.");
+			System.exit(1);
 		}
 	}
 	

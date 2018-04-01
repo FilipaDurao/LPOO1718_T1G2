@@ -18,6 +18,8 @@ public class Key extends GameObject {
 		} 
 		catch (IOException e) {
             e.printStackTrace();
+			System.out.println("\nKey sprite not found.");
+			System.exit(1);
 		}
 	}
 	

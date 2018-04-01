@@ -22,16 +22,12 @@ public class DrunkenGuard extends Guard {
 		
 		try {
 			sprite = ImageIO.read(new File("./bin/Images/drunkenGuard.png"));
-		} 
-		catch (IOException e) {
-            e.printStackTrace();
-		}
-		
-		try {
 			spriteAsleep = ImageIO.read(new File("./bin/Images/drunkenGuardSleeping.png"));
 		} 
 		catch (IOException e) {
             e.printStackTrace();
+			System.out.println("\nDrunken Guard sprite not found.");
+			System.exit(1);
 		}
 	}
 	

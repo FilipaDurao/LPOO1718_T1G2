@@ -17,6 +17,8 @@ public class Wall extends GameObject {
 		} 
 		catch (IOException e) {
             e.printStackTrace();
+			System.out.println("\nWall sprite not found.");
+			System.exit(1);
 		}
 	}
 	

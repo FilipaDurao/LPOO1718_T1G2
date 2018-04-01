@@ -22,16 +22,12 @@ public class Ogre extends GameObject implements Movable {
 		
 		try {
 			sprite = ImageIO.read(new File("./bin/Images/ogre.png"));
-		} 
-		catch (IOException e) {
-            e.printStackTrace();
-		}
-		
-		try {
 			spriteStunned = ImageIO.read(new File("./bin/Images/ogreStunned.png"));
 		} 
 		catch (IOException e) {
             e.printStackTrace();
+			System.out.println("\nOgre sprite not found.");
+			System.exit(1);
 		}
 	}
 	

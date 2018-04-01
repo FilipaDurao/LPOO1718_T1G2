@@ -17,6 +17,8 @@ public class Lever extends GameObject {
 		} 
 		catch (IOException e) {
             e.printStackTrace();
+			System.out.println("\nLever sprite not found.");
+			System.exit(1);
 		}
 	}
 	

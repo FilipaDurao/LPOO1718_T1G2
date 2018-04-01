@@ -21,6 +21,8 @@ public class Door extends GameObject {
 		} 
 		catch (IOException e) {
             e.printStackTrace();
+			System.out.println("\nDoor sprite not found.");
+			System.exit(1);
 		}
 	}
 	

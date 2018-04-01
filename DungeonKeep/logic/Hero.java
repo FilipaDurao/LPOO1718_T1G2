@@ -22,16 +22,12 @@ public class Hero extends GameObject implements Movable {
 		
 		try {
 			sprite = ImageIO.read(new File("./bin/Images/hero.png"));
-		} 
-		catch (IOException e) {
-            e.printStackTrace();
-		}
-		
-		try {
 			spriteArmed = ImageIO.read(new File("./bin/Images/heroWithWeapon.png"));
 		} 
 		catch (IOException e) {
             e.printStackTrace();
+			System.out.println("\nHero sprite not found.");
+			System.exit(1);
 		}
 	}
 	

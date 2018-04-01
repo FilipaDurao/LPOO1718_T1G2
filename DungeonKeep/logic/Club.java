@@ -17,6 +17,8 @@ public class Club extends GameObject {
 		} 
 		catch (IOException e) {
             e.printStackTrace();
+			System.out.println("\nClub sprite not found.");
+			System.exit(1);
 		}
 	}
 

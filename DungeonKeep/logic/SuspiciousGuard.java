@@ -20,6 +20,8 @@ public class SuspiciousGuard extends Guard {
 		} 
 		catch (IOException e) {
             e.printStackTrace();
+			System.out.println("\nSuspicious Guard sprite not found.");
+			System.exit(1);
 		}
 	}
 	
