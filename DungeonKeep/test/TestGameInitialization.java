@@ -18,6 +18,24 @@ public class TestGameInitialization {
 		assertEquals(gameLevels.size() , 2);
 		assertEquals(gameLevels.get(0).getID() , 1);
 		assertEquals(gameLevels.get(1).getID() , 2);
+			
+		// Verify correct guard personality and number of ogres
+		assertTrue(((DungeonLevel) game.getLevels().get(0)).getGuard() instanceof RookieGuard);
+		assertFalse(((DungeonLevel) game.getLevels().get(0)).getGuard() instanceof DrunkenGuard);
+		assertFalse(((DungeonLevel) game.getLevels().get(0)).getGuard() instanceof SuspiciousGuard);
+		assertEquals(((KeepLevel) game.getLevels().get(1)).getOgres().size() , 1);
+		assertNotEquals(((KeepLevel) game.getLevels().get(1)).getOgres().size() , 2);
+		assertNotEquals(((KeepLevel) game.getLevels().get(1)).getOgres().size() , 3);
+		
+		// Verify correct number of walls and doors
+		assertEquals(game.getLevels().get(0).getWalls().size(), 53);
+		assertNotEquals(game.getLevels().get(0).getWalls().size(), 50);
+		assertEquals(game.getLevels().get(0).getDoors().size(), 7);
+		assertNotEquals(game.getLevels().get(0).getDoors().size(), 5);
+		assertEquals(game.getLevels().get(1).getWalls().size(), 31);
+		assertNotEquals(game.getLevels().get(1).getWalls().size(), 30);
+		assertEquals(game.getLevels().get(1).getDoors().size(), 1);
+		assertNotEquals(game.getLevels().get(1).getDoors().size(), 0);
 	}
 	
 	@Test
@@ -44,6 +62,7 @@ public class TestGameInitialization {
 		
 		// Confirm that the game starts in the Dungeon Level
 		assertTrue(game.getCurrentLevel() instanceof DungeonLevel);
+		
 	}
 
 }

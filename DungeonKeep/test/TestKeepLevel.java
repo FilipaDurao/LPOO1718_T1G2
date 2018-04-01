@@ -53,7 +53,14 @@ public class TestKeepLevel {
 		Hero hero = testKeepLevel.getHero();
 		
 		// Disable the ogre
-		testKeepLevel.getOgres().get(0).disable();
+		Ogre ogre = testKeepLevel.getOgres().get(0);
+		ogre.disable();
+		
+		// Verify club starts at the bottom of the ogre
+		assertEquals(ogre.getX_pos() , ogre.getClub().getX_pos());
+		assertEquals(ogre.getY_pos()+1 , ogre.getClub().getY_pos());
+		assertNotEquals(ogre.getX_pos()-1 , ogre.getClub().getX_pos());
+		assertNotEquals(ogre.getY_pos()-1 , ogre.getClub().getY_pos());
 		
 		// Test if hero begins in position (1, 1)
 		assertEquals(1, hero.getX_pos());

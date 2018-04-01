@@ -3,29 +3,13 @@ package DungeonKeep.test;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import DungeonKeep.logic.*;
 
 public class TestGuards {
-	
-//	private static Level initializeTestLevel1() {
-//		// Initialize Walls
-//		ArrayList<Wall> walls = new ArrayList<Wall>();
-//		for(int i=0 ; i<5 ; i++) {
-//			walls.add(new Wall(0,i));
-//			walls.add(new Wall(4,i));
-//		}
-//		for(int i=1 ; i<4 ; i++) {
-//			walls.add(new Wall(i,0));
-//			walls.add(new Wall(i,4));
-//		}
-//		
-//		// Initialize guard
-//		ArrayList<Guard> guards = new ArrayList<Guard>();
-//		guards.add(new RookieGuard(1 , 1 , getGuardMoves()));
-//	}
-	
+		
 	private static ArrayList<GameObject.MoveDirection> getGuardMoves(){
 		ArrayList<GameObject.MoveDirection> guardMoves = new ArrayList<GameObject.MoveDirection>();
 		guardMoves.add(GameObject.MoveDirection.RIGHT);
@@ -71,6 +55,9 @@ public class TestGuards {
 		guard.performStep();
 		assertEquals(guard.getX_pos() , 1);
 		assertEquals(guard.getY_pos() , 1);
+		
+		// Test guard's sprite
+		assertTrue(guard.getSprite() instanceof BufferedImage);
 	}
 	
 	@Test
@@ -93,6 +80,9 @@ public class TestGuards {
 			guard.performStep();
 		}
 		assertFalse(guard.getX_pos() == 1   &&   guard.getY_pos() == 1);
+		
+		// Test guard's sprite
+		assertTrue(guard.getSprite() instanceof BufferedImage);
 	}
 	
 	@Test
@@ -113,16 +103,31 @@ public class TestGuards {
 		// Verify sleeping related methods
 		assertTrue(guard.isAwake());
 		assertEquals(guard.getIdSymbol() , 'G');
+		assertTrue(guard.getSprite() instanceof BufferedImage);
 		guard.fallAsleep();
 		assertTrue(guard.isAsleep());
 		assertEquals(guard.getIdSymbol() , 'g');
+		assertTrue(guard.getSprite() instanceof BufferedImage);
 		guard.wakeUp();
 		assertTrue(guard.isAwake());
 		assertEquals(guard.getIdSymbol() , 'G');
 		
 		// Perform a few steps and confirm the guard isn't in the beggining place
-		for (int i = 0 ; i<25 ; i++) {
+		int x, y;
+		for (int i = 0 ; i<100 ; i++) {
+			x = guard.getX_pos();
+			y = guard.getY_pos();
+			
 			guard.performStep();
+			
+			if (guard.isAsleep()) {	// Verify that guard hasn't moved
+				assertEquals(guard.getX_pos(), x);
+				assertEquals(guard.getY_pos(), y);
+			}
+			else {					// Verify that guard HAS moved
+				assertTrue(guard.getX_pos() != x ||
+						   guard.getY_pos() != y);
+			}
 		}
 	}
 

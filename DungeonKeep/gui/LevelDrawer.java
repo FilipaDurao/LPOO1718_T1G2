@@ -41,7 +41,7 @@ public class LevelDrawer extends JPanel {
 		}
 	
 		// Draw Background
-		for (int i=0 ; i<levelToDraw.getHeigth()*3 ; i++) {
+		for (int i=0 ; i<levelToDraw.getHeight()*3 ; i++) {
 			for (int j=0 ; j<levelToDraw.getWidth()*3 ; j++) {
 				if ((i+j)%2 == 0) {				
 					//g.setColor(new Color(220, 220, 220));

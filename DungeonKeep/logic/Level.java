@@ -44,12 +44,12 @@ public abstract class Level implements IStatus {
 		this.width = width;
 	}
 
-	public int getHeigth() {
+	public int getHeight() {
 		return heigth;
 	}
 
-	public void setHeigth(int heigth) {
-		this.heigth = heigth;
+	public void setHeight(int height) {
+		this.heigth = height;
 	}
 
 	public Hero getHero() {

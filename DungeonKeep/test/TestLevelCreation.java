@@ -3,6 +3,7 @@ package DungeonKeep.test;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import DungeonKeep.logic.*;
@@ -30,7 +31,7 @@ public class TestLevelCreation {
 		// Initialize Doors
 		ArrayList<Door> doors = new ArrayList<Door>();
 		Door d1 = new Door(3, 6, true);
-		Door d2 = new Door(3, 6, false);
+		Door d2 = new Door(4, 6, false);
 		doors.add(d1);
 		doors.add(d2);
 		
@@ -54,8 +55,12 @@ public class TestLevelCreation {
 		
 		// Verify level size and ID
 		assertEquals(testLevel.getWidth() , 7);
-		assertEquals(testLevel.getHeigth() , 7);
+		assertEquals(testLevel.getHeight() , 7);
 		assertEquals(testLevel.getID() , 0);
+		testLevel.setWidth(10);
+		testLevel.setHeight(10);
+		assertEquals(testLevel.getWidth() , 10);
+		assertEquals(testLevel.getHeight() , 10);
 		
 		// Verify Hero Coordinates and that it has no weapon
 		assertEquals(testLevel.getHero().getX_pos() , 1);
@@ -79,15 +84,59 @@ public class TestLevelCreation {
 		assertTrue(testLevel.getDoors().get(0).isClosed());
 		assertFalse(testLevel.getDoors().get(1).isOpen());
 		
-		// Verify Objects symbols
-		assertEquals(testLevel.getHero().getIdSymbol() , 'H');
-		assertEquals(testLevel.getLever().getIdSymbol() , 'k');
-		assertEquals(testLevel.getGuard().getIdSymbol() , 'G');
-		assertEquals(testLevel.getDoors().get(0).getIdSymbol() , 'I');
-		assertEquals(testLevel.getWalls().get(0).getIdSymbol() , 'X');	
+		// Verify if given position has a barrier
+		assertTrue(testLevel.doesPositionHaveBarrier(0, 0));
+		assertTrue(testLevel.doesPositionHaveBarrier(1, 0));
+		assertTrue(testLevel.doesPositionHaveBarrier(3, 6));
+		assertTrue(testLevel.doesPositionHaveBarrier(4, 6));
+		assertFalse(testLevel.doesPositionHaveBarrier(1, 1));
+		assertFalse(testLevel.doesPositionHaveBarrier(2, 1));
+		assertFalse(testLevel.doesPositionHaveBarrier(3, 1));
+		assertFalse(testLevel.doesPositionHaveBarrier(1, 2));
 		
-		// Verify if level is 'printing'
-		assertFalse(testLevel.getGameMatrix().isEmpty());
+		// Verify Objects symbols and sprites
+		assertEquals(testLevel.getHero().getIdSymbol() , 'H');
+		assertTrue(testLevel.getHero().getSprite() instanceof BufferedImage);
+		assertEquals(testLevel.getLever().getIdSymbol() , 'k');
+		assertTrue(testLevel.getLever().getSprite() instanceof BufferedImage);
+		assertEquals(testLevel.getGuard().getIdSymbol() , 'G');
+		assertTrue(testLevel.getGuard().getSprite() instanceof BufferedImage);
+		assertEquals(testLevel.getDoors().get(0).getIdSymbol() , 'I');
+		assertTrue(testLevel.getDoors().get(0).getSprite() instanceof BufferedImage);
+		assertEquals(testLevel.getWalls().get(0).getIdSymbol() , 'X');	
+		assertTrue(testLevel.getWalls().get(0).getSprite() instanceof BufferedImage);
+		
+		// Verify level "printing" correctness
+		int numWalls = 0, numDoors = 0;
+		boolean heroFound = false, leverFound = false, guardFound = false;
+		
+		for (char element : testLevel.getGameMatrix().toCharArray()) {
+			switch(element) {
+			case 'H':
+			case 'A':
+				heroFound = true;
+				break;
+			case 'k':
+				leverFound = true;
+				break;
+			case 'G':
+				guardFound = true;
+				break;
+			case 'I':
+			case 'S':
+				numDoors++;
+				break;
+			case 'X':
+				numWalls++;
+				break;
+			}
+		}
+		
+		assertTrue(heroFound);
+		assertTrue(leverFound);
+		assertTrue(guardFound);
+		assertEquals(numDoors, testLevel.getDoors().size());
+		assertEquals(numWalls, testLevel.getWalls().size());
 	}
 	
 	@Test
@@ -111,7 +160,7 @@ public class TestLevelCreation {
 		// Initialize Doors
 		ArrayList<Door> doors = new ArrayList<Door>();
 		Door d1 = new Door(3, 6, true);
-		Door d2 = new Door(3, 6, false);
+		Door d2 = new Door(4, 6, false);
 		doors.add(d1);
 		doors.add(d2);
 		
@@ -138,7 +187,7 @@ public class TestLevelCreation {
 		
 		// Verify level size and ID
 		assertEquals(testLevel.getWidth() , 7);
-		assertEquals(testLevel.getHeigth() , 7);
+		assertEquals(testLevel.getHeight() , 7);
 		assertEquals(testLevel.getID() , 0);
 		
 		// Verify Hero Coordinates and that it has a weapon
@@ -155,11 +204,44 @@ public class TestLevelCreation {
 		
 		// Verify Objects symbols (others were verified in another test function)
 		assertEquals(testLevel.getHero().getIdSymbol() , 'A');
+		assertTrue(testLevel.getHero().getSprite() instanceof BufferedImage);
 		assertEquals(testLevel.getKey().getIdSymbol() , 'k');
+		assertTrue(testLevel.getKey().getSprite() instanceof BufferedImage);
 		assertEquals(testLevel.getOgres().get(0).getIdSymbol() , '0');
+		assertTrue(testLevel.getOgres().get(0).getSprite() instanceof BufferedImage);
 		assertEquals(testLevel.getOgres().get(0).getClub().getIdSymbol() , '*');
+		assertTrue(testLevel.getOgres().get(0).getClub().getSprite() instanceof BufferedImage);
 		
-		// Verify if level is 'printing'
-		assertFalse(testLevel.getGameMatrix().isEmpty());
-	}
+		// Verify level "printing" correctness
+		int numWalls = 0, numDoors = 0, numOgres = 0;
+		boolean heroFound = false, keyFound = false;
+		
+		for (char element : testLevel.getGameMatrix().toCharArray()) {
+			switch(element) {
+			case 'H':
+			case 'A':
+				heroFound = true;
+				break;
+			case 'k':
+				keyFound = true;
+				break;
+			case '0':
+				numOgres++;
+				break;
+			case 'I':
+			case 'S':
+				numDoors++;
+				break;
+			case 'X':
+					numWalls++;
+					break;
+				}
+			}
+			
+			assertTrue(heroFound);
+			assertTrue(keyFound);
+			assertEquals(numOgres, testLevel.getOgres().size());
+			assertEquals(numDoors, testLevel.getDoors().size());
+			assertEquals(numWalls, testLevel.getWalls().size());
+}
 }

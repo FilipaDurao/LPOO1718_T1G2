@@ -10,7 +10,7 @@ public class Ogre extends GameObject implements Movable {
 	
 	private final char regularSymbol = '0';
 	private final char stunnedSymbol = '8';
-	private Club club = new Club(getX_pos()+1 , getY_pos());
+	private Club club = new Club(getX_pos() , getY_pos()+1);
 	private boolean isStunned = false;
 	private boolean disabled = false;
 	private int stunnedTimer = 0;
