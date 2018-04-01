@@ -25,7 +25,6 @@ public class DrunkenGuard extends Guard {
 			spriteAsleep = ImageIO.read(new File("./bin/Images/drunkenGuardSleeping.png"));
 		} 
 		catch (IOException e) {
-            e.printStackTrace();
 			System.out.println("\nDrunken Guard sprite not found.");
 			System.exit(1);
 		}
@@ -78,7 +77,7 @@ public class DrunkenGuard extends Guard {
 			this.wakeUp();
 		}
 		// If the guard is awake, there's a chance he/she falls asleep
-		if(this.isAwake() && Math.random() < fallAsleepProbability) {
+		else if(this.isAwake() && Math.random() < fallAsleepProbability) {
 			this.fallAsleep();
 		}
 		

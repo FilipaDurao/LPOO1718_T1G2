@@ -16,7 +16,6 @@ public class Wall extends GameObject {
 			sprite = ImageIO.read(new File("./bin/Images/wall.png"));
 		} 
 		catch (IOException e) {
-            e.printStackTrace();
 			System.out.println("\nWall sprite not found.");
 			System.exit(1);
 		}

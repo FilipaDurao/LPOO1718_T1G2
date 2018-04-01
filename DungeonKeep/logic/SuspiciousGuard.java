@@ -19,7 +19,6 @@ public class SuspiciousGuard extends Guard {
 			sprite = ImageIO.read(new File("./bin/Images/suspiciousGuard.png"));
 		} 
 		catch (IOException e) {
-            e.printStackTrace();
 			System.out.println("\nSuspicious Guard sprite not found.");
 			System.exit(1);
 		}

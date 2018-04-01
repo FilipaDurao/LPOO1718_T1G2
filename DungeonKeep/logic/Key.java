@@ -17,7 +17,6 @@ public class Key extends GameObject {
 			sprite = ImageIO.read(new File("./bin/Images/key.png"));
 		} 
 		catch (IOException e) {
-            e.printStackTrace();
 			System.out.println("\nKey sprite not found.");
 			System.exit(1);
 		}

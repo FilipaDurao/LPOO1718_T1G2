@@ -20,7 +20,6 @@ public class Door extends GameObject {
 			sprite = ImageIO.read(new File("./bin/Images/door.png"));
 		} 
 		catch (IOException e) {
-            e.printStackTrace();
 			System.out.println("\nDoor sprite not found.");
 			System.exit(1);
 		}

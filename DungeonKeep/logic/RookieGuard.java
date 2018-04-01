@@ -16,7 +16,6 @@ public class RookieGuard extends Guard {
 			sprite = ImageIO.read(new File("./bin/Images/rookieGuard.png"));
 		} 
 		catch (IOException e) {
-            e.printStackTrace();
 			System.out.println("\nRookie Guard sprite not found.");
 			System.exit(1);
 		}

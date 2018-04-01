@@ -16,7 +16,6 @@ public class Lever extends GameObject {
 			sprite = ImageIO.read(new File("./bin/Images/lever.png"));
 		} 
 		catch (IOException e) {
-            e.printStackTrace();
 			System.out.println("\nLever sprite not found.");
 			System.exit(1);
 		}
