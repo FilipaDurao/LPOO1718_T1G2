@@ -38,6 +38,12 @@ public class TestGameInitialization {
 		assertEquals(Game.parseKeyPressed('d') , Hero.MoveDirection.RIGHT);
 		assertEquals(Game.parseKeyPressed('H') , Hero.MoveDirection.INVALID);
 		assertEquals(Game.parseKeyPressed('ç') , Hero.MoveDirection.INVALID);
+		
+		// Confirm that the game returns a Game matrix
+		assertFalse(game.getGameMatrixString().isEmpty());
+		
+		// Confirm that the game starts in the Dungeon Level
+		assertTrue(game.getCurrentLevel() instanceof DungeonLevel);
 	}
 
 }
