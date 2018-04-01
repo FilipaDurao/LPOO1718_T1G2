@@ -17,13 +17,13 @@ import DungeonKeep.logic.Lever;
 import DungeonKeep.logic.Ogre;
 import DungeonKeep.logic.Wall;
 
-public class DKeepScreen extends JPanel {
+public class LevelDrawer extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private Level levelToDraw = null;
 	private static final int spriteSize = 60;
 
-	public DKeepScreen() {
+	public LevelDrawer() {
 		super();
 	}
 	
@@ -43,11 +43,13 @@ public class DKeepScreen extends JPanel {
 		// Draw Background
 		for (int i=0 ; i<levelToDraw.getHeigth()*3 ; i++) {
 			for (int j=0 ; j<levelToDraw.getWidth()*3 ; j++) {
-				if ((i+j)%2 == 0) {
-					g.setColor(new Color(220, 220, 220));
+				if ((i+j)%2 == 0) {				
+					//g.setColor(new Color(220, 220, 220));
+					g.setColor(new Color(222, 190, 160));	
 				}
 				else {
-					g.setColor(new Color(195, 195, 195));
+					//g.setColor(new Color(195, 195, 195));
+					g.setColor(new Color(242, 229, 217));
 				}
 				g.fillRect(i*spriteSize/3, j*spriteSize/3, spriteSize/3, spriteSize/3);
 			}

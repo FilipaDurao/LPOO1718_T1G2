@@ -3,7 +3,6 @@ package DungeonKeep.gui;
 import DungeonKeep.logic.Game;
 
 import java.awt.EventQueue;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 
 import javax.swing.JFrame;
@@ -11,18 +10,11 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.SpringLayout;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
 
-import java.awt.BorderLayout;
-import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -32,7 +24,7 @@ import java.awt.event.KeyListener;
 public class DKeepWindow implements KeyListener {
 
 	private JFrame DKeep;
-	DKeepScreen gameScreen;
+	LevelDrawer gameScreen;
 	JLabel gameStatusLabel;
 	JButton downButton;
 	JButton upButton;
@@ -115,12 +107,15 @@ public class DKeepWindow implements KeyListener {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		// Main Frame
 		DKeep = new JFrame();
 		DKeep.setBounds(100, 100, 900, 750);
 		DKeep.setPreferredSize(new Dimension(900 , 740));
 		DKeep.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		DKeep.getContentPane().setLayout(null);
 		
+		
+		// "Configuration Menu"
 		JPanel ogreDataPanel = new JPanel();
 		JTextField numOgresTextField = new JTextField();
 		numOgresTextField.setColumns(10);
@@ -139,10 +134,14 @@ public class DKeepWindow implements KeyListener {
 		levelDataPanel.add(ogreDataPanel);
 		levelDataPanel.add(guardDataPanel);
 		
+		
+		// Status Label
 		gameStatusLabel = new JLabel("You can start a new game.");
 		gameStatusLabel.setBounds(30, 655, 443, 15);
 		DKeep.getContentPane().add(gameStatusLabel);
 		
+		
+		// Up Button
 		upButton = new JButton("Up");
 		upButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -155,6 +154,8 @@ public class DKeepWindow implements KeyListener {
 		upButton.setBounds(720, 127, 83, 25);
 		DKeep.getContentPane().add(upButton);
 		
+		
+		// Left Button
 		leftButton = new JButton("Left");
 		leftButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -167,6 +168,8 @@ public class DKeepWindow implements KeyListener {
 		leftButton.setBounds(665, 166, 83, 25);
 		DKeep.getContentPane().add(leftButton);
 		
+		
+		// Down Button
 		downButton = new JButton("Down");
 		downButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -179,6 +182,8 @@ public class DKeepWindow implements KeyListener {
 		downButton.setBounds(720, 204, 83, 25);
 		DKeep.getContentPane().add(downButton);
 		
+		
+		// Right Button
 		rightButton = new JButton("Right");
 		rightButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -191,6 +196,8 @@ public class DKeepWindow implements KeyListener {
 		rightButton.setBounds(770, 166, 83, 25);
 		DKeep.getContentPane().add(rightButton);
 		
+		
+		// New Game Button
 		JButton newGameButton = new JButton("New Game");
 		newGameButton.addActionListener(new ActionListener() {
 			
@@ -252,6 +259,8 @@ public class DKeepWindow implements KeyListener {
 		newGameButton.setBounds(702, 30, 117, 25);
 		DKeep.getContentPane().add(newGameButton);
 		
+		
+		// Exit Button
 		JButton exitButton = new JButton("Exit");
 		exitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -262,14 +271,17 @@ public class DKeepWindow implements KeyListener {
 		exitButton.setBounds(702, 301, 117, 25);
 		DKeep.getContentPane().add(exitButton);
 		
-		gameScreen = new DKeepScreen();
+		
+		// Level Drawer Initialization
+		gameScreen = new LevelDrawer();
 		gameScreen.setBounds(20, 30, 600, 600);
 		gameScreen.setPreferredSize(new Dimension(600, 600));
 		DKeep.getContentPane().add(gameScreen);
 		DKeep.pack();
 		DKeep.setVisible(true);
 		
-		// Events
+		
+		// Event Handlers
 		gameScreen.addKeyListener(this);
 	}
 
@@ -306,9 +318,8 @@ public class DKeepWindow implements KeyListener {
 
 	
 	@Override
-	public void keyReleased(KeyEvent evt) {}
+	public void keyReleased(KeyEvent evt) {}	// Key Released Events are ignored
 
-	
 	@Override
-	public void keyTyped(KeyEvent evt) {}
+	public void keyTyped(KeyEvent evt) {}		// Key Typed Events are ignored
 }
