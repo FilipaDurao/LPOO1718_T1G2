@@ -16,19 +16,9 @@ public class DrunkenGuard extends Guard {
 	private final double fallAsleepProbability = 0.15;	// 15%
 	private boolean isMovingForward = true;
 	private boolean isAsleep = false;
-	private BufferedImage spriteAsleep;
 	
 	public DrunkenGuard(int x_pos, int y_pos, ArrayList<MoveDirection> path) {
 		super(x_pos, y_pos, path);
-		
-		try {
-			sprite = ImageIO.read(new File("./bin/Images/drunkenGuard.png"));
-			spriteAsleep = ImageIO.read(new File("./bin/Images/drunkenGuardSleeping.png"));
-		} 
-		catch (IOException e) {
-			System.out.println("\nDrunken Guard sprite not found.");
-			System.exit(1);
-		}
 	}
 	
 	public boolean isMovingForward() {
@@ -104,15 +94,4 @@ public class DrunkenGuard extends Guard {
 			move(getOppositeMoveDirection(path.get(pathStep)));
 		}
 	}
-	
-	@Override
-	public BufferedImage getSprite() {
-		if(isAsleep) {
-			return spriteAsleep;
-		}
-		else {
-			return sprite;
-		}
-	}
-
 }

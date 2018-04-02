@@ -20,15 +20,6 @@ public class Hero extends MovableGameObject {
 	public Hero(int x_pos, int y_pos, boolean hasClub) {
 		super(x_pos, y_pos);
 		this.hasClub = hasClub;
-		
-		try {
-			sprite =ImageIO.read(new File("./bin/Images/hero.png"));
-			spriteArmed = ImageIO.read(new File("./bin/Images/heroWithWeapon.png"));
-		} 
-		catch (IOException e) {
-			System.out.println("\nHero sprite not found.");
-			System.exit(1);
-		}
 	}
 	
 	@Override
@@ -149,16 +140,6 @@ public class Hero extends MovableGameObject {
 		
 		// No collision was found
 		return false;
-	}
-	
-	@Override
-	public BufferedImage getSprite() {
-		if(hasClub) {
-			return spriteArmed;
-		}
-		else {
-			return sprite;
-		}
 	}
 
 }

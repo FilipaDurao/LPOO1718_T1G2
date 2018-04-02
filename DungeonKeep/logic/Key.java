@@ -13,14 +13,6 @@ public class Key extends GameObject {
 
 	public Key(int x_pos, int y_pos) {
 		super(x_pos, y_pos);
-		
-		try {
-			sprite = ImageIO.read(new File("./bin/Images/key.png"));
-		} 
-		catch (IOException e) {
-			System.out.println("\nKey sprite not found.");
-			System.exit(1);
-		}
 	}
 	
 	@Override

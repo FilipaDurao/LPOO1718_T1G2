@@ -1,6 +1,7 @@
 package DungeonKeep.gui;
 
 import DungeonKeep.logic.Game;
+import DungeonKeep.logic.Hero;
 
 import java.awt.EventQueue;
 import java.awt.GridLayout;
@@ -224,12 +225,21 @@ public class DKeepWindow implements KeyListener {
 					JOptionPane.showMessageDialog(DKeep, "No game to save.");
 					return;
 				}
-				
 				JFileChooser fileChooser = new JFileChooser();
 				int result = fileChooser.showSaveDialog(DKeep);
 				
 				if (result == JFileChooser.APPROVE_OPTION) {
-					// TODO Complete
+					try {
+						FileOutputStream fstream = new FileOutputStream(fileChooser.getSelectedFile());
+						ObjectOutputStream objstream = new ObjectOutputStream(fstream);
+						
+						objstream.writeObject(game);
+						objstream.close();
+						fstream.close();
+					} catch (IOException e) {
+						JOptionPane.showMessageDialog(DKeep, "Failed to save game.");
+					}
+					gameScreen.requestFocusInWindow();
 				}
 			}
 		});
@@ -246,7 +256,21 @@ public class DKeepWindow implements KeyListener {
 				int result = fileChooser.showOpenDialog(DKeep);
 				
 				if (result == JFileChooser.APPROVE_OPTION) {
-					// TODO Complete
+					try {
+						FileInputStream fstream = new FileInputStream(fileChooser.getSelectedFile());
+						ObjectInputStream objstream = new ObjectInputStream(fstream);
+						game = (Game) objstream.readObject();
+						objstream.close();
+						fstream.close();
+						initGameScreen();
+					} catch (IOException e) {
+						popFailedSaveGame();
+						return;
+					} catch (ClassNotFoundException e) {
+						popFailedLoadGame();
+						return;
+					}
+					
 				}
 			}
 		});
@@ -262,6 +286,8 @@ public class DKeepWindow implements KeyListener {
 				"Game Parameters", 
 				JOptionPane.DEFAULT_OPTION,-1);
 	}
+	
+	
 	
 	private void initLevelDrawer() {
 		gameScreen = new LevelDrawer();
@@ -309,9 +335,12 @@ public class DKeepWindow implements KeyListener {
 	private void initGame(String guardPersonality, int numOgres) {
 		numOgresTextField.setText("");
 		game = new Game(numOgres , guardPersonality);
+		initGameScreen();
+	}
+	
+	private void initGameScreen() {
 		enablePlayButtons();
 		updateGameStatusLabel("You can play now.");
-		
 		gameScreen.setLevelToDraw(game.getCurrentLevel());
 		gameScreen.requestFocusInWindow();
 		drawGame();
@@ -354,6 +383,15 @@ public class DKeepWindow implements KeyListener {
 		gameScreen.requestFocusInWindow();
 	}
 	
+	private void popFailedLoadGame() {
+		JOptionPane.showMessageDialog(DKeep, "Failed to load game.");
+		gameScreen.requestFocusInWindow();
+	}
+	
+	private void popFailedSaveGame() {
+		JOptionPane.showMessageDialog(DKeep, "Failed to save game.");
+		gameScreen.requestFocusInWindow();
+	}
 	
 	@Override
 	public void keyPressed(KeyEvent evt) {

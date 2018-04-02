@@ -15,14 +15,6 @@ public class SuspiciousGuard extends Guard {
 	
 	public SuspiciousGuard(int x_pos, int y_pos, ArrayList<MoveDirection> path) {
 		super(x_pos, y_pos, path);
-		
-		try {
-			sprite = ImageIO.read(new File("./bin/Images/suspiciousGuard.png"));
-		} 
-		catch (IOException e) {
-			System.out.println("\nSuspicious Guard sprite not found.");
-			System.exit(1);
-		}
 	}
 	
 	

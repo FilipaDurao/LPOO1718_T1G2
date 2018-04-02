@@ -16,14 +16,6 @@ public class Door extends GameObject {
 	public Door(int x_pos, int y_pos, boolean isExit) {
 		super(x_pos, y_pos);
 		this.isExit = isExit;
-		
-		try {
-			sprite = ImageIO.read(new File("./bin/Images/door.png"));
-		} 
-		catch (IOException e) {
-			System.out.println("\nDoor sprite not found.");
-			System.exit(1);
-		}
 	}
 	
 	public void close() {

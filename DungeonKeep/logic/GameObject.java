@@ -3,12 +3,11 @@ package DungeonKeep.logic;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
 
-public abstract class GameObject implements Drawable, Serializable {
+public abstract class GameObject implements Serializable {
 
 	private static final long serialVersionUID = 1L;	// To allow file writing
 	private int x_pos;
 	private int y_pos;
-	protected BufferedImage sprite;
 	
 	public GameObject(int x_pos, int y_pos) {
 		super();
@@ -45,9 +44,5 @@ public abstract class GameObject implements Drawable, Serializable {
 	}
 	
 	public abstract char getIdSymbol();
-	
-	public BufferedImage getSprite() {
-		return sprite;
-	}
 	
 }

@@ -20,15 +20,6 @@ public class Ogre extends MovableGameObject {
 	
 	public Ogre(int x_pos, int y_pos) {
 		super(x_pos, y_pos);
-		
-		try {
-			sprite = ImageIO.read(new File("./bin/Images/ogre.png"));
-			spriteStunned = ImageIO.read(new File("./bin/Images/ogreStunned.png"));
-		} 
-		catch (IOException e) {
-			System.out.println("\nOgre sprite not found.");
-			System.exit(1);
-		}
 	}
 	
 	
@@ -225,16 +216,6 @@ public class Ogre extends MovableGameObject {
 		default:
 			return;
 		}		
-	}
-	
-	@Override
-	public BufferedImage getSprite() {
-		if(isStunned) {
-			return spriteStunned;
-		}
-		else {
-			return sprite;
-		}
 	}
 
 }
