@@ -3,7 +3,6 @@ package DungeonKeep.test;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import DungeonKeep.logic.*;
@@ -55,9 +54,6 @@ public class TestGuards {
 		guard.performStep();
 		assertEquals(guard.getX_pos() , 1);
 		assertEquals(guard.getY_pos() , 1);
-		
-		// Test guard's sprite
-		//assertTrue(guard.getSprite() instanceof BufferedImage);
 	}
 	
 	@Test
@@ -80,9 +76,6 @@ public class TestGuards {
 			guard.performStep();
 		}
 		assertFalse(guard.getX_pos() == 1   &&   guard.getY_pos() == 1);
-		
-		// Test guard's sprite
-		//assertTrue(guard.getSprite() instanceof BufferedImage);
 	}
 	
 	@Test
@@ -103,11 +96,9 @@ public class TestGuards {
 		// Verify sleeping related methods
 		assertTrue(guard.isAwake());
 		assertEquals(guard.getIdSymbol() , 'G');
-		//assertTrue(guard.getSprite() instanceof BufferedImage);
 		guard.fallAsleep();
 		assertTrue(guard.isAsleep());
 		assertEquals(guard.getIdSymbol() , 'g');
-		//assertTrue(guard.getSprite() instanceof BufferedImage);
 		guard.wakeUp();
 		assertTrue(guard.isAwake());
 		assertEquals(guard.getIdSymbol() , 'G');

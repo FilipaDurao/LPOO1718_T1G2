@@ -3,7 +3,6 @@ package DungeonKeep.test;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import DungeonKeep.logic.*;
@@ -96,15 +95,10 @@ public class TestLevelCreation {
 		
 		// Verify Objects symbols and sprites
 		assertEquals(testLevel.getHero().getIdSymbol() , 'H');
-		//assertTrue(testLevel.getHero().getSprite() instanceof BufferedImage);
 		assertEquals(testLevel.getLever().getIdSymbol() , 'k');
-		//assertTrue(testLevel.getLever().getSprite() instanceof BufferedImage);
 		assertEquals(testLevel.getGuard().getIdSymbol() , 'G');
-		//assertTrue(testLevel.getGuard().getSprite() instanceof BufferedImage);
 		assertEquals(testLevel.getDoors().get(0).getIdSymbol() , 'I');
-		//assertTrue(testLevel.getDoors().get(0).getSprite() instanceof BufferedImage);
 		assertEquals(testLevel.getWalls().get(0).getIdSymbol() , 'X');	
-		//assertTrue(testLevel.getWalls().get(0).getSprite() instanceof BufferedImage);
 		
 		// Verify level "printing" correctness
 		int numWalls = 0, numDoors = 0;
@@ -204,13 +198,9 @@ public class TestLevelCreation {
 		
 		// Verify Objects symbols (others were verified in another test function)
 		assertEquals(testLevel.getHero().getIdSymbol() , 'A');
-		//assertTrue(testLevel.getHero().getSprite() instanceof BufferedImage);
 		assertEquals(testLevel.getKey().getIdSymbol() , 'k');
-		//assertTrue(testLevel.getKey().getSprite() instanceof BufferedImage);
 		assertEquals(testLevel.getOgres().get(0).getIdSymbol() , '0');
-		//assertTrue(testLevel.getOgres().get(0).getSprite() instanceof BufferedImage);
 		assertEquals(testLevel.getOgres().get(0).getClub().getIdSymbol() , '*');
-		//assertTrue(testLevel.getOgres().get(0).getClub().getSprite() instanceof BufferedImage);
 		
 		// Verify level "printing" correctness
 		int numWalls = 0, numDoors = 0, numOgres = 0;

@@ -1,11 +1,6 @@
 package DungeonKeep.logic;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-
-import javax.imageio.ImageIO;
 
 public class Hero extends MovableGameObject {
 	
@@ -15,7 +10,6 @@ public class Hero extends MovableGameObject {
 	private final char heroWithClubSymbol = 'A';
 	private boolean hasKey = false;
 	private boolean hasClub;
-	private BufferedImage spriteArmed;
 
 	public Hero(int x_pos, int y_pos, boolean hasClub) {
 		super(x_pos, y_pos);

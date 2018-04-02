@@ -1,11 +1,5 @@
 package DungeonKeep.logic;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-
 public class Club extends GameObject {
 
 	private static final long serialVersionUID = 1L;	// To allow file writing

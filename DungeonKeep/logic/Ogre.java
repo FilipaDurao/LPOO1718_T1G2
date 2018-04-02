@@ -1,10 +1,6 @@
 package DungeonKeep.logic;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 
-import javax.imageio.ImageIO;
+import java.util.ArrayList;
 
 public class Ogre extends MovableGameObject {
 
@@ -15,8 +11,6 @@ public class Ogre extends MovableGameObject {
 	private boolean isStunned = false;
 	private boolean disabled = false;
 	private int stunnedTimer = 0;
-	private BufferedImage spriteStunned;
-
 	
 	public Ogre(int x_pos, int y_pos) {
 		super(x_pos, y_pos);

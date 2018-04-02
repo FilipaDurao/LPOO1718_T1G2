@@ -1,6 +1,5 @@
 package DungeonKeep.logic;
 
-import java.awt.image.BufferedImage;
 import java.io.Serializable;
 
 public abstract class GameObject implements Serializable {
