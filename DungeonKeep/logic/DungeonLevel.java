@@ -6,9 +6,21 @@ import java.util.Arrays;
 public class DungeonLevel extends Level {
 
 	private static final long serialVersionUID = 1L;	// To allow file writing
-	private Guard guard;
-	private Lever lever;
+	private Guard guard;	/**< The Guard present on the Level */
+	private Lever lever;	/**< The Lever present on the Lever */
 
+	/**
+	 * Creates a Dungeon Level
+	 * 
+	 * @param ID - the Level's ID
+	 * @param hero - the Hero of the Level
+	 * @param walls - all the Walls of the Level
+	 * @param doors - all the Doors of the Level
+	 * @param guard - the Guard of the Level
+	 * @param lever - the Lever of the Level
+	 * @param width - the width of the Level
+	 * @param heigth - the heigth of the Level
+	 */
 	public DungeonLevel(
 			int ID, 
 			Hero hero,
@@ -24,14 +36,25 @@ public class DungeonLevel extends Level {
 		this.lever = lever;
 	}
 	
+	/**
+	 * @return Returns the Guard present on the Level
+	 */
 	public Guard getGuard() { 
 		return guard;
 	}
 
+	/**
+	 * @return Returns the Lever of the Level
+	 */
 	public Lever getLever() { 
 		return lever;
 	}
 
+	/**
+	 * Fills a matrix with the correct game symbols and returns a String representation of it
+	 * 
+	 * @return Returns a string representing all the Level objects
+	 */
 	@Override
 	public String getGameMatrix() {
 		char[][] symbols = new char[heigth][width];
@@ -64,6 +87,11 @@ public class DungeonLevel extends Level {
 		return parseMatrixToString(symbols);
 	}
 
+	/**
+	 * Updates the Level based on the direction the player chose to move.
+	 * 
+	 * @param heroDirection - the direction the player chose
+	 */
 	@Override
 	public void update(Hero.MoveDirection heroDirection) {
 		// Move the Guard

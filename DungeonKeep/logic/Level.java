@@ -5,14 +5,24 @@ import java.util.ArrayList;
 public abstract class Level implements IStatus, Serializable {
 
 	private static final long serialVersionUID = 1L;	// To allow file writing
-	protected int ID;
-	protected Hero hero;
-	protected ArrayList<Wall> walls;
-	protected ArrayList<Door> doors;
-	protected int width;
-	protected int heigth;
-	protected Status status = Status.RUNNING;
+	protected int ID;								/**< The Level's ID */
+	protected Hero hero;							/**< The Level's Hero */
+	protected ArrayList<Wall> walls;				/**< The Level's Walls */
+	protected ArrayList<Door> doors;				/**< The Level's Doors */
+	protected int width;							/**< The Level's width */
+	protected int heigth;							/**< The Level's height */
+	protected Status status = Status.RUNNING;		/**< The current Level Status */
 	
+	/**
+	 * Creates a Level
+	 * 
+	 * @param ID - the Level's ID
+	 * @param hero - the Level's Hero
+	 * @param walls - all the Level's walls 
+	 * @param doors - all the Level's doors
+	 * @param width - the Level's width
+	 * @param heigth - the Level's height
+	 */
 	public Level(
 			int ID,
 			Hero hero,
@@ -30,10 +40,16 @@ public abstract class Level implements IStatus, Serializable {
 		this.heigth = heigth;
 	}
 	
+	/**
+	 * @return The Level's ID
+	 */
 	public int getID() {
 		return ID;
 	}
 	
+	/**
+	 * @return
+	 */
 	public Status getStatus() {
 		return status;
 	}

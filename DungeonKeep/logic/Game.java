@@ -5,10 +5,16 @@ import java.util.ArrayList;
 public class Game implements IStatus , Serializable {
 	
 	private static final long serialVersionUID = 1L;	// To allow file writing
-	private ArrayList<Level> levels;
-	private int currentLevelIndex;
-	private Status status = Status.RUNNING;
+	private ArrayList<Level> levels;					/**< All the Game's Levels */
+	private int currentLevelIndex;						/**< Variable used to identify the current Level */
+	private Status status = Status.RUNNING;				/**< The Game's Status */
 	
+	/**
+	 * Creates a Game based on the user's inputs
+	 * 
+	 * @param numOgres - the number of Ogres that will be present on the Keep Level
+	 * @param guardPersonality - the personality of the Guard that will be present on the Dungeon Level
+	 */
 	public Game(int numOgres , String guardPersonality) {
 		super();
 		
@@ -20,18 +26,34 @@ public class Game implements IStatus , Serializable {
 		currentLevelIndex = 0;
 	}
 	
+	/**
+	 * Returns if the Game is Running or if it has ended
+	 * 
+	 * @return Returns the Game's Status
+	 */
 	public Status getStatus() {
 		return status;
 	}
 	
+	/** 
+	 * @return All the Levels of the Game
+	 */
 	public ArrayList<Level> getLevels() {
 		return levels; 
 	}
 	
+	/**
+	 * Returns the game matrix of the current Level being played
+	 * 
+	 * @return A game matrix
+	 */
 	public String getGameMatrixString() {
 		return levels.get(currentLevelIndex).getGameMatrix();
 	}
 	
+	/**
+	 * @return The current Level
+	 */
 	public Level getCurrentLevel() {
 		return levels.get(currentLevelIndex);
 	}
@@ -171,6 +193,13 @@ public class Game implements IStatus , Serializable {
 		
 	}
 	
+	/**
+	 * Receives the key that the player pressed and processes it to know to which direction it corresponds
+	 * 
+	 * @param keyPressed - the key that the player pressed
+	 * 
+	 * @return the MoveDirection correspondent to the keyPressed
+	 */
 	public static Hero.MoveDirection parseKeyPressed(char keyPressed) {
 		keyPressed = Character.toUpperCase(keyPressed);
 		
@@ -187,7 +216,11 @@ public class Game implements IStatus , Serializable {
 			return Hero.MoveDirection.INVALID;
 		}
 	}	
-	
+	/**
+	 * Receives the key pressed by the player and updates the whole game based on this input
+	 * 
+	 * @param keyPressed - the key pressed by the player
+	 */
 	public void update(char keyPressed) {
 		// Check if the key is relevant
 		Hero.MoveDirection dir = parseKeyPressed(keyPressed);

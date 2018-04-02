@@ -6,9 +6,21 @@ import java.util.Arrays;
 public class KeepLevel extends Level {
 	
 	private static final long serialVersionUID = 1L;	// To allow file writing
-	private ArrayList<Ogre> ogres;
-	private Key key;
+	private ArrayList<Ogre> ogres;		/**< All the Ogres in the Level */
+	private Key key;					/**< The Key of the Level */
 
+	/**
+	 * Creates a Keep Level
+	 * 
+	 * @param ID - the Level's ID
+	 * @param hero - the Hero of the Level
+	 * @param walls - all the Walls of the Level
+	 * @param doors - all the Doors of the Level
+	 * @param ogres - all the Ogres of the Level
+	 * @param key - the Key of the Level
+	 * @param width - the width of the Level
+	 * @param heigth - the heigth of the Level
+	 */
 	public KeepLevel(
 			int ID,
 			Hero hero, 
@@ -24,14 +36,21 @@ public class KeepLevel extends Level {
 		this.key = key;
 	}
 	
+	//TODO
 	public ArrayList<Ogre> getOgres() {
 		return ogres;
 	}
 
+	//TODO
 	public Key getKey() {
 		return key;
 	}
 
+	/**
+	 * Fills a matrix with the correct game symbols and returns a String representation of it
+	 * 
+	 * @return Returns a string representing all the Level objects
+	 */
 	@Override
 	public String getGameMatrix() {
 		char[][] symbols = new char[heigth][width];
@@ -80,6 +99,11 @@ public class KeepLevel extends Level {
 		return parseMatrixToString(symbols);
 	}
 
+	/**
+	 * Updates the Level based on the direction the player chose to move.
+	 * 
+	 * @param heroDirection - the direction the player chose
+	 */
 	@Override
 	public void update(Hero.MoveDirection heroDirection) {		
 		// Move the Ogres

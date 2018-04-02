@@ -5,17 +5,27 @@ import java.util.ArrayList;
 public class Hero extends MovableGameObject {
 	
 	private static final long serialVersionUID = 1L;	// To allow file writing
-	private final char standartHeroSymbol = 'H';
-	private final char heroWithKeySymbol = 'K';
-	private final char heroWithClubSymbol = 'A';
-	private boolean hasKey = false;
-	private boolean hasClub;
+	private final char standartHeroSymbol = 'H';	/**< The symbol that represents a Hero on the console version of the game */
+	private final char heroWithKeySymbol = 'K';		/**< The symbol that represents a Hero with a Key on the console version of the game */
+	private final char heroWithClubSymbol = 'A';	/**< The symbol that represents a Hero with a Club on the console version of the game */
+	private boolean hasKey = false;					/**< Variable to determine whether the Hero has a Key */
+	private boolean hasClub;						/**< Variable to determine if the Hero has a Club */
 
+	/**
+	 * Creates a Hero
+	 * 
+	 * @param x_pos - the x position where the Hero is created
+	 * @param y_pos - the y position where the Hero is created
+	 * @param hasClub - whether the Hero has a Club or not
+	 */
 	public Hero(int x_pos, int y_pos, boolean hasClub) {
 		super(x_pos, y_pos);
 		this.hasClub = hasClub;
 	}
 	
+	/**
+	 * @return Returns the ID symbol of the Hero, differentiating between a standard Hero, a Hero with a Key and a Hero with a Club 
+	 */
 	@Override
 	public char getIdSymbol() {
 		if(this.hasKey) {
@@ -29,27 +39,47 @@ public class Hero extends MovableGameObject {
 		}
 	}
 	
-
+	/**
+	 * Verifies if the Hero has a Club
+	 * 
+	 * @return True if the Hero has a Club, False otherwise
+	 */
 	public boolean hasClub() {
 		return hasClub;
 	}
 	
-	
+	/**
+	 * Hero "catches" the Key, becoming able to open Doors
+	 */
 	public void catchKey() {
 		this.hasKey = true;
 	}
 	
-	
+	/**
+	 * Verifies if the Hero has a Key
+	 * 
+	 * @return True if the Hero has a Key, False otherwise
+	 */
 	public boolean hasKey() {
 		return hasKey;	
 	}
 	
-	
+	/**
+	 * Hero "catches" the Club, becoming able to stun certain characters
+	 */
 	public void catchClub() {
 		this.hasClub = true;
 	}
 	
-	
+	/**
+	 * Updates the game based on the move direction of the Hero if that is possible., that is, if after the move he doesn't
+	 * collide with a wall or a closed Door
+	 * 
+	 * @param dir - the move direction
+	 * @param walls - all the Game's Walls
+	 * @param doors - all the Game's Doors
+	 * @param ogres - all the Game's Ogres
+	 */
 	public void update(MoveDirection dir , ArrayList<Wall> walls , ArrayList<Door> doors , ArrayList<Ogre> ogres) {
 		int new_x_pos = this.getX_pos();
 		int new_y_pos = this.getY_pos();
