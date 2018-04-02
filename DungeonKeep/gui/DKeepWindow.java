@@ -21,6 +21,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -219,23 +220,21 @@ public class DKeepWindow implements KeyListener {
 		saveGameButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (game == null) {
-					JOptionPane.showMessageDialog(DKeep, "No game to save.");
+					JOptionPane.showMessageDialog(DKeep, "No game to save.", "Saving Failure", JOptionPane.WARNING_MESSAGE);
+					return;
+				} else if (game.getStatus() == Game.Status.VICTORY) {
+					JOptionPane.showMessageDialog(DKeep, "Can't save finished Game.", "Saving Failure", JOptionPane.WARNING_MESSAGE);
+					return; 
+				} else if (game.getStatus() == Game.Status.DEFEAT) {
+					JOptionPane.showMessageDialog(DKeep, "Can't save lost Game.", "Saving Failure", JOptionPane.WARNING_MESSAGE);
 					return;
 				}
+				
 				JFileChooser fileChooser = new JFileChooser();
 				int result = fileChooser.showSaveDialog(DKeep);
 				
 				if (result == JFileChooser.APPROVE_OPTION) {
-					try {
-						FileOutputStream fstream = new FileOutputStream(fileChooser.getSelectedFile());
-						ObjectOutputStream objstream = new ObjectOutputStream(fstream);
-						
-						objstream.writeObject(game);
-						objstream.close();
-						fstream.close();
-					} catch (IOException e) {
-						JOptionPane.showMessageDialog(DKeep, "Failed to save game.");
-					}
+					saveGame(fileChooser.getSelectedFile());
 					gameScreen.requestFocusInWindow();
 				}
 			}
@@ -253,27 +252,42 @@ public class DKeepWindow implements KeyListener {
 				int result = fileChooser.showOpenDialog(DKeep);
 				
 				if (result == JFileChooser.APPROVE_OPTION) {
-					try {
-						FileInputStream fstream = new FileInputStream(fileChooser.getSelectedFile());
-						ObjectInputStream objstream = new ObjectInputStream(fstream);
-						game = (Game) objstream.readObject();
-						objstream.close();
-						fstream.close();
-						initGameScreen();
-					} catch (IOException e) {
-						popFailedSaveGame();
-						return;
-					} catch (ClassNotFoundException e) {
-						popFailedLoadGame();
-						return;
-					}
-					
+					loadGame(fileChooser.getSelectedFile());					
 				}
 			}
 		});
 		loadGameButton.setBackground(Color.WHITE);
 		loadGameButton.setBounds(702, 470, 117, 25);
 		DKeep.getContentPane().add(loadGameButton);
+	}
+	
+	private void saveGame(File saveFile) {
+		try {
+			FileOutputStream fstream = new FileOutputStream(saveFile);
+			ObjectOutputStream objstream = new ObjectOutputStream(fstream);
+			
+			objstream.writeObject(game);
+			objstream.close();
+			fstream.close();
+		} 
+		catch (IOException e) {
+			popFailedSaveGame();
+		}
+	}
+	
+	private void loadGame(File loadFile) {
+		try {
+			FileInputStream fstream = new FileInputStream(loadFile);
+			ObjectInputStream objstream = new ObjectInputStream(fstream);
+			game = (Game) objstream.readObject();
+			objstream.close();
+			fstream.close();
+			initGameScreen();
+		} catch (IOException e) {
+			popFailedLoadGame();
+		} catch (ClassNotFoundException e) {
+			popFailedLoadGame();
+		}
 	}
 	
 	private int popLevelDataPanel() {
@@ -376,17 +390,17 @@ public class DKeepWindow implements KeyListener {
 	
 	private void popInvalidNumOgres() {
 		numOgresTextField.setText("");	// Clear text area
-		JOptionPane.showMessageDialog(DKeep, "Invalid number of Ogres.");
+		JOptionPane.showMessageDialog(DKeep, "Invalid number of Ogres.", "Failed Game Creation", JOptionPane.ERROR_MESSAGE);
 		gameScreen.requestFocusInWindow();
 	}
 	
 	private void popFailedLoadGame() {
-		JOptionPane.showMessageDialog(DKeep, "Failed to load game.");
+		JOptionPane.showMessageDialog(DKeep, "Failed to load game.", "Loading Failure", JOptionPane.ERROR_MESSAGE);
 		gameScreen.requestFocusInWindow();
 	}
 	
 	private void popFailedSaveGame() {
-		JOptionPane.showMessageDialog(DKeep, "Failed to save game.");
+		JOptionPane.showMessageDialog(DKeep, "Failed to save game.", "Saving Failure", JOptionPane.ERROR_MESSAGE);
 		gameScreen.requestFocusInWindow();
 	}
 	
