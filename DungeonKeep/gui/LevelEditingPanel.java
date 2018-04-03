@@ -1,17 +1,24 @@
 package DungeonKeep.gui;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+
+import DungeonKeep.logic.DungeonLevel;
+import DungeonKeep.logic.Hero;
+import DungeonKeep.logic.KeepLevel;
+import DungeonKeep.logic.Key;
+import DungeonKeep.logic.Ogre;
+import DungeonKeep.logic.Wall;
 
 public class LevelEditingPanel extends JPanel implements MouseListener{
 
@@ -31,7 +38,6 @@ public class LevelEditingPanel extends JPanel implements MouseListener{
 	private static BufferedImage keySprite;
 	private static BufferedImage ogreSprite;
 	
-	///////////////////////////////////////////////////////////////////////////
 	static {
 		try {
 			doorSprite = ImageIO.read(new File("./bin/Images/door.png"));
@@ -45,20 +51,14 @@ public class LevelEditingPanel extends JPanel implements MouseListener{
 			System.out.println("\nFailed to load sprites.");
 			System.exit(1);
 		}
-	}
-	///////////////////////////////////////////////////////////////////////////
-	
-	
+	}	
 	
 	public LevelEditingPanel(int width, int height) {
 		this.width = width;
 		this.height = height;
 		this.setBackground(Color.WHITE);
 		
-		// Initialize matrix with zeros
-		for(ObjectType[] row : levelMatrix) {
-			Arrays.fill(row, ObjectType.NO_OBJECT);
-		}
+		initPanel();
 		
 		addMouseListener(this);
 	}
@@ -142,6 +142,24 @@ public class LevelEditingPanel extends JPanel implements MouseListener{
 			return;
 		}
 	}
+	
+	private void initPanel() {
+		// Initialize matrix with zeros
+		for(ObjectType[] row : levelMatrix) {
+			Arrays.fill(row, ObjectType.NO_OBJECT);
+		}
+		
+		// Surround Level with walls
+		for(int i = 0; i < width; i++) {
+			levelMatrix[i][0] = ObjectType.WALL;
+			levelMatrix[i][height-1] = ObjectType.WALL;
+				
+		}
+		for(int j = 1; j < height-1; j++) {
+			levelMatrix[0][j] = ObjectType.WALL;
+			levelMatrix[width-1][j] = ObjectType.WALL;
+		}
+	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -169,7 +187,7 @@ public class LevelEditingPanel extends JPanel implements MouseListener{
 				levelMatrix[x][y] = currentObjectType;
 			}
 		}
-		
+
 		repaint();
 	}
 
@@ -201,23 +219,19 @@ public class LevelEditingPanel extends JPanel implements MouseListener{
 	}
 	
 	private void addOgre(int x, int y) {
-		if (getOgreCount() < 5) {
-			levelMatrix[x][y] = ObjectType.OGRE;
-		}
+		removeExistingOgre();
+		levelMatrix[x][y] = ObjectType.OGRE;
 	}
 	
-	private int getOgreCount() {
-		int count = 0;
-		
+	private void removeExistingOgre() {
 		for(int i = 0; i < width; i++) {
 			for(int j = 0; j < height; j++) {
 				if(levelMatrix[i][j] == ObjectType.OGRE) {
-					count++;
+					levelMatrix[i][j] = ObjectType.NO_OBJECT;
+					return;
 				}
 			}
 		}
-		
-		return count;
 	}
 	
 	private void removeExistingHero() {
@@ -242,5 +256,58 @@ public class LevelEditingPanel extends JPanel implements MouseListener{
 		}
 	}
 	
-
+	public boolean areAllElementsPresent() {
+		boolean heroExists = false, ogreExists = false,
+				doorExists = false, keyExists = false;
+		
+		for(int i = 0; i < width; i++) {
+			for(int j = 0; j < height; j++) {
+				switch(levelMatrix[i][j]) {
+				case HERO:
+					heroExists = true;
+					break;
+				case OGRE:
+					ogreExists = true;
+					break;
+				case DOOR:
+					doorExists = true;
+					break;
+				case KEY:
+					keyExists = true;
+					break;
+				default:
+					break;
+				}
+			}
+		}
+		
+		return (heroExists && ogreExists &&
+				doorExists && keyExists);
+	}
+	
+	public boolean isLevelClosed() {
+		for(int i = 0; i < width; i++) {
+			if ((levelMatrix[i][0]!=ObjectType.WALL && levelMatrix[i][0]!=ObjectType.DOOR) ||
+				(levelMatrix[i][height-1]!=ObjectType.WALL && levelMatrix[i][height-1]!=ObjectType.DOOR)) {
+				return false;
+			}
+		}
+		for(int j = 1; j < height-1; j++) {
+			if ((levelMatrix[0][j]!=ObjectType.WALL && levelMatrix[0][j]!=ObjectType.DOOR) ||
+				(levelMatrix[width-1][j]!=ObjectType.WALL && levelMatrix[width-1][j]!=ObjectType.DOOR)) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public KeepLevel parseLevel() {
+		if (!areAllElementsPresent() || !isLevelClosed()) {
+			return null;
+		}
+		else {
+			return null;
+		}	
+	}
+	
 }

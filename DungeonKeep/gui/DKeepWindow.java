@@ -1,6 +1,7 @@
 package DungeonKeep.gui;
 
 import DungeonKeep.logic.Game;
+import DungeonKeep.logic.KeepLevel;
 
 import java.awt.EventQueue;
 import java.awt.GridLayout;
@@ -37,6 +38,7 @@ public class DKeepWindow implements KeyListener {
 	private JButton upButton;
 	private JButton leftButton;
 	private JButton rightButton;
+	private JButton levelEditorButton;
 	private JTextField numOgresTextField;
 	private JComboBox<String> guardPersonalitiesComboBox;
 	private JPanel levelDataPanel;
@@ -72,18 +74,20 @@ public class DKeepWindow implements KeyListener {
 		gameScreen.repaint();
 	}
 	
-	public void enablePlayButtons() {
+	public void enableButtons() {
 		upButton.setEnabled(true);
 		downButton.setEnabled(true);
 		leftButton.setEnabled(true);
 		rightButton.setEnabled(true);
+		levelEditorButton.setEnabled(false);
 	}
 	
-	public void disablePlayButtons() {
+	public void disableButtons() {
 		upButton.setEnabled(false);
 		downButton.setEnabled(false);
 		leftButton.setEnabled(false);
 		rightButton.setEnabled(false);	
+		levelEditorButton.setEnabled(true);
 	}
 	
 	public void updateGameStatusLabel(String message) {
@@ -97,11 +101,11 @@ public class DKeepWindow implements KeyListener {
 		switch(gameStatus) {
 		case VICTORY:
 			updateGameStatusLabel("Victory! You win!!");
-			disablePlayButtons();
+			disableButtons();
 			break;
 		case DEFEAT:
 			updateGameStatusLabel("Defeat, you lost the game ...");
-			disablePlayButtons();
+			disableButtons();
 			break;
 		case LEVELCHANGED:
 			// Update level to draw
@@ -263,15 +267,15 @@ public class DKeepWindow implements KeyListener {
 	}
 	
 	private void initLevelEditorButton() {		
-		JButton levelEditorButton = new JButton("Level Editor");
+		levelEditorButton = new JButton("Level Editor");
 		levelEditorButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {				
+			public void actionPerformed(ActionEvent arg0) {
 				LevelEditor editor = new LevelEditor();
-				JOptionPane.showConfirmDialog(
-						DKeep, 
-						editor,
-						"Level Editor", 
-						JOptionPane.DEFAULT_OPTION,-1);
+				editor.pack();
+				editor.setLocationRelativeTo(DKeep);
+				editor.setVisible(true);		
+				
+				KeepLevel newKeepLevel = editor.getKeepLevel();
 			}
 		});
 		levelEditorButton.setBackground(Color.WHITE);
@@ -316,8 +320,6 @@ public class DKeepWindow implements KeyListener {
 				JOptionPane.DEFAULT_OPTION,-1);
 	}
 	
-	
-	
 	private void initLevelDrawer() {
 		gameScreen = new LevelDrawer();
 		gameScreen.setBounds(20, 30, 600, 600);
@@ -333,6 +335,8 @@ public class DKeepWindow implements KeyListener {
 		DKeep.setPreferredSize(new Dimension(900 , 740));
 		DKeep.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		DKeep.getContentPane().setLayout(null);
+		DKeep.setResizable(false);
+		DKeep.setTitle("Dungeon Keep");
 	}
 	
 	private void initLevelDataPanel() {
@@ -368,7 +372,7 @@ public class DKeepWindow implements KeyListener {
 	}
 	
 	private void initGameScreen() {
-		enablePlayButtons();
+		enableButtons();
 		updateGameStatusLabel("You can play now.");
 		gameScreen.setLevelToDraw(game.getCurrentLevel());
 		gameScreen.requestFocusInWindow();

@@ -58,6 +58,15 @@ public class Game implements IStatus , Serializable {
 		return levels.get(currentLevelIndex);
 	}
 	
+	/** 
+	 * Changes the game's default Keep Level to 'newKeepLevel'
+	 * 
+	 * @param newKeepLevel New game's Keep Level
+	 */
+	public void setKeepLevel(KeepLevel newKeepLevel) {
+		levels.set(1, newKeepLevel);
+	}
+	
 	private static ArrayList<Guard.MoveDirection> initGuardPath() {
 		ArrayList<Guard.MoveDirection> guardMoves = new ArrayList<Guard.MoveDirection>();
 		guardMoves.add(Guard.MoveDirection.LEFT);

@@ -1,27 +1,29 @@
 package DungeonKeep.gui;
 
-import java.awt.Graphics;
 import java.awt.event.*;
 
-import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
+import java.awt.Color;
+import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.JRadioButton;
 import javax.swing.JCheckBox;
-import javax.swing.SwingConstants;
+import javax.swing.JDialog;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import DungeonKeep.gui.LevelEditingPanel.ObjectType;
+import DungeonKeep.logic.KeepLevel;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 
-public class LevelEditor extends JPanel {
+public class LevelEditor extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 	JRadioButton ogreRadioButton;
@@ -30,25 +32,31 @@ public class LevelEditor extends JPanel {
 	JRadioButton wallRadioButton;
 	JRadioButton doorRadioButton;
 	JCheckBox heroArmedCheckBox;
-	JSpinner numOgresSpinner;
 	JSpinner widthSpinner;
 	JSpinner heightSpinner;
 	LevelEditingPanel editingPanel;
 
 	public LevelEditor() {
 		super();
+		setTitle("Keep Level Editor");
+		setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
+		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		
 		initPanel();
 		initLevelOptionsZone();
 		initEditingPanel();
 		initGameObjectsZone();
 		initObjectOptionsZone();
+		initSubmitButton();
+		initCancelButton();
+		
 	}
 	
 	private void initPanel() {
 		setLayout(null);
-		setBounds(0, 0, 630, 750);
-		setPreferredSize(new Dimension(630, 750));
+		setBounds(0, 0, 630, 840);
+		setPreferredSize(new Dimension(630, 840));
+		setResizable(false);
 	}
 	
 	private void initLevelOptionsZone() {
@@ -72,7 +80,7 @@ public class LevelEditor extends JPanel {
 				editingPanel.repaint();
 			}
 		});
-		widthSpinner.setModel(new SpinnerNumberModel(5, 5, 10, 1));
+		widthSpinner.setModel(new SpinnerNumberModel(7, 5, 10, 1));
 		widthSpinner.setBounds(68, 46, 36, 26);
 		add(widthSpinner);
 		
@@ -84,7 +92,7 @@ public class LevelEditor extends JPanel {
 			}
 		});
 		heightSpinner.setFont(new Font("Dialog", Font.BOLD, 12));
-		heightSpinner.setModel(new SpinnerNumberModel(5, 5, 10, 1));
+		heightSpinner.setModel(new SpinnerNumberModel(7, 5, 10, 1));
 		heightSpinner.setBounds(68, 90, 36, 26);
 		add(heightSpinner);
 	}
@@ -192,18 +200,8 @@ public class LevelEditor extends JPanel {
 		add(heroArmedLabel);
 		
 		heroArmedCheckBox = new JCheckBox("");
-		heroArmedCheckBox.setHorizontalAlignment(SwingConstants.TRAILING);
 		heroArmedCheckBox.setBounds(550, 47, 29, 23);
 		add(heroArmedCheckBox);
-		
-		JLabel numOgresLabel = new JLabel("Num Ogres");
-		numOgresLabel.setBounds(446, 85, 80, 15);
-		add(numOgresLabel);
-		
-		numOgresSpinner = new JSpinner();
-		numOgresSpinner.setModel(new SpinnerNumberModel(1, 1, 5, 1));
-		numOgresSpinner.setBounds(540, 80, 36, 26);
-		add(numOgresSpinner);
 	}
 	
 	private void initEditingPanel() {
@@ -215,7 +213,60 @@ public class LevelEditor extends JPanel {
 		editingPanel.setPreferredSize(new Dimension(600, 600));
 		add(editingPanel);
 	}
-
+	
+	private void initSubmitButton() {
+		JButton submitButton = new JButton("Submit");
+		submitButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (!editingPanel.areAllElementsPresent()) {
+					popElementsMissingMsg();
+				}
+				else if (!editingPanel.isLevelClosed()) {
+					popLevelNotSurrounded();
+				}
+				else {
+					dispose();
+				}
+			}
+		});
+		submitButton.setBackground(Color.WHITE);
+		submitButton.setBounds(190, 760, 100, 25);
+		add(submitButton);
+	}
+	
+	private void initCancelButton() {
+		JButton cancelButton = new JButton("Cancel");
+		cancelButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+			}
+		});
+		cancelButton.setBackground(Color.WHITE);
+		cancelButton.setBounds(340, 760, 100, 25);
+		add(cancelButton);
+	}
+	
+	private void popElementsMissingMsg() {
+		JOptionPane.showMessageDialog(
+				this, 
+				"All elements must be present within the Level.", 
+				"Failed Level Creation", 
+				JOptionPane.WARNING_MESSAGE
+		);
+	}
+	
+	private void popLevelNotSurrounded() {
+		JOptionPane.showMessageDialog(
+				this, 
+				"The level must be surrounded by Walls/Doors to be valid.", 
+				"Failed Level Creation", 
+				JOptionPane.WARNING_MESSAGE
+		);
+	}
+	
+	public KeepLevel getKeepLevel() {
+		return editingPanel.parseLevel();
+	}
 }
 
 
