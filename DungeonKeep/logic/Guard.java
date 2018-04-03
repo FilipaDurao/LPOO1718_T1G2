@@ -11,9 +11,9 @@ public abstract class Guard extends MovableGameObject {
 	/**
 	 * Creates a Guard
 	 * 
-	 * @param x_pos - the x position where the Guard is created
-	 * @param y_pos - the y position where the Guard is created
-	 * @param path - the path the Guard will follow
+	 * @param x_pos the x position where the Guard is created
+	 * @param y_pos the y position where the Guard is created
+	 * @param path the path the Guard will follow
 	 */
 	public Guard(int x_pos, int y_pos , ArrayList<MoveDirection> path) {
 		super(x_pos, y_pos);

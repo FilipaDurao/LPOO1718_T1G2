@@ -8,8 +8,8 @@ public class Key extends GameObject {
 	/**
 	 * Creates a Key
 	 * 
-	 * @param x_pos - the x position where the Key is created
-	 * @param y_pos - the y position where the Key is created
+	 * @param x_pos the x position where the Key is created
+	 * @param y_pos the y position where the Key is created
 	 */
 	public Key(int x_pos, int y_pos) {
 		super(x_pos, y_pos);

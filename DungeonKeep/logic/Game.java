@@ -12,8 +12,8 @@ public class Game implements IStatus , Serializable {
 	/**
 	 * Creates a Game based on the user's inputs
 	 * 
-	 * @param numOgres - the number of Ogres that will be present on the Keep Level
-	 * @param guardPersonality - the personality of the Guard that will be present on the Dungeon Level
+	 * @param numOgres the number of Ogres that will be present on the Keep Level
+	 * @param guardPersonality the personality of the Guard that will be present on the Dungeon Level
 	 */
 	public Game(int numOgres , String guardPersonality) {
 		super();
@@ -196,7 +196,7 @@ public class Game implements IStatus , Serializable {
 	/**
 	 * Receives the key that the player pressed and processes it to know to which direction it corresponds
 	 * 
-	 * @param keyPressed - the key that the player pressed
+	 * @param keyPressed the key that the player pressed
 	 * 
 	 * @return the MoveDirection correspondent to the keyPressed
 	 */
@@ -219,7 +219,7 @@ public class Game implements IStatus , Serializable {
 	/**
 	 * Receives the key pressed by the player and updates the whole game based on this input
 	 * 
-	 * @param keyPressed - the key pressed by the player
+	 * @param keyPressed the key pressed by the player
 	 */
 	public void update(char keyPressed) {
 		// Check if the key is relevant

@@ -11,9 +11,9 @@ public class Door extends GameObject {
 	/**
 	 * Creates a Door
 	 * 
-	 * @param x_pos - the x position where the Door is created
-	 * @param y_pos - the y position where the Door is created
-	 * @param isExit - whether the Door is an exit Door or a useless Door
+	 * @param x_pos the x position where the Door is created
+	 * @param y_pos the y position where the Door is created
+	 * @param isExit whether the Door is an exit Door or a useless Door
 	 */
 	public Door(int x_pos, int y_pos, boolean isExit) {
 		super(x_pos, y_pos);

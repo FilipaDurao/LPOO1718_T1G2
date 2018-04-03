@@ -12,14 +12,14 @@ public class KeepLevel extends Level {
 	/**
 	 * Creates a Keep Level
 	 * 
-	 * @param ID - the Level's ID
-	 * @param hero - the Hero of the Level
-	 * @param walls - all the Walls of the Level
-	 * @param doors - all the Doors of the Level
-	 * @param ogres - all the Ogres of the Level
-	 * @param key - the Key of the Level
-	 * @param width - the width of the Level
-	 * @param heigth - the heigth of the Level
+	 * @param ID the Level's ID
+	 * @param hero the Hero of the Level
+	 * @param walls all the Walls of the Level
+	 * @param doors all the Doors of the Level
+	 * @param ogres all the Ogres of the Level
+	 * @param key the Key of the Level
+	 * @param width the width of the Level
+	 * @param heigth the heigth of the Level
 	 */
 	public KeepLevel(
 			int ID,
@@ -36,12 +36,16 @@ public class KeepLevel extends Level {
 		this.key = key;
 	}
 	
-	//TODO
+	/**
+	 * @return All the Ogres of the Level
+	 */
 	public ArrayList<Ogre> getOgres() {
 		return ogres;
 	}
 
-	//TODO
+	/**
+	 * @return The Key of the Level
+	 */
 	public Key getKey() {
 		return key;
 	}
@@ -102,7 +106,7 @@ public class KeepLevel extends Level {
 	/**
 	 * Updates the Level based on the direction the player chose to move.
 	 * 
-	 * @param heroDirection - the direction the player chose
+	 * @param heroDirection the direction the player chose
 	 */
 	@Override
 	public void update(Hero.MoveDirection heroDirection) {		

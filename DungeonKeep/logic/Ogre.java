@@ -5,23 +5,35 @@ import java.util.ArrayList;
 public class Ogre extends MovableGameObject {
 
 	private static final long serialVersionUID = 1L;	// To allow file writing
-	private final char regularSymbol = '0';
-	private final char stunnedSymbol = '8';
-	private Club club = new Club(getX_pos() , getY_pos()+1);
-	private boolean isStunned = false;
-	private boolean disabled = false;
-	private int stunnedTimer = 0;
+	private final char regularSymbol = '0';		/**< The symbol that represents an Ogre on the console version of the game */
+	private final char stunnedSymbol = '8';		/**< The symbol that represents a stunned Ogre on the console version of the game */
+	private Club club = new Club(getX_pos() , getY_pos()+1);	/**< The Ogre's Club */
+	private boolean isStunned = false;			/**< Variable to determine if the Ogre is stunned */
+	private boolean disabled = false;			/**< Variable to determine if the Ogre is not enabled */
+	private int stunnedTimer = 0;				/**< Variable to determine how many more moves is the Ogre going to be stunned */
 	
+	/**
+	 * Creates an Ogre
+	 * 
+	 * @param x_pos the x position where the Ogre is created
+	 * @param y_pos the y position where the Ogre is created
+	 */
 	public Ogre(int x_pos, int y_pos) {
 		super(x_pos, y_pos);
 	}
 	
-	
+	/**
+	 * Verifies if the Ogre is stunned
+	 * 
+	 * @return True if the Ogre is stunned, False otherwise
+	 */
 	public boolean isStunned() {
 		return isStunned;
 	}
 	
-	
+	/**
+	 * "Stuns" the Ogre for the next two moves
+	 */
 	public void stun() {
 		if (!isStunned) {
 			this.isStunned = true;
@@ -29,12 +41,16 @@ public class Ogre extends MovableGameObject {
 		}
 	}
 	
-	
+	/**
+	 * Disables the Ogre
+	 */
 	public void disable() {
 		disabled = true;
 	}
 	
-	
+	/**
+	 * @return The ID symbol that represents an Ogre, either regular or stunned
+	 */
 	@Override
 	public char getIdSymbol() {
 		if(this.isStunned) {
@@ -45,12 +61,20 @@ public class Ogre extends MovableGameObject {
 		}
 	}
 	
-	
+	/**
+	 * @return The Ogre's Club
+	 */
 	public Club getClub() {
 		return club;
 	}
 	
-	
+	/**
+	 * Updates the Ogre's position in the game
+	 * 
+	 * @param walls all the current Level's Walls
+	 * @param doors all the current Level's Doors
+	 * @param ogres all the current Level's Ogres
+	 */
 	public void update(ArrayList<Wall> walls , ArrayList<Door> doors , ArrayList<Ogre> ogres) {
 		// Check if the Ogre is disabled
 		if (this.disabled) {

@@ -14,9 +14,9 @@ public class Hero extends MovableGameObject {
 	/**
 	 * Creates a Hero
 	 * 
-	 * @param x_pos - the x position where the Hero is created
-	 * @param y_pos - the y position where the Hero is created
-	 * @param hasClub - whether the Hero has a Club or not
+	 * @param x_pos the x position where the Hero is created
+	 * @param y_pos the y position where the Hero is created
+	 * @param hasClub whether the Hero has a Club or not
 	 */
 	public Hero(int x_pos, int y_pos, boolean hasClub) {
 		super(x_pos, y_pos);
@@ -75,10 +75,10 @@ public class Hero extends MovableGameObject {
 	 * Updates the game based on the move direction of the Hero if that is possible., that is, if after the move he doesn't
 	 * collide with a wall or a closed Door
 	 * 
-	 * @param dir - the move direction
-	 * @param walls - all the Game's Walls
-	 * @param doors - all the Game's Doors
-	 * @param ogres - all the Game's Ogres
+	 * @param dir the move direction
+	 * @param walls all the Game's Walls
+	 * @param doors all the Game's Doors
+	 * @param ogres all the Game's Ogres
 	 */
 	public void update(MoveDirection dir , ArrayList<Wall> walls , ArrayList<Door> doors , ArrayList<Ogre> ogres) {
 		int new_x_pos = this.getX_pos();

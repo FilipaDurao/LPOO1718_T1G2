@@ -12,14 +12,14 @@ public class DungeonLevel extends Level {
 	/**
 	 * Creates a Dungeon Level
 	 * 
-	 * @param ID - the Level's ID
-	 * @param hero - the Hero of the Level
-	 * @param walls - all the Walls of the Level
-	 * @param doors - all the Doors of the Level
-	 * @param guard - the Guard of the Level
-	 * @param lever - the Lever of the Level
-	 * @param width - the width of the Level
-	 * @param heigth - the heigth of the Level
+	 * @param ID the Level's ID
+	 * @param hero the Hero of the Level
+	 * @param walls all the Walls of the Level
+	 * @param doors all the Doors of the Level
+	 * @param guard the Guard of the Level
+	 * @param lever the Lever of the Level
+	 * @param width the width of the Level
+	 * @param heigth the heigth of the Level
 	 */
 	public DungeonLevel(
 			int ID, 
@@ -90,7 +90,7 @@ public class DungeonLevel extends Level {
 	/**
 	 * Updates the Level based on the direction the player chose to move.
 	 * 
-	 * @param heroDirection - the direction the player chose
+	 * @param heroDirection the direction the player chose
 	 */
 	@Override
 	public void update(Hero.MoveDirection heroDirection) {

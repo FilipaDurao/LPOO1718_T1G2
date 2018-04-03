@@ -15,9 +15,9 @@ public class DrunkenGuard extends Guard {
 	/**
 	 * Creates a DrunkenGuard
 	 * 
-	 * @param x_pos - the x position where the DrunkenGuard is created
-	 * @param y_pos - the y position where the DrunkenGuard is created
-	 * @param path - the sequence of moves that the guard will do
+	 * @param x_pos the x position where the DrunkenGuard is created
+	 * @param y_pos the y position where the DrunkenGuard is created
+	 * @param path the sequence of moves that the guard will do
 	 */
 	public DrunkenGuard(int x_pos, int y_pos, ArrayList<MoveDirection> path) {
 		super(x_pos, y_pos, path);
