@@ -125,6 +125,7 @@ public class DKeepWindow implements KeyListener {
 		initDownButton();
 		initNewGameButton();
 		initExitButton();
+		initLevelEditorButton();
 		initSaveGameButton();
 		initLoadGameButton();
 		initStatusLabel();
@@ -240,7 +241,7 @@ public class DKeepWindow implements KeyListener {
 			}
 		});
 		saveGameButton.setBackground(Color.WHITE);
-		saveGameButton.setBounds(702, 420, 117, 25);
+		saveGameButton.setBounds(702, 380, 117, 25);
 		DKeep.getContentPane().add(saveGameButton);
 	}
 	
@@ -257,8 +258,25 @@ public class DKeepWindow implements KeyListener {
 			}
 		});
 		loadGameButton.setBackground(Color.WHITE);
-		loadGameButton.setBounds(702, 470, 117, 25);
+		loadGameButton.setBounds(702, 430, 117, 25);
 		DKeep.getContentPane().add(loadGameButton);
+	}
+	
+	private void initLevelEditorButton() {		
+		JButton levelEditorButton = new JButton("Level Editor");
+		levelEditorButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {				
+				LevelEditor editor = new LevelEditor();
+				JOptionPane.showConfirmDialog(
+						DKeep, 
+						editor,
+						"Level Editor", 
+						JOptionPane.DEFAULT_OPTION,-1);
+			}
+		});
+		levelEditorButton.setBackground(Color.WHITE);
+		levelEditorButton.setBounds(702, 480, 117, 25);
+		DKeep.getContentPane().add(levelEditorButton);
 	}
 	
 	private void saveGame(File saveFile) {
