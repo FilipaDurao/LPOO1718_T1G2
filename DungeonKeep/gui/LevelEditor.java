@@ -1,6 +1,7 @@
 package DungeonKeep.gui;
 
 import java.awt.Graphics;
+import java.awt.event.*;
 
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
@@ -12,6 +13,11 @@ import java.awt.Font;
 import javax.swing.JRadioButton;
 import javax.swing.JCheckBox;
 import javax.swing.SwingConstants;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
+import DungeonKeep.gui.LevelEditingPanel.ObjectType;
+
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 
@@ -27,18 +33,16 @@ public class LevelEditor extends JPanel {
 	JSpinner numOgresSpinner;
 	JSpinner widthSpinner;
 	JSpinner heightSpinner;
+	LevelEditingPanel editingPanel;
 
 	public LevelEditor() {
 		super();
 		
 		initPanel();
 		initLevelOptionsZone();
+		initEditingPanel();
 		initGameObjectsZone();
 		initObjectOptionsZone();
-		
-		JButton btnNewButton = new JButton("This is simulating the 'Drawing' zone.");
-		btnNewButton.setBounds(14, 140, 600, 600);
-		add(btnNewButton);
 	}
 	
 	private void initPanel() {
@@ -62,11 +66,23 @@ public class LevelEditor extends JPanel {
 		add(heightLabel);
 		
 		widthSpinner = new JSpinner();
+		widthSpinner.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent arg0) {
+				editingPanel.setWidth((int) widthSpinner.getValue()); 
+				editingPanel.repaint();
+			}
+		});
 		widthSpinner.setModel(new SpinnerNumberModel(5, 5, 10, 1));
 		widthSpinner.setBounds(68, 46, 36, 26);
 		add(widthSpinner);
 		
 		heightSpinner = new JSpinner();
+		heightSpinner.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent arg0) {
+				editingPanel.setHeight((int) heightSpinner.getValue()); 
+				editingPanel.repaint();
+			}
+		});
 		heightSpinner.setFont(new Font("Dialog", Font.BOLD, 12));
 		heightSpinner.setModel(new SpinnerNumberModel(5, 5, 10, 1));
 		heightSpinner.setBounds(68, 90, 36, 26);
@@ -90,27 +106,79 @@ public class LevelEditor extends JPanel {
 	}
 	
 	private void initRadioButtons() {
-		ogreRadioButton = new JRadioButton("Ogre");
-		ogreRadioButton.setBounds(220, 71, 76, 23);
-		add(ogreRadioButton);
-		
-		keyRadioButton = new JRadioButton("Key");
-		keyRadioButton.setBounds(220, 98, 76, 23);
-		add(keyRadioButton);
-		
-		heroRadioButton = new JRadioButton("Hero");
-		heroRadioButton.setBounds(300, 43, 76, 23);
-		add(heroRadioButton);
-		
-		wallRadioButton = new JRadioButton("Wall");
-		wallRadioButton.setBounds(220, 43, 76, 23);
-		add(wallRadioButton);
-		
-		doorRadioButton = new JRadioButton("Door");
-		doorRadioButton.setBounds(300, 71, 76, 23);
-		add(doorRadioButton);
+		initOgreRadioButton();
+		initKeyRadioButton();
+		initHeroRadioButton();
+		initWallRadioButton();
+		initDoorRadioButton();
 		
 		wallRadioButton.setSelected(true);
+		editingPanel.setCurrentObjectType(ObjectType.WALL);
+	}
+	
+	private void initOgreRadioButton() {
+		ogreRadioButton = new JRadioButton("Ogre");
+		ogreRadioButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (ogreRadioButton.isSelected()) {
+					editingPanel.setCurrentObjectType(ObjectType.OGRE);
+				}
+			}
+		});
+		ogreRadioButton.setBounds(220, 71, 76, 23);
+		add(ogreRadioButton);
+	}
+	
+	private void initKeyRadioButton() {
+		keyRadioButton = new JRadioButton("Key");
+		keyRadioButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (keyRadioButton.isSelected()) {
+					editingPanel.setCurrentObjectType(ObjectType.KEY);
+				}
+			}
+		});
+		keyRadioButton.setBounds(220, 98, 76, 23);
+		add(keyRadioButton);
+	}
+	
+	private void initHeroRadioButton() {
+		heroRadioButton = new JRadioButton("Hero");
+		heroRadioButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (heroRadioButton.isSelected()) {
+					editingPanel.setCurrentObjectType(ObjectType.HERO);
+				}
+			}
+		});
+		heroRadioButton.setBounds(300, 43, 76, 23);
+		add(heroRadioButton);
+	}
+	
+	private void initWallRadioButton() {
+		wallRadioButton = new JRadioButton("Wall");
+		wallRadioButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (wallRadioButton.isSelected()) {
+					editingPanel.setCurrentObjectType(ObjectType.WALL);
+				}
+			}
+		});
+		wallRadioButton.setBounds(220, 43, 76, 23);
+		add(wallRadioButton);
+	}
+	
+	private void initDoorRadioButton() {
+		doorRadioButton = new JRadioButton("Door");
+		doorRadioButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (doorRadioButton.isSelected()) {
+					editingPanel.setCurrentObjectType(ObjectType.DOOR);
+				}
+			}
+		});
+		doorRadioButton.setBounds(300, 71, 76, 23);
+		add(doorRadioButton);
 	}
 	
 	private void initObjectOptionsZone() {
@@ -137,4 +205,31 @@ public class LevelEditor extends JPanel {
 		numOgresSpinner.setBounds(540, 80, 36, 26);
 		add(numOgresSpinner);
 	}
+	
+	private void initEditingPanel() {
+		editingPanel = new LevelEditingPanel(
+				(int) widthSpinner.getValue(), 
+				(int) heightSpinner.getValue() );
+		
+		editingPanel.setBounds(14, 140, 600, 600);
+		editingPanel.setPreferredSize(new Dimension(600, 600));
+		add(editingPanel);
+	}
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

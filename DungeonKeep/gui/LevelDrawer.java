@@ -28,7 +28,7 @@ public class LevelDrawer extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private Level levelToDraw = null;
-	private static final int spriteSize = 60;
+	private static final int SPRITE_SIZE = 60;
 	private static BufferedImage clubSprite;
 	private static BufferedImage doorSprite;
 	private static BufferedImage wallSprite;
@@ -107,19 +107,19 @@ public class LevelDrawer extends JPanel {
 					//g.setColor(new Color(195, 195, 195));
 					g.setColor(new Color(242, 229, 217));
 				}
-				g.fillRect(i*spriteSize/3, j*spriteSize/3, spriteSize/3, spriteSize/3);
+				g.fillRect(i*SPRITE_SIZE/3, j*SPRITE_SIZE/3, SPRITE_SIZE/3, SPRITE_SIZE/3);
 			}
 		}
 	}
 	
 	private void paintWallsDoors(Graphics g) {
 		for (Wall wall : levelToDraw.getWalls()) {
-			g.drawImage(wallSprite , wall.getX_pos()*spriteSize , wall.getY_pos()*spriteSize , null);
+			g.drawImage(wallSprite , wall.getX_pos()*SPRITE_SIZE , wall.getY_pos()*SPRITE_SIZE , null);
 		}
 		
 		for (Door door : levelToDraw.getDoors()) {
 			if (door.isClosed()) {
-				g.drawImage(doorSprite , door.getX_pos()*spriteSize , door.getY_pos()*spriteSize , null);
+				g.drawImage(doorSprite , door.getX_pos()*SPRITE_SIZE , door.getY_pos()*SPRITE_SIZE , null);
 			}
 		}
 	}
@@ -144,24 +144,24 @@ public class LevelDrawer extends JPanel {
 		Hero hero = levelToDraw.getHero();
 		g.drawImage(
 				hero.hasClub() ? heroArmedSprite : heroSprite, 
-				hero.getX_pos()*spriteSize , 
-				hero.getY_pos()*spriteSize , null);
+				hero.getX_pos()*SPRITE_SIZE , 
+				hero.getY_pos()*SPRITE_SIZE , null);
 	}
 	
 	private void paintGuard(Graphics g) {
 		Guard guard = ((DungeonLevel) levelToDraw).getGuard();
 		
 		if (guard instanceof RookieGuard) {
-			g.drawImage(rookieGuardSprite , guard.getX_pos()*spriteSize , guard.getY_pos()*spriteSize , null);
+			g.drawImage(rookieGuardSprite , guard.getX_pos()*SPRITE_SIZE , guard.getY_pos()*SPRITE_SIZE , null);
 		}
 		else if (guard instanceof SuspiciousGuard) {
-			g.drawImage(suspiciousGuardSprite , guard.getX_pos()*spriteSize , guard.getY_pos()*spriteSize , null);
+			g.drawImage(suspiciousGuardSprite , guard.getX_pos()*SPRITE_SIZE , guard.getY_pos()*SPRITE_SIZE , null);
 		}
 		else {
 			g.drawImage(
 					((DrunkenGuard) guard).isAsleep() ? drunkenGuardAsleepSprite : drunkenGuardSprite,
-					guard.getX_pos()*spriteSize , 
-					guard.getY_pos()*spriteSize , 
+					guard.getX_pos()*SPRITE_SIZE , 
+					guard.getY_pos()*SPRITE_SIZE , 
 					null);
 		}
 	}
@@ -169,13 +169,13 @@ public class LevelDrawer extends JPanel {
 	private void paintKey(Graphics g) {
 		Key key = ((KeepLevel) levelToDraw).getKey();
 		if(key != null) {
-			g.drawImage(keySprite , key.getX_pos()*spriteSize , key.getY_pos()*spriteSize , null);
+			g.drawImage(keySprite , key.getX_pos()*SPRITE_SIZE , key.getY_pos()*SPRITE_SIZE , null);
 		}
 	}
 	
 	private void paintLever(Graphics g) {
 		Lever lever = ((DungeonLevel) levelToDraw).getLever();
-		g.drawImage(leverSprite , lever.getX_pos()*spriteSize , lever.getY_pos()*spriteSize , null);
+		g.drawImage(leverSprite , lever.getX_pos()*SPRITE_SIZE , lever.getY_pos()*SPRITE_SIZE , null);
 	}
 	
 	private void paintOgres(Graphics g) {
@@ -183,12 +183,12 @@ public class LevelDrawer extends JPanel {
 		for (Ogre ogre : ((KeepLevel) levelToDraw).getOgres()) {
 			g.drawImage(
 					ogre.isStunned() ? ogreStunnedSprite : ogreSprite,
-					ogre.getX_pos()*spriteSize , 
-					ogre.getY_pos()*spriteSize , 
+					ogre.getX_pos()*SPRITE_SIZE , 
+					ogre.getY_pos()*SPRITE_SIZE , 
 					null);
 			
 			ogreClub = ogre.getClub();
-			g.drawImage(clubSprite , ogreClub.getX_pos()*spriteSize , ogreClub.getY_pos()*spriteSize , null);
+			g.drawImage(clubSprite , ogreClub.getX_pos()*SPRITE_SIZE , ogreClub.getY_pos()*SPRITE_SIZE , null);
 		}	
 	}
 }
