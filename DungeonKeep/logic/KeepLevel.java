@@ -16,10 +16,11 @@ public class KeepLevel extends Level {
 	 * @param hero the Hero of the Level
 	 * @param walls all the Walls of the Level
 	 * @param doors all the Doors of the Level
-	 * @param ogres all the Ogres of the Level
+	 * @param an Ogre in the correct position 
+   	 * @param the number of Ogres to be placed in the level 
 	 * @param key the Key of the Level
 	 * @param width the width of the Level
-	 * @param heigth the heigth of the Level
+	 * @param heigth the height of the Level
 	 */
 	public KeepLevel(
 			int ID,
