@@ -5,9 +5,9 @@ import java.util.Arrays;
 
 public class KeepLevel extends Level {
 	
-	private static final long serialVersionUID = 1L;	// To allow file writing
-	private ArrayList<Ogre> ogres;		/**< All the Ogres in the Level */
-	private Key key;					/**< The Key of the Level */
+	private static final long serialVersionUID = 1L;			// To allow file writing
+	private ArrayList<Ogre> ogres = new ArrayList<Ogre>();		/**< All the Ogres in the Level */
+	private Key key;											/**< The Key of the Level */
 
 	/**
 	 * Creates a Keep Level
@@ -26,14 +26,37 @@ public class KeepLevel extends Level {
 			Hero hero, 
 			ArrayList<Wall> walls,
 			ArrayList<Door> doors, 
-			ArrayList<Ogre> ogres,
+			Ogre ogre,
+			int numOgres,
 			Key key,
 			int width, 
 			int heigth) {
 		
 		super(ID, hero, walls, doors, width, heigth);
-		this.ogres = ogres;
+		
+		ogres.add(ogre);
+		setNumOgres(numOgres);
+		
 		this.key = key;
+	}
+	
+	/**
+	 * Sets the level's number of ogres to 'numOgres'
+	 * 
+	 * @param numOgres New number of ogres
+	 */
+	public void setNumOgres(int numOgres) {
+		if (ogres.size() < numOgres) {
+			for (int i=1 ; i<numOgres ; i++) {
+				ogres.add(new Ogre(ogres.get(0).getX_pos(), 
+								   ogres.get(0).getY_pos()));
+			}
+		}
+		else {
+			while(ogres.size() > numOgres) {
+				ogres.remove(ogres.size()-1);
+			}
+		}
 	}
 	
 	/**

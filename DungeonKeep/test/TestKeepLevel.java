@@ -30,8 +30,8 @@ public class TestKeepLevel {
 		doors.add(new Door(3, 6, true));
 		
 		// Initialize Ogre
-		ArrayList<Ogre> ogres = new ArrayList<Ogre>();
-		ogres.add(new Ogre(5, 1));
+		Ogre ogre = new Ogre(5, 1);
+		int numOgresInLevel = 1;
 		
 		// Initialize KeepLevel itself
 		KeepLevel KeepLevel = new KeepLevel(
@@ -39,7 +39,8 @@ public class TestKeepLevel {
 				new Hero(1, 1, false),
 				walls,
 				doors,
-				ogres,	
+				ogre,	
+				numOgresInLevel,
 				new Key(5, 5),
 				7,
 				7);

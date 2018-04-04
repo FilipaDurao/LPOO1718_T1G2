@@ -181,13 +181,7 @@ public class Game implements IStatus , Serializable {
 			if (i != 1) {
 				walls.add(new Wall(0, i));
 			}
-		}
-		
-		// Initialize the ogres
-		ArrayList<Ogre> level2ogres = new ArrayList<Ogre>();
-		for (int i=0 ; i<numOgres ; i++) {
-			level2ogres.add(new Ogre(4,1));
-		}
+		}		
 		
 		// Initialize level itself
 		return new KeepLevel(
@@ -195,7 +189,8 @@ public class Game implements IStatus , Serializable {
 				new Hero(1, 7, true),
 				walls,
 				doors,
-				level2ogres, 
+				new Ogre(4,1), 
+				numOgres,
 				new Key(7, 1),
 				9,
 				9);

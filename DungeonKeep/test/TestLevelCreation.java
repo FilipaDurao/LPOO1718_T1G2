@@ -158,12 +158,9 @@ public class TestLevelCreation {
 		doors.add(d1);
 		doors.add(d2);
 		
-		// Initialize Ogres
-		ArrayList<Ogre> ogres = new ArrayList<Ogre>();
-		Ogre o1 = new Ogre(3, 1);
-		Ogre o2 = new Ogre(3, 2);
-		ogres.add(o1);
-		ogres.add(o2);
+		// Initialize Ogre
+		Ogre ogre = new Ogre(3,1);
+		int numOgresInLevel = 2;
 		
 		// Initialize the Key
 		Key key = new Key(5, 5);
@@ -174,7 +171,8 @@ public class TestLevelCreation {
 				hero,
 				walls,
 				doors,
-				ogres,	
+				ogre,
+				numOgresInLevel,
 				key,
 				7,
 				7);
@@ -194,7 +192,7 @@ public class TestLevelCreation {
 		assertEquals(testLevel.getKey().getY_pos() , 5);
 		
 		// Verify correct number of ogres
-		assertEquals(ogres.size() , testLevel.getOgres().size());
+		assertEquals(numOgresInLevel , testLevel.getOgres().size());
 		
 		// Verify Objects symbols (others were verified in another test function)
 		assertEquals(testLevel.getHero().getIdSymbol() , 'A');
