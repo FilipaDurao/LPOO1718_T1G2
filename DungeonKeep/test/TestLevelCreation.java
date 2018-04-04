@@ -201,7 +201,7 @@ public class TestLevelCreation {
 		assertEquals(testLevel.getOgres().get(0).getClub().getIdSymbol() , '*');
 		
 		// Verify level "printing" correctness
-		int numWalls = 0, numDoors = 0, numOgres = 0;
+		int numWalls = 0, numDoors = 0;
 		boolean heroFound = false, keyFound = false;
 		
 		for (char element : testLevel.getGameMatrix().toCharArray()) {
@@ -212,9 +212,6 @@ public class TestLevelCreation {
 				break;
 			case 'k':
 				keyFound = true;
-				break;
-			case '0':
-				numOgres++;
 				break;
 			case 'I':
 			case 'S':
@@ -228,7 +225,6 @@ public class TestLevelCreation {
 			
 			assertTrue(heroFound);
 			assertTrue(keyFound);
-			assertEquals(numOgres, testLevel.getOgres().size());
 			assertEquals(numDoors, testLevel.getDoors().size());
 			assertEquals(numWalls, testLevel.getWalls().size());
 }

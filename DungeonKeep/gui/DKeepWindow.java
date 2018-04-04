@@ -278,7 +278,6 @@ public class DKeepWindow implements KeyListener {
 				
 				if (editor.hasLevelAvailable()) {
 					customKeepLevel = editor.getKeepLevel();
-					// ...
 				}
 			}
 		});

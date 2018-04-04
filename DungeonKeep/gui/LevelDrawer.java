@@ -99,12 +99,10 @@ public class LevelDrawer extends JPanel {
 	private void paintBackground(Graphics g) {
 		for (int i=0 ; i<levelToDraw.getHeight()*3 ; i++) {
 			for (int j=0 ; j<levelToDraw.getWidth()*3 ; j++) {
-				if ((i+j)%2 == 0) {				
-					//g.setColor(new Color(220, 220, 220));
+				if ((i+j)%2 == 0) {
 					g.setColor(new Color(222, 190, 160));	
 				}
 				else {
-					//g.setColor(new Color(195, 195, 195));
 					g.setColor(new Color(242, 229, 217));
 				}
 				g.fillRect(i*SPRITE_SIZE/3, j*SPRITE_SIZE/3, SPRITE_SIZE/3, SPRITE_SIZE/3);
