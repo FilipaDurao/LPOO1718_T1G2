@@ -19,7 +19,7 @@ public class DungeonLevel extends Level {
 	 * @param guard the Guard of the Level
 	 * @param lever the Lever of the Level
 	 * @param width the width of the Level
-	 * @param heigth the heigth of the Level
+	 * @param heigth the height of the Level
 	 */
 	public DungeonLevel(
 			int ID, 
