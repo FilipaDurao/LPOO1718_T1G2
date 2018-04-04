@@ -266,6 +266,34 @@ public class TestKeepLevel {
 		assertFalse(armedHero.hasKey());
 	}
 	
+	@Test
+	public void testOgreNumberResizing() {
+		KeepLevel testKeepLevel = initializeTestKeepLevel();
+		
+		// Verify that level start with one ogre only
+		assertEquals(testKeepLevel.getOgres().size(), 1);
+		
+		// Increase the number of ogres within the level
+		int newNumOgres = 5;
+		testKeepLevel.setNumOgres(newNumOgres);
+		assertEquals(testKeepLevel.getOgres().size(), newNumOgres);
+		
+		// Decrease the number of ogres within the level
+		newNumOgres = 3;
+		testKeepLevel.setNumOgres(newNumOgres);
+		assertEquals(testKeepLevel.getOgres().size(), newNumOgres);
+		
+		// Verify that all ogres are in the same place
+		ArrayList<Ogre> ogres = testKeepLevel.getOgres();
+		Ogre ogre = ogres.get(0);
+		for (Ogre o : ogres) {
+			assertEquals(ogre.getX_pos(), 
+						 o.getX_pos());
+			assertEquals(ogre.getY_pos(),
+						 o.getY_pos());
+		}
+	}
+	
 }
 
 
