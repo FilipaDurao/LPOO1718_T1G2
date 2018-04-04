@@ -66,7 +66,7 @@ public class TestOgreRandomMovement {
 	
 	@Test //(timeout = 1000)
 	public void testOgreRandomMovement() {
-		KeepLevel testKeepLevel = initializeTestKeepLevel();							// Initialize the KeepLevel
+		KeepLevel testKeepLevel = initializeTestKeepLevel();					// Initialize the KeepLevel
 		Ogre ogre = testKeepLevel.getOgres().get(0);							// Get the KeepLevel's ogre
 		
 		// ArayList in which we will store the freePositions in each one of the ogre's locations

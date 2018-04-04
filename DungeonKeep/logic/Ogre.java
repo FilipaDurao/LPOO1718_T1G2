@@ -235,5 +235,17 @@ public class Ogre extends MovableGameObject {
 			return;
 		}		
 	}
+	
+	/**
+	 * Moves the Ogre in the direction passed by parameter
+	 * 
+	 * @param dir the direction to which we want to move to
+	 */
+	@Override
+	public void move (MoveDirection dir) {
+		if(!isStunned) {
+			super.move(dir);
+		}
+	}
 
 }

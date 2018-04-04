@@ -99,7 +99,11 @@ public class TestDungeonLevel {
 
 		// Move hero down -> right -> right
 		testDungeonLevel.update(Hero.MoveDirection.DOWN);
+		assertEquals(1, hero.getX_pos());
+		assertEquals(2, hero.getY_pos());
 		testDungeonLevel.update(Hero.MoveDirection.RIGHT);
+		assertEquals(2, hero.getX_pos());
+		assertEquals(2, hero.getY_pos());
 		testDungeonLevel.update(Hero.MoveDirection.RIGHT);
 		assertEquals(3, hero.getX_pos());
 		assertEquals(2, hero.getY_pos());
@@ -158,8 +162,14 @@ public class TestDungeonLevel {
 		
 		// Move hero down -> down -> right -> right
 		testDungeonLevel.update(Hero.MoveDirection.DOWN);
+		assertEquals(1, hero.getX_pos());
+		assertEquals(2, hero.getY_pos());
 		testDungeonLevel.update(Hero.MoveDirection.DOWN);
+		assertEquals(1, hero.getX_pos());
+		assertEquals(3, hero.getY_pos());
 		testDungeonLevel.update(Hero.MoveDirection.RIGHT);
+		assertEquals(2, hero.getX_pos());
+		assertEquals(3, hero.getY_pos());
 		testDungeonLevel.update(Hero.MoveDirection.RIGHT);
 		assertEquals(3, hero.getX_pos());
 		assertEquals(3, hero.getY_pos());
@@ -179,15 +189,25 @@ public class TestDungeonLevel {
 		
 		// Move hero down -> down -> right -> right (to the lever)
 		testDungeonLevel.update(Hero.MoveDirection.DOWN);
+		assertEquals(1, hero.getX_pos());
+		assertEquals(2, hero.getY_pos());
 		testDungeonLevel.update(Hero.MoveDirection.DOWN);
+		assertEquals(1, hero.getX_pos());
+		assertEquals(3, hero.getY_pos());
 		testDungeonLevel.update(Hero.MoveDirection.RIGHT);
+		assertEquals(2, hero.getX_pos());
+		assertEquals(3, hero.getY_pos());
 		testDungeonLevel.update(Hero.MoveDirection.RIGHT);
 		assertEquals(3, hero.getX_pos());
 		assertEquals(3, hero.getY_pos());
 		
 		// Move into the "southest" door
 		testDungeonLevel.update(Hero.MoveDirection.LEFT);
+		assertEquals(2, hero.getX_pos());
+		assertEquals(3, hero.getY_pos());
 		testDungeonLevel.update(Hero.MoveDirection.LEFT);
+		assertEquals(1, hero.getX_pos());
+		assertEquals(3, hero.getY_pos());
 		testDungeonLevel.update(Hero.MoveDirection.LEFT);
 		assertEquals(0, hero.getX_pos());
 		assertEquals(3, hero.getY_pos());
@@ -199,16 +219,28 @@ public class TestDungeonLevel {
 		
 		// Move hero down -> down -> right -> right (to the lever)
 		testDungeonLevel.update(Hero.MoveDirection.DOWN);
+		assertEquals(1, hero.getX_pos());
+		assertEquals(2, hero.getY_pos());
 		testDungeonLevel.update(Hero.MoveDirection.DOWN);
+		assertEquals(1, hero.getX_pos());
+		assertEquals(3, hero.getY_pos());
 		testDungeonLevel.update(Hero.MoveDirection.RIGHT);
+		assertEquals(2, hero.getX_pos());
+		assertEquals(3, hero.getY_pos());
 		testDungeonLevel.update(Hero.MoveDirection.RIGHT);
 		assertEquals(3, hero.getX_pos());
 		assertEquals(3, hero.getY_pos());
 		
 		// Move into the "northest" door
 		testDungeonLevel.update(Hero.MoveDirection.LEFT);
+		assertEquals(2, hero.getX_pos());
+		assertEquals(3, hero.getY_pos());
 		testDungeonLevel.update(Hero.MoveDirection.LEFT);
+		assertEquals(1, hero.getX_pos());
+		assertEquals(3, hero.getY_pos());
 		testDungeonLevel.update(Hero.MoveDirection.UP);
+		assertEquals(1, hero.getX_pos());
+		assertEquals(2, hero.getY_pos());
 		testDungeonLevel.update(Hero.MoveDirection.LEFT);
 		assertEquals(0, hero.getX_pos());
 		assertEquals(2, hero.getY_pos());

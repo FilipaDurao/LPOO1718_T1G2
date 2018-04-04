@@ -4,9 +4,14 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import DungeonKeep.logic.Club;
+import DungeonKeep.logic.Door;
 import DungeonKeep.logic.GameObject;
 import DungeonKeep.logic.Hero;
+import DungeonKeep.logic.Key;
+import DungeonKeep.logic.Lever;
 import DungeonKeep.logic.MovableGameObject;
+import DungeonKeep.logic.Ogre;
 import DungeonKeep.logic.Wall;
 
 public class TestGameObjects {
@@ -64,37 +69,49 @@ public class TestGameObjects {
 	public void testGameObjectDirections() {
 		assertEquals(MovableGameObject.getOppositeMoveDirection(MovableGameObject.MoveDirection.UP), 
 					 MovableGameObject.MoveDirection.DOWN);
+		
 		assertNotEquals(MovableGameObject.getOppositeMoveDirection(MovableGameObject.MoveDirection.UP), 
 						MovableGameObject.MoveDirection.LEFT);
+		
 		assertNotEquals(MovableGameObject.getOppositeMoveDirection(MovableGameObject.MoveDirection.UP), 
 						MovableGameObject.MoveDirection.RIGHT);
+		
 		assertNotEquals(MovableGameObject.getOppositeMoveDirection(MovableGameObject.MoveDirection.UP), 
 						MovableGameObject.MoveDirection.UP);
 
 		assertEquals(MovableGameObject.getOppositeMoveDirection(MovableGameObject.MoveDirection.DOWN) , 
 				     MovableGameObject.MoveDirection.UP);
+		
 		assertNotEquals(MovableGameObject.getOppositeMoveDirection(MovableGameObject.MoveDirection.DOWN) , 
 						MovableGameObject.MoveDirection.LEFT);
+		
 		assertNotEquals(MovableGameObject.getOppositeMoveDirection(MovableGameObject.MoveDirection.DOWN) , 
 						MovableGameObject.MoveDirection.RIGHT);
+		
 		assertNotEquals(MovableGameObject.getOppositeMoveDirection(MovableGameObject.MoveDirection.DOWN) , 
 						MovableGameObject.MoveDirection.DOWN);
 
 		assertEquals(MovableGameObject.getOppositeMoveDirection(MovableGameObject.MoveDirection.LEFT) , 
 					 MovableGameObject.MoveDirection.RIGHT);
+		
 		assertNotEquals(MovableGameObject.getOppositeMoveDirection(MovableGameObject.MoveDirection.LEFT) , 
 						MovableGameObject.MoveDirection.LEFT);
+		
 		assertNotEquals(MovableGameObject.getOppositeMoveDirection(MovableGameObject.MoveDirection.LEFT) , 
 						MovableGameObject.MoveDirection.UP);
+		
 		assertNotEquals(MovableGameObject.getOppositeMoveDirection(MovableGameObject.MoveDirection.LEFT) , 
 						MovableGameObject.MoveDirection.DOWN);
 
 		assertEquals(MovableGameObject.getOppositeMoveDirection(MovableGameObject.MoveDirection.RIGHT) , 
 					 MovableGameObject.MoveDirection.LEFT);
+		
 		assertNotEquals(MovableGameObject.getOppositeMoveDirection(MovableGameObject.MoveDirection.RIGHT) , 
 						MovableGameObject.MoveDirection.RIGHT);
+		
 		assertNotEquals(MovableGameObject.getOppositeMoveDirection(MovableGameObject.MoveDirection.RIGHT) , 
 						MovableGameObject.MoveDirection.UP);
+		
 		assertNotEquals(MovableGameObject.getOppositeMoveDirection(MovableGameObject.MoveDirection.RIGHT) , 
 						MovableGameObject.MoveDirection.DOWN);
 	}
@@ -146,11 +163,16 @@ public class TestGameObjects {
 	
 	@Test
 	public void testHero() {
-		Hero hero = new Hero(5, 5, false);
+		int hero_xPos = 5;
+		int hero_yPos = 5;
+		boolean heroHasWeapon = false;
+		Hero hero = new Hero(hero_xPos, hero_yPos, heroHasWeapon);
 		
 		// Confirm hero position
 		assertEquals(hero.getX_pos(), 5);
 		assertEquals(hero.getY_pos(), 5);
+		assertNotEquals(hero.getX_pos(), 0);
+		assertNotEquals(hero.getY_pos(), 0);
 		
 		// Verify that hero does not have a weapon
 		assertFalse(hero.hasClub());
@@ -165,6 +187,154 @@ public class TestGameObjects {
 		// Catch key and verify hero has key
 		hero.catchKey();
 		assertTrue(hero.hasKey());
+	}
+	
+	@Test
+	public void testDoor() {
+		int door_xPos = 4;
+		int door_yPos = 4;
+		boolean isExitDoor = true;
+		Door door = new Door(door_xPos, door_yPos, isExitDoor);
+		
+		// Confirm Door position
+		assertEquals(door.getX_pos(), 4);
+		assertEquals(door.getY_pos(), 4);
+		assertNotEquals(door.getX_pos(), 0);
+		assertNotEquals(door.getY_pos(), 0);
+		
+		// Confirm that door IS an exit door
+		assertTrue(door.isExit());
+		
+		// Confirm that the door is closed
+		assertTrue(door.isClosed());
+		assertFalse(door.isOpen());
+		assertEquals(door.getIdSymbol(), 'I');
+		
+		// Open the door
+		door.open();
+		
+		// Confirm that the door is now open
+		assertFalse(door.isClosed());
+		assertTrue(door.isOpen());
+		assertEquals(door.getIdSymbol(), 'S');
+		
+		// Re-Close the door
+		door.close();
+		
+		// Confirm that the door is now open
+		assertTrue(door.isClosed());
+		assertFalse(door.isOpen());
+		assertEquals(door.getIdSymbol(), 'I');
+		
+	}
+	
+	@Test
+	public void testOgre() {
+		int ogre_xPos = 3;
+		int ogre_yPos = 3;
+		Ogre ogre = new Ogre(ogre_xPos, ogre_yPos);
+		
+		// Confirm Ogre position
+		assertEquals(ogre.getX_pos(), 3);
+		assertEquals(ogre.getY_pos(), 3);
+		assertNotEquals(ogre.getX_pos(), 0);
+		assertNotEquals(ogre.getY_pos(), 0);
+		
+		// Confirm that ogre is not stunned
+		assertFalse(ogre.isStunned());
+		
+		// Confirm that the ogre can move when he is not stunned
+		ogre.move(Ogre.MoveDirection.UP);
+		assertEquals(ogre.getX_pos(), 3);
+		assertEquals(ogre.getY_pos(), 2);
+		ogre.move(Ogre.MoveDirection.LEFT);
+		assertEquals(ogre.getX_pos(), 2);
+		assertEquals(ogre.getY_pos(), 2);
+		ogre.move(Ogre.MoveDirection.DOWN);
+		assertEquals(ogre.getX_pos(), 2);
+		assertEquals(ogre.getY_pos(), 3);
+		ogre.move(Ogre.MoveDirection.RIGHT);
+		assertEquals(ogre.getX_pos(), 3);
+		assertEquals(ogre.getY_pos(), 3);
+		
+		// Stun the ogre
+		ogre.stun();
+		assertTrue(ogre.isStunned());
+		
+		// Confirm that the ogre can't move when he is stunned
+		ogre.move(Ogre.MoveDirection.UP);
+		assertEquals(ogre.getX_pos(), 3);
+		assertEquals(ogre.getY_pos(), 3);
+		ogre.move(Ogre.MoveDirection.LEFT);
+		assertEquals(ogre.getX_pos(), 3);
+		assertEquals(ogre.getY_pos(), 3);
+		ogre.move(Ogre.MoveDirection.DOWN);
+		assertEquals(ogre.getX_pos(), 3);
+		assertEquals(ogre.getY_pos(), 3);
+		ogre.move(Ogre.MoveDirection.RIGHT);
+		assertEquals(ogre.getX_pos(), 3);
+		assertEquals(ogre.getY_pos(), 3);
+		
+	}
+	
+	@Test
+	public void testKey() {
+		Key key = new Key(7,7);
+		
+		// Confirm Key position
+		assertEquals(key.getX_pos(), 7);
+		assertEquals(key.getY_pos(), 7);
+		assertNotEquals(key.getX_pos(), 0);
+		assertNotEquals(key.getY_pos(), 0);
+		
+		// Confirm key symbol
+		assertEquals(key.getIdSymbol(), 'k');
+		
+	}
+	
+	@Test
+	public void testLever() {
+		Lever lever = new Lever(5,5);
+		
+		// Confirm Key position
+		assertEquals(lever.getX_pos(), 5);
+		assertEquals(lever.getY_pos(), 5);
+		assertNotEquals(lever.getX_pos(), 0);
+		assertNotEquals(lever.getY_pos(), 0);
+		
+		// Confirm key symbol
+		assertEquals(lever.getIdSymbol(), 'k');
+		
+	}
+	
+	@Test
+	public void testWall() {
+		Wall wall = new Wall(10,10);
+		
+		// Confirm Key position
+		assertEquals(wall.getX_pos(), 10);
+		assertEquals(wall.getY_pos(), 10);
+		assertNotEquals(wall.getX_pos(), 0);
+		assertNotEquals(wall.getY_pos(), 0);
+		
+		// Confirm key symbol
+		assertEquals(wall.getIdSymbol(), 'X');
+		
+	}
+	
+	@Test
+	public void testClub() {
+		Club club = new Club(1, 1);
+		
+		// Confirm Key position
+		assertEquals(club.getX_pos(), 1);
+		assertEquals(club.getY_pos(), 1);
+		assertNotEquals(club.getX_pos(), 0);
+		assertNotEquals(club.getY_pos(), 0);
+		
+		// Confirm key symbol
+		assertEquals(club.getIdSymbol(), '*');
+		
 	}
 
 }

@@ -54,6 +54,20 @@ public class TestGuards {
 		guard.performStep();
 		assertEquals(guard.getX_pos() , 1);
 		assertEquals(guard.getY_pos() , 1);
+		
+		// Perform a few more steps and confirm the guard is moving
+		int x;
+		int y;
+		for (int i = 0 ; i<100 ; i++) {
+			x = guard.getX_pos();
+			y = guard.getY_pos();
+			
+			guard.performStep();
+			
+			// Verify that guard HAS moved
+			assertTrue(guard.getX_pos() != x ||
+					   guard.getY_pos() != y);
+		}
 	}
 	
 	@Test
@@ -71,11 +85,23 @@ public class TestGuards {
 		guard.changeDirection();
 		assertFalse(guard.isMovingForward());
 		
-		// Perform a few steps and confirm the guard isn't in the beggining place
-		for (int i = 0 ; i<25 ; i++) {
+		// Re-change the guard's direction
+		guard.changeDirection();
+		assertTrue(guard.isMovingForward());
+		
+		// Perform a few steps and confirm the guard is moving
+		int x;
+		int y;
+		for (int i = 0 ; i<100 ; i++) {
+			x = guard.getX_pos();
+			y = guard.getY_pos();
+			
 			guard.performStep();
+			
+			// Verify that guard HAS moved
+			assertTrue(guard.getX_pos() != x ||
+					   guard.getY_pos() != y);
 		}
-		assertFalse(guard.getX_pos() == 1   &&   guard.getY_pos() == 1);
 	}
 	
 	@Test
@@ -93,6 +119,10 @@ public class TestGuards {
 		guard.changeDirection();
 		assertFalse(guard.isMovingForward());
 		
+		// Re-change the guard's direction
+		guard.changeDirection();
+		assertTrue(guard.isMovingForward());
+		
 		// Verify sleeping related methods
 		assertTrue(guard.isAwake());
 		assertEquals(guard.getIdSymbol() , 'G');
@@ -103,8 +133,9 @@ public class TestGuards {
 		assertTrue(guard.isAwake());
 		assertEquals(guard.getIdSymbol() , 'G');
 		
-		// Perform a few steps and confirm the guard isn't in the beggining place
-		int x, y;
+		// Perform a few steps and confirm the guard movement
+		int x;
+		int y;
 		for (int i = 0 ; i<100 ; i++) {
 			x = guard.getX_pos();
 			y = guard.getY_pos();
