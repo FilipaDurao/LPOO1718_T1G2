@@ -43,6 +43,7 @@ public class DKeepWindow implements KeyListener {
 	private JComboBox<String> guardPersonalitiesComboBox;
 	private JPanel levelDataPanel;
 	private Game game;
+	private KeepLevel customKeepLevel = null;
 
 	/**
 	 * Launch the application.
@@ -273,9 +274,12 @@ public class DKeepWindow implements KeyListener {
 				LevelEditor editor = new LevelEditor();
 				editor.pack();
 				editor.setLocationRelativeTo(DKeep);
-				editor.setVisible(true);		
+				editor.setVisible(true);	
 				
-				KeepLevel newKeepLevel = editor.getKeepLevel();
+				if (editor.hasLevelAvailable()) {
+					customKeepLevel = editor.getKeepLevel();
+					// ...
+				}
 			}
 		});
 		levelEditorButton.setBackground(Color.WHITE);
@@ -368,6 +372,12 @@ public class DKeepWindow implements KeyListener {
 	private void initGame(String guardPersonality, int numOgres) {
 		numOgresTextField.setText("");
 		game = new Game(numOgres , guardPersonality);
+		
+		if (customKeepLevel != null) {
+			customKeepLevel.setNumOgres(numOgres);
+			game.setKeepLevel(customKeepLevel);
+		}
+		
 		initGameScreen();
 	}
 	

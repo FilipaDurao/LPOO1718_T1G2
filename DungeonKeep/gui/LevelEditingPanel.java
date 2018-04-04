@@ -13,7 +13,7 @@ import java.util.Arrays;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-import DungeonKeep.logic.DungeonLevel;
+import DungeonKeep.logic.Door;
 import DungeonKeep.logic.Hero;
 import DungeonKeep.logic.KeepLevel;
 import DungeonKeep.logic.Key;
@@ -305,9 +305,86 @@ public class LevelEditingPanel extends JPanel implements MouseListener{
 		if (!areAllElementsPresent() || !isLevelClosed()) {
 			return null;
 		}
-		else {
-			return null;
-		}	
+		
+		return new KeepLevel(1,
+				parseHero(),
+				parseWalls(),
+				parseDoors(),
+				parseOgre(),
+				1,
+				parseKey(),
+				width,
+				height);
+	}
+	
+	private Hero parseHero() {
+		for(int i = 0; i < width; i++) {
+			for(int j = 0; j < height; j++) {
+				if(levelMatrix[i][j] == ObjectType.HERO) {
+					return new Hero(i,j,false);
+				}
+			}
+		}
+		return null;
+	}
+	
+	private ArrayList<Wall> parseWalls(){
+		ArrayList<Wall> walls = new ArrayList<Wall>();
+		
+		for(int i = 0; i < width; i++) {
+			for(int j = 0; j < height; j++) {
+				if(levelMatrix[i][j] == ObjectType.WALL) {
+					walls.add(new Wall(i,j));
+				}
+			}
+		}
+		
+		return walls;
+	}
+	
+	private ArrayList<Door> parseDoors(){
+		ArrayList<Door> doors = new ArrayList<Door>();
+		
+		for(int i = 0; i < width; i++) {
+			for(int j = 0; j < height; j++) {
+				if(levelMatrix[i][j] == ObjectType.DOOR) {
+					doors.add(new Door(i,j,true));
+				}
+			}
+		}
+		
+		return doors;
+	}
+	
+	private Ogre parseOgre() {
+		for(int i = 0; i < width; i++) {
+			for(int j = 0; j < height; j++) {
+				if(levelMatrix[i][j] == ObjectType.OGRE) {
+					return new Ogre(i,j);
+				}
+			}
+		}
+		return null;
+	}
+	
+	private Key parseKey() {
+		for(int i = 0; i < width; i++) {
+			for(int j = 0; j < height; j++) {
+				if(levelMatrix[i][j] == ObjectType.KEY) {
+					return new Key(i,j);
+				}
+			}
+		}
+		return null;
+	}
+	
+	public void clearMap() {
+		for (int i = 0; i < width; i++) {
+			for (int j = 0; j < height; j++) {
+				levelMatrix[i][j] = ObjectType.NO_OBJECT;
+			}
+		}
+		repaint();
 	}
 	
 }

@@ -35,12 +35,12 @@ public class LevelEditor extends JDialog {
 	JSpinner widthSpinner;
 	JSpinner heightSpinner;
 	LevelEditingPanel editingPanel;
+	boolean hasLevelAvailable = false;
 
 	public LevelEditor() {
 		super();
 		setTitle("Keep Level Editor");
 		setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
-		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		
 		initPanel();
 		initLevelOptionsZone();
@@ -49,7 +49,11 @@ public class LevelEditor extends JDialog {
 		initObjectOptionsZone();
 		initSubmitButton();
 		initCancelButton();
-		
+		initClearMapButton();
+	}
+	
+	public boolean hasLevelAvailable() {
+		return hasLevelAvailable; 
 	}
 	
 	private void initPanel() {
@@ -225,12 +229,13 @@ public class LevelEditor extends JDialog {
 					popLevelNotSurrounded();
 				}
 				else {
+					hasLevelAvailable = true;
 					dispose();
 				}
 			}
 		});
 		submitButton.setBackground(Color.WHITE);
-		submitButton.setBounds(190, 760, 100, 25);
+		submitButton.setBounds(108, 760, 100, 25);
 		add(submitButton);
 	}
 	
@@ -242,8 +247,27 @@ public class LevelEditor extends JDialog {
 			}
 		});
 		cancelButton.setBackground(Color.WHITE);
-		cancelButton.setBounds(340, 760, 100, 25);
+		cancelButton.setBounds(422, 760, 100, 25);
 		add(cancelButton);
+	}
+	
+	private void initClearMapButton() {
+		JButton clearButton = new JButton("Clear");
+		clearButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				int returnValue = JOptionPane.showConfirmDialog(editingPanel, 
+						"Are you sure you want to clear the map?", 
+						"Clear Map", 
+						JOptionPane.YES_NO_OPTION);
+			
+				if (returnValue == JOptionPane.OK_OPTION) {
+					editingPanel.clearMap();
+				}
+			}
+		});
+		clearButton.setBackground(Color.WHITE);
+		clearButton.setBounds(265, 760, 100, 25);
+		add(clearButton);
 	}
 	
 	private void popElementsMissingMsg() {
@@ -265,7 +289,13 @@ public class LevelEditor extends JDialog {
 	}
 	
 	public KeepLevel getKeepLevel() {
-		return editingPanel.parseLevel();
+		KeepLevel level = editingPanel.parseLevel();
+		
+		if (heroArmedCheckBox.isSelected()) {
+			level.getHero().catchClub();
+		}
+		
+		return level;
 	}
 }
 
