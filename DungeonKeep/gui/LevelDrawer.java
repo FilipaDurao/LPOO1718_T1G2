@@ -37,6 +37,8 @@ public class LevelDrawer extends JPanel {
 	private static BufferedImage drunkenGuardSprite;
 	private static BufferedImage drunkenGuardAsleepSprite;
 	private static BufferedImage heroSprite;
+	private static BufferedImage heroKeySprite;
+	private static BufferedImage heroKeyArmedSprite;
 	private static BufferedImage heroArmedSprite;
 	private static BufferedImage keySprite;
 	private static BufferedImage leverSprite;
@@ -54,6 +56,8 @@ public class LevelDrawer extends JPanel {
 			drunkenGuardAsleepSprite = ImageIO.read(new File("./bin/Images/drunkenGuardSleeping.png"));
 			heroSprite = ImageIO.read(new File("./bin/Images/hero.png"));
 			heroArmedSprite = ImageIO.read(new File("./bin/Images/heroWithWeapon.png"));
+			heroKeySprite = ImageIO.read(new File("./bin/Images/heroWithKey.png"));
+			heroKeyArmedSprite = ImageIO.read(new File("./bin/Images/heroWithWeaponAndKey.png"));
 			keySprite = ImageIO.read(new File("./bin/Images/key.png"));
 			leverSprite = ImageIO.read(new File("./bin/Images/lever.png"));
 			ogreSprite = ImageIO.read(new File("./bin/Images/ogre.png"));
@@ -140,10 +144,18 @@ public class LevelDrawer extends JPanel {
 	
 	private void paintHero(Graphics g) {
 		Hero hero = levelToDraw.getHero();
-		g.drawImage(
+		if (hero.hasKey()) {
+			g.drawImage(
+				hero.hasClub() ? heroKeyArmedSprite : heroKeySprite, 
+				hero.getX_pos()*SPRITE_SIZE , 
+				hero.getY_pos()*SPRITE_SIZE , null);
+		}
+		else {
+			g.drawImage(
 				hero.hasClub() ? heroArmedSprite : heroSprite, 
 				hero.getX_pos()*SPRITE_SIZE , 
 				hero.getY_pos()*SPRITE_SIZE , null);
+		}
 	}
 	
 	private void paintGuard(Graphics g) {
