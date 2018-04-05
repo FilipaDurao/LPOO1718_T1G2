@@ -57,9 +57,9 @@ public class TestKeepLevel {
 		Ogre ogre = testKeepLevel.getOgres().get(0);
 		ogre.disable();
 		
-		// Verify club starts at the bottom of the ogre
+		// Verify club starts at with the ogre
 		assertEquals(ogre.getX_pos() , ogre.getClub().getX_pos());
-		assertEquals(ogre.getY_pos()+1 , ogre.getClub().getY_pos());
+		assertEquals(ogre.getY_pos() , ogre.getClub().getY_pos());
 		assertNotEquals(ogre.getX_pos()-1 , ogre.getClub().getX_pos());
 		assertNotEquals(ogre.getY_pos()-1 , ogre.getClub().getY_pos());
 		

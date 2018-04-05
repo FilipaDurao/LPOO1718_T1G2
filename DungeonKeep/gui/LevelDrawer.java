@@ -186,7 +186,10 @@ public class LevelDrawer extends JPanel {
 					null);
 			
 			ogreClub = ogre.getClub();
-			g.drawImage(clubSprite , ogreClub.getX_pos()*SPRITE_SIZE , ogreClub.getY_pos()*SPRITE_SIZE , null);
+			
+			if(!ogreClub.collidesWith(ogre)) {
+				g.drawImage(clubSprite , ogreClub.getX_pos()*SPRITE_SIZE , ogreClub.getY_pos()*SPRITE_SIZE , null);
+			}
 		}	
 	}
 }

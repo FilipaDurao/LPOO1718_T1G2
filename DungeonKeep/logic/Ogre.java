@@ -7,7 +7,7 @@ public class Ogre extends MovableGameObject {
 	private static final long serialVersionUID = 1L;	// To allow file writing
 	private final char regularSymbol = '0';		/**< The symbol that represents an Ogre on the console version of the game */
 	private final char stunnedSymbol = '8';		/**< The symbol that represents a stunned Ogre on the console version of the game */
-	private Club club = new Club(getX_pos() , getY_pos()+1);	/**< The Ogre's Club */
+	private Club club = new Club(getX_pos() , getY_pos());	/**< The Ogre's Club */
 	private boolean isStunned = false;			/**< Variable to determine if the Ogre is stunned */
 	private boolean disabled = false;			/**< Variable to determine if the Ogre is not enabled */
 	private int stunnedTimer = 0;				/**< Variable to determine how many more moves is the Ogre going to be stunned */
